@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MCB.Api</name>
+    </assembly>
+    <members>
+        <member name="M:MCB.Api.Controllers.TripsController.GetTrip(System.Int32)">
+            <summary>
+            Get an Trip by id
+            </summary>
+            <param name="id">Id of the Trip</param>
+            <returns>An Trip based on the MediaType</returns>
+        </member>
+    </members>
+</doc>

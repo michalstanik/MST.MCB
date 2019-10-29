@@ -1,0 +1,9 @@
+<app-countries-list *ngIf='trip.countries && trip.countries.length'
+                    [countriesForTrip]="trip.countries">
+
+</app-countries-list>
+
+<app-stops-list *ngIf='trip && trip.stops && trip.stops.length'
+           [stops]="trip.stops">
+
+</app-stops-list>

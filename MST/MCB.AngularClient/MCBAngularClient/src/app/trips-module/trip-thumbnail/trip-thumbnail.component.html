@@ -1,0 +1,36 @@
+
+
+<div class="btn card bg-light trip-container" (click)="navigate()">
+  <div class="card-header trip-header">
+     {{trip.statistics.yearOfTrip}}: {{trip.name}}
+  </div>
+  <div class="trip-body">
+
+          <div class="column left">
+              <ul>
+                  <li>
+                      <a class="trip-counter"><mdb-icon fas icon="map-marked-alt"></mdb-icon> Stops: </a><span class="badge badge-primary badge-pill">{{trip.statistics.stopsCount}}</span>
+                  </li>
+                  <li>
+                      <a class="trip-counter"><mdb-icon fas icon="search-location"></mdb-icon> UNESCO: </a><span class="badge badge-primary badge-pill">{{trip.statistics.worldHeritages}}</span>
+                  </li>
+                  <li>
+                      <a class="trip-counter"><mdb-icon fas icon="user-astronaut"></mdb-icon> Users: </a><span class="badge badge-primary badge-pill">{{trip.statistics.userCount}}</span>
+                  </li>
+              </ul>
+          </div>
+          <div class="column right">
+              <ul>
+                  <li *ngFor="let country of trip.countries">
+                      <img src="assets/svgmaps/{{country.alpha3Code | lowercase}}.svg">
+                  </li>
+
+              </ul>
+          </div>
+
+  </div>
+  <div class="card-header trip-date">
+      Days: {{trip.statistics.numberOfDays}}   |   {{trip.dates.startDate | date }} - {{trip.dates.endDate | date}}
+  </div>
+
+</div>

@@ -8,9 +8,12 @@ namespace MCB.Api.Configuration
     {
         public IAuthConfiguration AuthConfiguration { get; set; }
 
-        public RootConfiguration(IOptions<AuthConfiguration> authConfiguration)
+        public IAppConfiguration AppConfiguration { get; set; }
+
+        public RootConfiguration(IOptions<AuthConfiguration> authConfiguration, IOptions<AppConfiguration> appConfiguration)
         {
             AuthConfiguration = authConfiguration.Value;
+            AppConfiguration = appConfiguration.Value;
         }
     }
 }

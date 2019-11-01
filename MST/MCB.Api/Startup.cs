@@ -140,6 +140,7 @@ namespace MCB.Api
 
             services.AddTransient<MCBDictionarySeeder>();
             services.AddTransient<MCBDataSeeder>();
+            services.AddTransient<MCBEnsureDB>();
             services.AddScoped<IGeoRepository, GeoRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
             services.AddScoped<IUserInfoService, UserInfoService>();
@@ -188,22 +189,32 @@ namespace MCB.Api
 
             confScope.Dispose();
 
-            if (env.IsDevelopment())
-            {
                 // Seed the database
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
-                    var recreateDbOption = Configuration.GetSection("DevelopmentEnvironmentSettings").GetSection("RecreateDatabaseEachTime").Value;
+                    var configuration = scope.ServiceProvider.GetService<IRootConfiguration>();
+                    var recreateDbOption = configuration.AppConfiguration.RecreateDB;
+                    var deleteData = configuration.AppConfiguration.DeleteData;
+
+                    if(recreateDbOption)
+                    {
+                        var recreate = scope.ServiceProvider.GetService<MCBEnsureDB>();
+                        recreate.EnsureCreated();
+                    }
 
                     //1
                     var dictionarySeeder = scope.ServiceProvider.GetService<MCBDictionarySeeder>();
-                    dictionarySeeder.Seed(recreateDbOption).Wait();
+                    dictionarySeeder.Seed().Wait();
 
                     //2
                     var dataSeeder = scope.ServiceProvider.GetService<MCBDataSeeder>();
-                    dataSeeder.Seed(recreateDbOption).Wait();
+                    if (deleteData)
+                    {
+                        dataSeeder.DeleteData();
+                    }
+                    dataSeeder.Seed().Wait();
                 }
-            }
+            
         }
     }
 }

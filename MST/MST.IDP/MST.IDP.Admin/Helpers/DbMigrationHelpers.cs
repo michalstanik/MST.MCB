@@ -48,7 +48,7 @@ namespace MST.IDP.Admin.Helpers
                 using (var context = scope.ServiceProvider.GetRequiredService<TPersistedGrantDbContext>())
                 {
                     //TODO: Only for DEV
-                    //context.Database.EnsureDeleted();
+                    context.Database.EnsureDeleted();
                     await context.Database.MigrateAsync();
                 }
 

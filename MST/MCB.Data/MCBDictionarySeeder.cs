@@ -21,13 +21,8 @@ namespace MCB.Data
         {
             _context = context;
         }
-        public async Task Seed(string recreateDbOption)
+        public async Task Seed()
         {
-            if (recreateDbOption != "True")
-            {
-                return;
-            }
-            //_context.Database.EnsureDeleted();
             _context.Database.Migrate();
 
             await SeedCountries();
@@ -39,6 +34,7 @@ namespace MCB.Data
             if (_context.WorldHeritage.Count() != 0) return;
 
             XmlSerializer deserializer = new XmlSerializer(typeof(Rows));
+
             TextReader textReader = new StreamReader(@"C:/Users/michal.stanik/Source/Repos/michalstanik/MCB/MCB/MCB.Data/LoadData/WorldHeritage.xml");
             Rows worldHeritage;
 

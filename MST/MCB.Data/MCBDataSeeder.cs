@@ -1,5 +1,6 @@
 ﻿using MCB.Data.Domain.Trips;
 using MCB.Data.Domain.User;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,14 @@ namespace MCB.Data
             _context = context;
         }
 
-        public async Task Seed(string recreateDbOption)
+        public void DeleteData()
         {
-            if (recreateDbOption != "True")
-            {
-                return;
-            }
+            throw new NotImplementedException();
+        }
+
+        public async Task Seed()
+        {
+            if (_context.Trip.Count() != 0) return;
 
             var firstUser = new TUser() { Id = "fec0a4d6-5830-4eb8-8024-272bd5d6d2bb", UserName = "Michał" };
             var secondUser = new TUser() { Id = "c3b7f625-c07f-4d7d-9be1-ddff8ff93b4d", UserName = "Aga" };

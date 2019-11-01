@@ -20,9 +20,8 @@ namespace MCB.Api.Helpers
             services.AddOptions();
 
             services.Configure<AuthConfiguration>(configuration.GetSection(ConfigurationConsts.AuthConfigurationKey));
-
+            services.Configure<AppConfiguration>(configuration.GetSection(ConfigurationConsts.AppConfigurationKey));
             services.TryAddSingleton<IRootConfiguration, RootConfiguration>();
-
             return services;
         }
     }

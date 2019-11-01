@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 using IdentityServer4.AccessTokenValidation;
+using MCB.Api.Helpers;
+using MCB.Api.Interfaces.Configuration;
 using MCB.Api.OperationFilters;
 using MCB.Api.Services;
 using MCB.Business.CoreHelper.UserInterfaces;
@@ -38,12 +40,16 @@ namespace MCB.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            services.ConfigureRootConfiguration(Configuration);
+            var rootConfiguration = services.BuildServiceProvider().GetService<IRootConfiguration>();
+
+
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
             .AddIdentityServerAuthentication(options =>
             {
-                //TODO: STS should be as config parameter
-                options.Authority = "https://localhost:8001";
-                options.ApiName = "tripwithmeapi";
+                options.Authority = rootConfiguration.AuthConfiguration.STSAuthority;
+                options.ApiName = rootConfiguration.AuthConfiguration.STSApiName;
             });
 
             services.AddMvc(setupAction =>
@@ -97,7 +103,7 @@ namespace MCB.Api
                     { 
                         Implicit = new OpenApiOAuthFlow
                         {
-                            AuthorizationUrl = new Uri("https://localhost:8001/connect/authorize", UriKind.Absolute),
+                            AuthorizationUrl = new Uri(rootConfiguration.AuthConfiguration.STSApiAuthorizeUrl, UriKind.Absolute),
                             Scopes = new Dictionary<string, string>
                             {
                                 { "tripwithmeapi", "Trip With Me API" },
@@ -147,6 +153,9 @@ namespace MCB.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            var confScope = app.ApplicationServices.CreateScope();
+            var rootConfiguration = confScope.ServiceProvider.GetService<IRootConfiguration>();
+        
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -167,13 +176,15 @@ namespace MCB.Api
                 setupAction.SwaggerEndpoint("/swagger/MCBOpenAPISpecification/swagger.json", "MCB API");
                 setupAction.RoutePrefix = "api";
 
-                setupAction.OAuthClientId("mcb_api_swagger");
+                setupAction.OAuthClientId(rootConfiguration.AuthConfiguration.STSOAuthClientId);
             });
 
             app.UseAuthentication();
 
             app.UseMvc();
             app.UseStaticFiles();
+
+            confScope.Dispose();
 
             if (env.IsDevelopment())
             {

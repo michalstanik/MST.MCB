@@ -37,7 +37,8 @@ namespace MST.IDP.Admin.Configuration.IdentityServer
                             Required = true
                         }
                     }
-                }
+                },
+                new ApiResource("tripwithmeapi", "Trip With Me API", new[] { "role"})
             };
         }
     }

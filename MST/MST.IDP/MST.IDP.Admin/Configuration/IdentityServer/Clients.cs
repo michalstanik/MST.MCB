@@ -14,10 +14,6 @@ namespace MST.IDP.Admin.Configuration.IdentityServer
 
             return new List<Client>
             {
-
-	            ///////////////////////////////////////////
-	            // MST.IDP.Admin Client
-	            //////////////////////////////////////////
 	            new Client
                 {
 
@@ -63,7 +59,8 @@ namespace MST.IDP.Admin.Configuration.IdentityServer
                     },
                     AllowAccessTokensViaBrowser = true
                 },
-                 new Client {
+                 new Client
+                 {
                     ClientId = "mcb_api_swagger",
                     ClientName = "Swagger UI for MCB",
                     AllowedGrantTypes = GrantTypes.Implicit,
@@ -79,7 +76,8 @@ namespace MST.IDP.Admin.Configuration.IdentityServer
                         "tripwithmeapi"
                     }
                 },
-                new Client {
+                new Client
+                {
                     ClientName = "Trip With Me",
                     ClientId="tripwithmeclient",
                     AllowedGrantTypes = GrantTypes.Implicit,
@@ -93,8 +91,8 @@ namespace MST.IDP.Admin.Configuration.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "roles"
-                        //"tripwithmeapi"
+                        "roles",
+                        "tripwithmeapi"
                     }
                 }
             };

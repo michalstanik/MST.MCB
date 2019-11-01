@@ -11,5 +11,13 @@
             <param name="id">Id of the Trip</param>
             <returns>An Trip based on the MediaType</returns>
         </member>
+        <member name="M:MCB.Api.Helpers.StartupHelpers.ConfigureRootConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configuration root configuration
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -106,7 +106,9 @@ namespace MCB.Api
                             AuthorizationUrl = new Uri(rootConfiguration.AuthConfiguration.STSApiAuthorizeUrl, UriKind.Absolute),
                             Scopes = new Dictionary<string, string>
                             {
-                                { "tripwithmeapi", "Trip With Me API" },
+                                { rootConfiguration.AuthConfiguration.STSApiName,
+                                  rootConfiguration.AuthConfiguration.STSApiDescription
+                                },
                             }
                         }
                     }
@@ -120,7 +122,7 @@ namespace MCB.Api
                         {
                             Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
                         },
-                        new[] { "tripwithmeapi" }
+                        new[] { rootConfiguration.AuthConfiguration.STSApiName }
                     }
                 });
                 //Use of reflection to cobime a XML document with assembly path

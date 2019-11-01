@@ -8,5 +8,6 @@ namespace MCB.Api.Configuration
         public string STSApiName { get; set; }
         public string STSApiAuthorizeUrl { get; set; }
         public string STSOAuthClientId { get; set; }
+        public string STSApiDescription { get; set; }
     }
 }

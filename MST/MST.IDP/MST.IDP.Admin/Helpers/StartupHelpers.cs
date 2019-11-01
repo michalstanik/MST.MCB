@@ -485,7 +485,7 @@ namespace MST.IDP.Admin.Helpers
             services.AddOptions();
 
             services.Configure<AdminConfiguration>(configuration.GetSection(ConfigurationConsts.AdminConfigurationKey));
-
+            services.Configure<AppConfiguration>(configuration.GetSection(ConfigurationConsts.AppConfigurationKey));
             services.TryAddSingleton<IRootConfiguration, RootConfiguration>();
 
             return services;

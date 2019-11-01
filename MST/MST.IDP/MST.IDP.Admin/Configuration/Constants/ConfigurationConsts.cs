@@ -2,6 +2,8 @@
 {
     public class ConfigurationConsts
     {
+        public const string AppConfigurationKey = "AppConfiguration";
+
         public const string AdminConnectionStringKey = "AdminConnection";
 
         public const string ConfigurationDbConnectionStringKey = "ConfigurationDbConnection";

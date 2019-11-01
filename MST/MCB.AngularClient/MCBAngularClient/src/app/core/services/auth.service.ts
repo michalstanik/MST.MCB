@@ -15,7 +15,7 @@ export class AuthService {
             authority: environment.stsAuthority,
             client_id: environment.clientId,
             redirect_uri: `${environment.clientRoot}assets/oidc-login-redirect.html`,
-            scope: 'openid tripwithmeapi profile role',
+            scope: 'openid tripwithmeapi profile roles',
             response_type: 'id_token token',
             post_logout_redirect_uri: `${environment.clientRoot}?postLogout=true`,
             userStore: new WebStorageStateStore({ store: window.localStorage })

@@ -32,6 +32,7 @@ namespace MST.IDP.Admin.Helpers
             using (var serviceScope = host.Services.CreateScope())
             {
                 var services = serviceScope.ServiceProvider;
+
                 await EnsureDatabasesMigrated<TIdentityDbContext, TIdentityServerDbContext, TPersistedGrantDbContext, TLogDbContext>(services);
                 await EnsureSeedData<TIdentityServerDbContext, TUser, TRole>(services);
             }
@@ -43,12 +44,12 @@ namespace MST.IDP.Admin.Helpers
             where TConfigurationDbContext : DbContext
             where TLogDbContext : DbContext
         {
+
+
             using (var scope = services.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 using (var context = scope.ServiceProvider.GetRequiredService<TPersistedGrantDbContext>())
                 {
-                    //TODO: Only for DEV
-                    context.Database.EnsureDeleted();
                     await context.Database.MigrateAsync();
                 }
 

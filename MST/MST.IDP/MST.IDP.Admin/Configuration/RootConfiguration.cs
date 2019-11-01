@@ -7,9 +7,13 @@ namespace MST.IDP.Admin.Configuration
     {
         public IAdminConfiguration AdminConfiguration { get; set; }
 
-        public RootConfiguration(IOptions<AdminConfiguration> adminConfiguration)
+        public IAppConfiguration AppConfiguration { get; set; }
+
+        public RootConfiguration(IOptions<AdminConfiguration> adminConfiguration, 
+            IOptions<AppConfiguration> appConfiguration)
         {
             AdminConfiguration = adminConfiguration.Value;
+            AppConfiguration = appConfiguration.Value;
         }
     }
 }

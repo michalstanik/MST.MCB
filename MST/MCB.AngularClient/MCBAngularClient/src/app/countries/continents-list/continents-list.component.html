@@ -1,0 +1,37 @@
+<div class="container">
+    <div>
+      <mdb-icon fas icon="plane-departure"></mdb-icon><a>   Your Countries:</a>
+    </div>
+    <hr />
+    <div class="scrollbar scrollbar-info">
+      <div class="force-overflow">
+        <div class="card bg-light continent-container" *ngFor="let continent of myCountries">
+  
+          <div class="card-header text-lg-center continent-header">
+  
+            <a [ngSwitch]="continent.name">
+              <mdb-icon *ngSwitchCase="'Africa'" fas icon="globe-africa"></mdb-icon>
+              <mdb-icon *ngSwitchCase="'Europe'" fas icon="globe-europe"></mdb-icon>
+              <mdb-icon *ngSwitchCase="'Americas'" fas icon="globe-americas"></mdb-icon>
+              <mdb-icon *ngSwitchCase="'Asia'" fas icon="globe-asia"></mdb-icon>
+              <mdb-icon *ngSwitchCase="'Oceania'" fas icon="globe-asia"></mdb-icon>
+              <mdb-icon *ngSwitchCase="'Antarctic'" fas icon="igloo"></mdb-icon>
+            </a>
+            <a>
+              {{continent.name}}  {{continent.visitetCountriesOnContinent}}/{{continent.statsCountryCount}}
+            </a>
+          </div>
+          <div *ngFor="let region of continent.regions" class="card trip-container">
+            <p class=" card-header region-name btn" (click)="navigateToRegion(region.id)">
+              {{region.name}}  {{region.visitedCountryCount}}/{{region.statsCountryCount}}
+            </p>
+            <div *ngFor="let country of region.countries">
+              <app-country-thumbnail [country]="country"></app-country-thumbnail>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

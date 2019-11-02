@@ -26,6 +26,23 @@ namespace MCB.Data.Repositories
             return results;
         }
 
+        public async Task<ICollection<Continent>> GetContinents(bool includeRegions = false, bool includeCountries = false)
+        {
+            IQueryable<Continent> query = _context.Continent;
+
+            if (includeRegions)
+            {
+                query = query.Include(t => t.Regions);
+            }
+
+            if (includeCountries)
+            {
+                query = query.Include(t => t.Regions).ThenInclude(c => c.Countries);
+            }
+
+            return await query.ToListAsync();
+        }
+
         private async Task<ICollection<Country>> ReturnCountriesBasedOnTripQuery(IQueryable<Trip> inputQuery)
         {
             var listOfTripsWithGraph = inputQuery
@@ -54,6 +71,27 @@ namespace MCB.Data.Repositories
             }
 
             return listOfCountriesToReturn;
+        }
+
+        public async Task<ICollection<Country>> GetCountiresWithAssesmentForUser(string userId)
+        {
+            var query = await _context.UserCountry.Where(u => u.TUserId == userId).ToListAsync();
+
+            var listofCountriesToBeReturned = new List<Country>();
+
+            foreach (var cntry in query)
+            {
+                var tempCountry = _context.Country
+                    .Include(r => r.Region)
+                    .Where(c => c.Id == cntry.CountryId).SingleOrDefault();
+
+                if (tempCountry != null && listofCountriesToBeReturned.Where(d => d.Id == cntry.CountryId).Count() == 0)
+                {
+                    listofCountriesToBeReturned.Add(tempCountry);
+                }
+            }
+
+            return listofCountriesToBeReturned;
         }
     }
 }

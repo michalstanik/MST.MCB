@@ -34,6 +34,9 @@ namespace MCB.Data
             var countryThailand = _context.Country.Where(c => c.Alpha3Code == "THA").FirstOrDefault();
             var countryCambodia = _context.Country.Where(c => c.Alpha3Code == "KHM").FirstOrDefault();
             var countryVietnam = _context.Country.Where(c => c.Alpha3Code == "VNM").FirstOrDefault();
+            var countryUK = _context.Country.Where(c => c.Alpha3Code == "GBR").FirstOrDefault();
+            var countryIndia = _context.Country.Where(c => c.Alpha3Code == "IND").FirstOrDefault();
+            var countryCaboVerde = _context.Country.Where(c => c.Alpha3Code == "CPV").FirstOrDefault();
 
             var firstAsiaTrip = new Trip()
             {
@@ -118,6 +121,68 @@ namespace MCB.Data
                 }
             };
             _context.AddRange(azerbaijanTrip, firstAsiaTrip);
+            await _context.SaveChangesAsync();
+
+            _context.UserCountry.AddRange(
+                       new UserCountry()
+                       {
+                           TUser = firstUser,
+                           AreaLevelAssessment = 30,
+                           Country = countryThailand,
+                           CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
+                       },
+                       new UserCountry()
+                       {
+                           TUser = firstUser,
+                           AreaLevelAssessment = 70,
+                           Country = countryCambodia,
+                           CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
+                       },
+                       new UserCountry()
+                       {
+                           TUser = firstUser,
+                           AreaLevelAssessment = 40,
+                           Country = countryVietnam,
+                           CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
+                       },
+                       new UserCountry()
+                       {
+                           TUser = firstUser,
+                           AreaLevelAssessment = 90,
+                           Country = countryAzerbaijan,
+                           CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
+                       },
+                       new UserCountry()
+                       {
+                           TUser = firstUser,
+                           AreaLevelAssessment = 60,
+                           Country = countryMexico,
+                           CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
+                       },
+                       new UserCountry()
+                       {
+                           TUser = firstUser,
+                           AreaLevelAssessment = 60,
+                           Country = countryUK,
+                           CountryKnowledgeType = UserCountry.CountryVisitType.BussinessTrip
+                       },
+                       new UserCountry()
+                       {
+                           TUser = firstUser,
+                           AreaLevelAssessment = 30,
+                           Country = countryIndia,
+                           CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
+                       },
+                       new UserCountry()
+                       {
+                           TUser = firstUser,
+                           AreaLevelAssessment = 60,
+                           Country = countryCaboVerde,
+                           CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
+                       }
+
+                  );
+
             await _context.SaveChangesAsync();
         }
     }

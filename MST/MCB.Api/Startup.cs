@@ -143,6 +143,7 @@ namespace MCB.Api
             services.AddTransient<MCBDictionarySeeder>();
             services.AddTransient<MCBDataSeeder>();
             services.AddTransient<MCBEnsureDB>();
+            services.AddTransient<MCBReportingSeeder>();
             services.AddScoped<IGeoRepository, GeoRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
             services.AddScoped<IUserInfoService, UserInfoService>();
@@ -215,6 +216,10 @@ namespace MCB.Api
                         dataSeeder.DeleteData();
                     }
                     dataSeeder.Seed().Wait();
+
+                //3
+                    var reportingSeeder = scope.ServiceProvider.GetService<MCBReportingSeeder>();
+                    reportingSeeder.GenerateReportingForRegionsAndContinents().Wait();
                 }
             
         }

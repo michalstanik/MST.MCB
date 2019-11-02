@@ -18,12 +18,12 @@
               <mdb-icon *ngSwitchCase="'Antarctic'" fas icon="igloo"></mdb-icon>
             </a>
             <a>
-              {{continent.name}}  {{continent.visitetCountriesOnContinent}}/{{continent.statsCountryCount}}
+              {{continent.name}}  {{continent.visitetCountriesOnContinent}}/{{continent.countryCount}}
             </a>
           </div>
           <div *ngFor="let region of continent.regions" class="card trip-container">
             <p class=" card-header region-name btn" (click)="navigateToRegion(region.id)">
-              {{region.name}}  {{region.visitedCountryCount}}/{{region.statsCountryCount}}
+              {{region.name}}  {{region.visitedCountryCount}}/{{region.countriesCount}}
             </p>
             <div *ngFor="let country of region.countries">
               <app-country-thumbnail [country]="country"></app-country-thumbnail>

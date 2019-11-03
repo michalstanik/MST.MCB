@@ -69,6 +69,7 @@ namespace MCB.Api
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithcountries+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithcountriesandstats+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithcountriesandworldheritages+json");
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.countriesforUserWithAssessments+json");
 
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.cintinentWithRegionsAndCountries+json");
 

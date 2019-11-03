@@ -93,5 +93,19 @@ namespace MCB.Data.Repositories
 
             return listofCountriesToBeReturned;
         }
+
+        public async Task<Dictionary<string, long>> GetCountireAssesmentForUser(string userId)
+        {
+            Dictionary<string, long> countriesTobereturned = new Dictionary<string, long>();
+
+            return countriesTobereturned = await _context.UserCountry
+                .Where(a => a.TUser.Id == userId)
+                .Select(a => new
+                {
+                    a.Country.Alpha2Code,
+                    a.AreaLevelAssessment
+                })
+                .ToDictionaryAsync(p => p.Alpha2Code, p => p.AreaLevelAssessment);
+        }
     }
 }

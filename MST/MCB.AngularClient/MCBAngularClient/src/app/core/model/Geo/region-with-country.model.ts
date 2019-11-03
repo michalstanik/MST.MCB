@@ -4,5 +4,5 @@ export class RegionWithCountryModel {
     id: number;
     countries: Country[];
     visitedCountryCount: number;
-    statsCountryCount: number;
+    countriesCount: number;
   }

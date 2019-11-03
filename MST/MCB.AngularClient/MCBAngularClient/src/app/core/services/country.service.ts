@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 // Models
 import { ContinentWithRegionsAndCountriesModel } from '../model/Geo/continent-with-regions-and-countries.model';
-
+import { CountryWithAssessment } from '../model/Geo/country-with-assessment.model';
 
 @Injectable()
 export class CountryService {
@@ -15,5 +15,10 @@ export class CountryService {
   GetCountriesForUserByContinent(): Observable<ContinentWithRegionsAndCountriesModel[]> {
     return this.http.get<ContinentWithRegionsAndCountriesModel[]>(environment.apiRoot + 'geo',
     { headers: { Accept: 'application/vnd.mcb.cintinentWithRegionsAndCountries+json' } });
+  }
+
+  GetCountriesForUserWithAssessments(): Observable<CountryWithAssessment[]> {
+    return this.http.get<CountryWithAssessment[]>(environment.apiRoot + 'geo',
+    { headers: { Accept: 'application/vnd.mcb.countriesforUserWithAssessments+json' } });
   }
 }

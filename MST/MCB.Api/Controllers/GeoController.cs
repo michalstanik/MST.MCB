@@ -72,5 +72,43 @@ namespace MCB.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        [HttpGet()]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Produces("application/vnd.mcb.countriesforUserWithAssessments+json")]
+        [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.countriesforUserWithAssessments+json" })]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<List<CountryModelWithAssesments>>> GetCountriesForUserWithAssessments()
+        {
+            try
+            {
+                var results = await _geoRepository.GetCountiresWithAssesmentForUser(_userInfoService.UserId);
+                var mapped = _mapper.Map<List<CountryModelWithAssesments>>(results);
+
+
+                Dictionary<string, long> UserAssesment = await _geoRepository.GetCountireAssesmentForUser(_userInfoService.UserId);
+
+                foreach (var item in mapped)
+                {
+                    if (UserAssesment.ContainsKey(item.Alpha2Code))
+                    {
+                        item.AreaLevelAssessment = UserAssesment.GetValueOrDefault(item.Alpha2Code);
+                    }
+                    else
+                    {
+                        item.AreaLevelAssessment = 0;
+                    }
+                }
+
+                return mapped;
+
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }

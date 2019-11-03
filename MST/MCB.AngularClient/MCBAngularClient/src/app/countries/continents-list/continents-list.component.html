@@ -22,7 +22,7 @@
             </a>
           </div>
           <div *ngFor="let region of continent.regions" class="card trip-container">
-            <p class=" card-header region-name btn" (click)="navigateToRegion(region.id)">
+            <p class=" card-header region-name btn">
               {{region.name}}  {{region.visitedCountryCount}}/{{region.countriesCount}}
             </p>
             <div *ngFor="let country of region.countries">

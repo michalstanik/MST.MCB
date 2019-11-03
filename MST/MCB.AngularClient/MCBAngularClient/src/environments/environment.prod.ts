@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiRoot: 'https://mcbapi.azurewebsites.net/api/',
-  stsAuthority: 'https://localhost:8001/',
+  apiRoot: 'https://localhost:9001/api/',
+  stsAuthority: 'https://localhost:5001/',
   clientId: 'tripwithmeclient',
-  clientRoot: 'https://localhost:4200/'
+  clientRoot: 'https://mytripsboard.azurewebsites.net/'
 };

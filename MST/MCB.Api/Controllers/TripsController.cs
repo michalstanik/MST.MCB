@@ -2,10 +2,12 @@
 using MCB.Business.CoreHelper.Attributes;
 using MCB.Business.CoreHelper.UserInterfaces;
 using MCB.Business.Models.Trips;
+using MCB.Data.Domain.Trips;
 using MCB.Data.RepositoriesInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -115,7 +117,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountries+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithcountries+json" })]
-        public async Task<ActionResult<List<TripWithCountriesModel>>> GetTripsWithCountries(int id)
+        public async Task<ActionResult<List<TripWithCountriesModel>>> GetTripsWithCountries()
         {
             return await GetListOfTrips<TripWithCountriesModel>(true);
         }
@@ -133,7 +135,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountriesandstats+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithcountriesandstats+json" })]
-        public async Task<ActionResult<List<TripWithCountriesAndStatsModel>>> GetTripsWithCountriesAndStats(int id)
+        public async Task<ActionResult<List<TripWithCountriesAndStatsModel>>> GetTripsWithCountriesAndStats()
         {
             return await GetListOfTrips<TripWithCountriesAndStatsModel>(true, true);
         }
@@ -151,9 +153,37 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountriesandworldheritages+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithcountriesandworldheritages+json" })]
-        public async Task<ActionResult<List<TripWithCountriesAndWorldHeritagesModel>>> GetTripsWithCountriesAndWorldHeritages(int id)
+        public async Task<ActionResult<List<TripWithCountriesAndWorldHeritagesModel>>> GetTripsWithCountriesAndWorldHeritages()
         {
             return await GetListOfTrips<TripWithCountriesAndWorldHeritagesModel>(true, true);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Consumes("application/vnd.mcb.tripforcreation+json")]
+        [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripforcreation+json" })]
+        public async Task<IActionResult> AddTrip([FromBody] TripModelForCreation trip)
+        {
+            if (trip == null) return BadRequest();
+
+            // validation of the DTO happens here
+
+            return await AddSpecificTrip(trip);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Consumes("application/vnd.mcb.tripforcreation+json")]
+        [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithstopsforcreation+json" })]
+        public async Task<IActionResult> AddTripWithStops([FromBody] TripWithStopsModelForCreation trip)
+        {
+            if (trip == null) return BadRequest();
+
+            // validation of the DTO happens here
+
+            return await AddSpecificTrip(trip);
         }
 
         [HttpGet()]
@@ -191,6 +221,25 @@ namespace MCB.Api.Controllers
             }
 
             return Ok(_mapper.Map<T>(tripFromRepo));
+        }
+
+        private async Task<IActionResult> AddSpecificTrip<T>(T trip) 
+            where T: class
+        {
+            var tripEntity = _mapper.Map<Trip>(trip);
+
+            await _repository.AddTrip(tripEntity);
+
+            if (!await _repository.SaveChangesAsync())
+            {
+                throw new Exception("Adding a trip failed on save.");
+            }
+
+            var tourToReturn = _mapper.Map<Trip>(tripEntity);
+
+            return CreatedAtRoute("GetTour",
+                new { tourId = tourToReturn.Id },
+                tourToReturn);
         }
     }
 }

@@ -40,10 +40,8 @@ namespace MCB.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             services.ConfigureRootConfiguration(Configuration);
             var rootConfiguration = services.BuildServiceProvider().GetService<IRootConfiguration>();
-
 
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
             .AddIdentityServerAuthentication(options =>
@@ -76,6 +74,17 @@ namespace MCB.Api
                     if (jsonOutputFormatter.SupportedMediaTypes.Contains("text/json"))
                     {
                         jsonOutputFormatter.SupportedMediaTypes.Remove("text/json");
+                    }
+                }
+                var jsonInputFormatter = setupAction.InputFormatters.OfType<JsonInputFormatter>().FirstOrDefault();
+                if (jsonInputFormatter != null)
+                {
+                    jsonInputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripforcreation+json");
+                    jsonInputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithstopsforcreation+json");
+
+                    if (jsonInputFormatter.SupportedMediaTypes.Contains("text/json"))
+                    {
+                        jsonInputFormatter.SupportedMediaTypes.Remove("text/json");
                     }
                 }
             })

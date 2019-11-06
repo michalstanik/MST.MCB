@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MCB.Business.Models.Stops;
+using System.Collections.Generic;
 
 namespace MCB.Business.Models.Trips
 {

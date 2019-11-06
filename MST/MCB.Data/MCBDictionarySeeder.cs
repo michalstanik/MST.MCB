@@ -1,4 +1,5 @@
-﻿using MCB.Data.Domain.Geo;
+﻿using MCB.Data.Domain.Aviation;
+using MCB.Data.Domain.Geo;
 using MCB.Data.Domain.WorldHeritages;
 using MCB.Data.LoadData;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,45 @@ namespace MCB.Data
 
             await SeedCountries();
             await SeedWroldHeritage();
+            await SeedAirports();
+        }
+
+        private async Task SeedAirports()
+        {
+            if (_context.Airport.Count() != 0) return;
+            using (var reader = new StreamReader(@"C:/Users/michal.stanik/source/repos/MST.MCB/MST/MCB.Data/LoadData/airports.dat.txt"))
+            {
+                var listOfAirports = new List<Airport>();
+                var countriesDictonary = new Dictionary<int, string>();
+                foreach (var country in _context.Country.ToList())
+                {
+                    countriesDictonary.Add(country.Id, country.Name);
+                }
+
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine().Replace("\"","");
+                    var values = line.Split(',');
+
+                    var airport = new Airport()
+                    {
+                        AirportId = values[0],
+                        Name = values[1],
+                        City = values[2],
+                        CountryName = values[3]
+                    };
+
+                    var countryId = countriesDictonary.Where(c => c.Value == values[3]).Select(c => c.Key).FirstOrDefault();
+                    if (countryId != 0)
+                    {
+                        airport.CountryId = countryId;
+                    }
+
+                    listOfAirports.Add(airport);
+                }
+                await _context.AddRangeAsync(listOfAirports);
+                await _context.SaveChangesAsync();
+            }
         }
 
         private async Task SeedWroldHeritage()

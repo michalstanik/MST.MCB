@@ -1,4 +1,5 @@
-﻿using MCB.Data.Domain.Geo;
+﻿using MCB.Data.Domain.Aviation;
+using MCB.Data.Domain.Geo;
 using MCB.Data.Domain.Trips;
 using MCB.Data.Domain.User;
 using MCB.Data.Domain.WorldHeritages;
@@ -31,6 +32,9 @@ namespace MCB.Data
         //WorldHeritage
         public DbSet<WorldHeritage> WorldHeritage { get; set; }
         public DbSet<WorldHeritageCountry> WorldHeritageCountry { get; set; }
+
+        //Aviation
+        public DbSet<Airport> Airport { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

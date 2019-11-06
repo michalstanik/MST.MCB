@@ -30,6 +30,12 @@ namespace MCB.Api.OperationFilters
                 { "application/vnd.mcb.tripwithcountriesandworldheritages+json", typeof(TripWithCountriesAndWorldHeritagesModel) }
             };
 
+            var mediaTypesSetTripDictionary = new Dictionary<string, Type>()
+            {
+                {"application/vnd.mcb.tripforcreation+json", typeof(TripModelForCreation) },
+                {"application/vnd.mcb.tripwithstopsforcreation+json", typeof(TripWithStopsModelForCreation)}
+            };
+
             switch (operation.OperationId)
             {
                 case "GetTrip":
@@ -50,6 +56,20 @@ namespace MCB.Api.OperationFilters
                     foreach (var mediaType in mediaTypesGetTripsDictionary)
                     {
                         operation.Responses[StatusCodes.Status200OK.ToString()].Content.Add(
+                            mediaType.Key,
+                            new OpenApiMediaType()
+                            {
+                                Schema = context.SchemaRegistry.GetOrRegister(mediaType.Value)
+                            });
+                    }
+                    break;
+
+                //TODO: Fix for post method
+                case "AddTrip":
+
+                    foreach (var mediaType in mediaTypesSetTripDictionary)
+                    {
+                        operation.Responses[StatusCodes.Status201Created.ToString()].Content.Add(
                             mediaType.Key,
                             new OpenApiMediaType()
                             {

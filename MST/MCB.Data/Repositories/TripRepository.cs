@@ -21,6 +21,11 @@ namespace MCB.Data.Repositories
             _context.Add(entity);
         }
 
+        public async Task AddTrip(Trip tripEntity)
+        {
+            await _context.AddAsync(tripEntity);
+        }
+
         public async Task<bool> CheckUserPermissionsForTrip(int tripId, string userId)
         {
             var trip = await _context.Trip

@@ -83,6 +83,7 @@ namespace MCB.Api.Controllers
         [Produces("application/vnd.mcb.countriesforUserWithAssessments+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.countriesforUserWithAssessments+json" })]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<List<CountryModelWithAssesments>>> GetCountriesForUserWithAssessments()
         {

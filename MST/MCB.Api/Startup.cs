@@ -55,6 +55,7 @@ namespace MCB.Api
                 setupAction.Filters.Add(new AuthorizeFilter());
                 setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest));
                 setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status406NotAcceptable));
+                setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status401Unauthorized));
                 setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status500InternalServerError));
                 
                 setupAction.ReturnHttpNotAcceptable = true;
@@ -129,7 +130,6 @@ namespace MCB.Api
                     }
                 });
 
-                //setupAction.OperationFilter<AuthorizeCheckOperationFilter>(); // Required to use access token
                 setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -147,13 +147,6 @@ namespace MCB.Api
 
                 setupAction.IncludeXmlComments(xmlCommentFullPath);
                 setupAction.IncludeXmlComments(xmlBussinessModelsPath);
-
-
-
-                setupAction.ResolveConflictingActions(apiDesscriptions =>
-                {
-                    return apiDesscriptions.First();
-                });
             });
 
             services.AddAutoMapper(typeof(Startup));

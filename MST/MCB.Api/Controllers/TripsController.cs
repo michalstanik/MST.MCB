@@ -52,6 +52,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripfull+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripfull+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TripFullModel>> GetTripFull(int id)
         {
             return await GetSpecificTrip<TripFullModel>(id, true, true);
@@ -76,6 +77,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithstops+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithstops+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TripWithStopsModel>> GetTripWithStops(int id)
         {
             return await GetSpecificTrip<TripWithStopsModel>(id, true);
@@ -85,6 +87,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithstops+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithstops+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<List<TripWithStopsModel>>> GetTripsWithStops()
         {
             return await GetListOfTrips<TripWithStopsModel>(true);
@@ -94,6 +97,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithstopsandusers+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithstopsandusers+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TripWithStopsAndUsersModel>> GetTripWithStopsAndUsers(int id)
         {
             return await GetSpecificTrip<TripWithStopsAndUsersModel>(id, true, true);
@@ -103,6 +107,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithstopsandusers+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithstopsandusers+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<List<TripWithStopsAndUsersModel>>> GetTripsWithStopsAndUsers()
         {
             return await GetListOfTrips<TripWithStopsAndUsersModel>(true, true);
@@ -112,6 +117,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountries+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithcountries+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TripWithCountriesModel>> GetTripWithCountries(int id)
         {
             return await GetSpecificTrip<TripWithCountriesModel>(id, true);
@@ -121,6 +127,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountries+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithcountries+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<List<TripWithCountriesModel>>> GetTripsWithCountries()
         {
             return await GetListOfTrips<TripWithCountriesModel>(true);
@@ -130,6 +137,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountriesandstats+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithcountriesandstats+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TripWithCountriesAndStatsModel>> GetTripWithCountriesAndStats(int id)
         {
             return await GetSpecificTrip<TripWithCountriesAndStatsModel>(id, true, true);
@@ -139,6 +147,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountriesandstats+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithcountriesandstats+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<List<TripWithCountriesAndStatsModel>>> GetTripsWithCountriesAndStats()
         {
             return await GetListOfTrips<TripWithCountriesAndStatsModel>(true, true);
@@ -148,6 +157,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountriesandworldheritages+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithcountriesandworldheritages+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TripWithCountriesAndWorldHeritagesModel>> GetTripWithCountriesAndWorldHeritages(int id)
         {
             return await GetSpecificTrip<TripWithCountriesAndWorldHeritagesModel>(id, true, true);
@@ -157,6 +167,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountriesandworldheritages+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithcountriesandworldheritages+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<List<TripWithCountriesAndWorldHeritagesModel>>> GetTripsWithCountriesAndWorldHeritages()
         {
             return await GetListOfTrips<TripWithCountriesAndWorldHeritagesModel>(true, true);
@@ -185,6 +196,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Consumes("application/vnd.mcb.tripforcreation+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripwithstopsforcreation+json" })]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> AddTripWithStops([FromBody] TripWithStopsModelForCreation trip)
         {
             if (trip == null) return BadRequest();

@@ -9,6 +9,7 @@ import { EnsureAcceptHeaderInterceptor } from './interceptors/ensure-accept-head
 import { TripService } from './services/trips.service';
 import { AuthService } from './services/auth.service';
 import { CountryService } from './services/country.service';
+import { ContinentService } from './services/continent.service';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { CountryService } from './services/country.service';
       },
         AuthService,
         TripService,
-        CountryService
+        CountryService,
+        ContinentService
     ],
 })
 export class CoreModule { }

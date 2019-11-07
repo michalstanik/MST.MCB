@@ -4,9 +4,15 @@
         <name>MCB.Api</name>
     </assembly>
     <members>
-        <member name="M:MCB.Api.Controllers.GeoController.GetContinentsWithRegionsAndCountriesForUser">
+        <member name="M:MCB.Api.Controllers.ContinentsController.GetContinentsWithRegionsAndCountriesForUser">
             <summary>
-            Get list of one of Geo entity type
+            Get list of Continents
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MCB.Api.Controllers.CountriesController.GetCountriesForUserWithAssessments">
+            <summary>
+            Get a list of Countries
             </summary>
             <returns></returns>
         </member>

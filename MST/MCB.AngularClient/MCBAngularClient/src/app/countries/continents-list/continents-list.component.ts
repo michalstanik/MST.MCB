@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ContinentWithRegionsAndCountriesModel } from 'src/app/core/model/Geo/continent-with-regions-and-countries.model';
 
 // Services
-import { CountryService } from 'src/app/core/services/country.service';
+import { ContinentService } from 'src/app/core/services/continent.service';
 
 
 @Component({
@@ -16,10 +16,10 @@ import { CountryService } from 'src/app/core/services/country.service';
 export class ContinentsListComponent implements OnInit {
 
   myCountries: ContinentWithRegionsAndCountriesModel[];
-  constructor(private myCountryService: CountryService, private router: Router) { }
+  constructor(private myContinetService: ContinentService, private router: Router) { }
 
   ngOnInit() {
-    this.myCountryService.GetCountriesForUserByContinent().subscribe(myCountries => { this.myCountries = myCountries; });
+    this.myContinetService.GetCountriesForUserByContinent().subscribe(myCountries => { this.myCountries = myCountries; });
   }
 
 }

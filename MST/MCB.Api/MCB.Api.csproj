@@ -2,6 +2,7 @@
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
     <ItemGroup>
       <DocFile Include="bin\**\**\MCB.Api.xml" />
+      <DocFile Include="bin\**\**\MCB.Business.Models.xml" />
     </ItemGroup>
     <Copy SourceFiles="@(DocFile)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" />
   </Target>

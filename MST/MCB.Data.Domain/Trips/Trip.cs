@@ -3,6 +3,7 @@ using MCB.Data.Domain.User;
 using MCB.Data.Domain.WorldHeritages;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace MCB.Data.Domain.Trips
@@ -15,6 +16,9 @@ namespace MCB.Data.Domain.Trips
             Stops = new List<Stop>();
         }
         public int Id { get; set; }
+
+        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         public List<UserTrip> UserTrips { get; set; }

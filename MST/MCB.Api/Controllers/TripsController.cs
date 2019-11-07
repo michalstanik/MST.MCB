@@ -57,6 +57,10 @@ namespace MCB.Api.Controllers
             return await GetSpecificTrip<TripFullModel>(id, true, true);
         }
 
+        /// <summary>
+        /// Get a list of Trips
+        /// </summary>
+        /// <returns></returns>
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.trip+json")]
@@ -158,6 +162,11 @@ namespace MCB.Api.Controllers
             return await GetListOfTrips<TripWithCountriesAndWorldHeritagesModel>(true, true);
         }
 
+        /// <summary>
+        /// Add new Trip
+        /// </summary>
+        /// <param name="trip">Trip object</param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

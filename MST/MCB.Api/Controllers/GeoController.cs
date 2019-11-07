@@ -31,6 +31,11 @@ namespace MCB.Api.Controllers
             _mapper = mapper;
             _userInfoService = userInfoService;
         }
+
+        /// <summary>
+        /// Get list of one of Geo entity type
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.cintinentWithRegionsAndCountries+json")]

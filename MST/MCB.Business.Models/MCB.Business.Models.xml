@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MCB.Business.Models</name>
+    </assembly>
+    <members>
+        <member name="P:MCB.Business.Models.Trips.TripAbstractBase.Name">
+            <summary>
+            The name of the Trip
+            </summary>
+        </member>
+        <member name="T:MCB.Business.Models.Trips.TripModel">
+            <summary>
+            Trip with Id and Name
+            </summary>
+        </member>
+        <member name="P:MCB.Business.Models.Trips.TripModel.Id">
+            <summary>
+            The id of Trip
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -4,12 +4,31 @@
         <name>MCB.Api</name>
     </assembly>
     <members>
+        <member name="M:MCB.Api.Controllers.GeoController.GetContinentsWithRegionsAndCountriesForUser">
+            <summary>
+            Get list of one of Geo entity type
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:MCB.Api.Controllers.TripsController.GetTrip(System.Int32)">
             <summary>
             Get an Trip by id
             </summary>
             <param name="id">Id of the Trip</param>
             <returns>An Trip based on the MediaType</returns>
+        </member>
+        <member name="M:MCB.Api.Controllers.TripsController.GetTrips">
+            <summary>
+            Get a list of Trips
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MCB.Api.Controllers.TripsController.AddTrip(MCB.Business.Models.Trips.TripModelForCreation)">
+            <summary>
+            Add new Trip
+            </summary>
+            <param name="trip">Trip object</param>
+            <returns></returns>
         </member>
         <member name="M:MCB.Api.Helpers.StartupHelpers.ConfigureRootConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>

@@ -140,7 +140,12 @@ namespace MCB.Api
                 //Use of reflection to cobime a XML document with assembly path
                 var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlCommentFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+                var xmlBussinessModelsPath = Path.Combine(AppContext.BaseDirectory, "MCB.Business.Models.xml");
+
                 setupAction.IncludeXmlComments(xmlCommentFullPath);
+                setupAction.IncludeXmlComments(xmlBussinessModelsPath);
+
+
 
                 setupAction.ResolveConflictingActions(apiDesscriptions =>
                 {

@@ -39,11 +39,10 @@ namespace MCB.Api.Controllers
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.countriesforUserWithAssessments+json")]
-        [RequestHeaderMatchesMediaType("Accept", new[] 
-        {
+        [RequestHeaderMatchesMediaType("Accept", 
             "application/json",
             "application/vnd.mcb.countriesforUserWithAssessments+json"
-        })]
+        )]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<List<CountryModelWithAssesments>>> GetCountriesForUserWithAssessments()

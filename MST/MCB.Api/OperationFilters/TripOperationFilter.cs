@@ -32,7 +32,6 @@ namespace MCB.Api.OperationFilters
 
             var mediaTypesSetTripDictionary = new Dictionary<string, Type>()
             {
-                {"application/vnd.mcb.tripforcreation+json", typeof(TripModelForCreation) },
                 {"application/vnd.mcb.tripwithstopsforcreation+json", typeof(TripWithStopsModelForCreation)}
             };
 
@@ -64,12 +63,11 @@ namespace MCB.Api.OperationFilters
                     }
                     break;
 
-                //TODO: Fix for post method
                 case "AddTrip":
 
                     foreach (var mediaType in mediaTypesSetTripDictionary)
                     {
-                        operation.Responses[StatusCodes.Status201Created.ToString()].Content.Add(
+                        operation.RequestBody.Content.Add(
                             mediaType.Key,
                             new OpenApiMediaType()
                             {

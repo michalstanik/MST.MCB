@@ -39,11 +39,10 @@ namespace MCB.Api.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.continentWithRegionsAndCountries+json")]
-        [RequestHeaderMatchesMediaType("Accept", new[] 
-        {
+        [RequestHeaderMatchesMediaType("Accept",
             "applicaion/json",
             "application/vnd.mcb.continentWithRegionsAndCountries+json"
-        })]
+        )]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<List<ContinentWithRegionsAndCountriesModel>>> GetContinentsWithRegionsAndCountriesForUser()

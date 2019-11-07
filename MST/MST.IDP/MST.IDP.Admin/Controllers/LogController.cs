@@ -30,7 +30,9 @@ namespace MST.IDP.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+#pragma warning disable MVC1004 // Rename model bound parameter.
         public async Task<IActionResult> DeleteLogs(LogsDto logs)
+#pragma warning restore MVC1004 // Rename model bound parameter.
         {
             if (!ModelState.IsValid)
             {

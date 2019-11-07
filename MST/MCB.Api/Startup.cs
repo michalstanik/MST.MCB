@@ -53,7 +53,10 @@ namespace MCB.Api
             services.AddMvc(setupAction =>
             {
                 setupAction.Filters.Add(new AuthorizeFilter());
-
+                setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest));
+                setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status406NotAcceptable));
+                setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status500InternalServerError));
+                
                 setupAction.ReturnHttpNotAcceptable = true;
 
                 var jsonOutputFormatter = setupAction.OutputFormatters.OfType<JsonOutputFormatter>().FirstOrDefault();

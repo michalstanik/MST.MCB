@@ -19,5 +19,10 @@
             The id of Trip
             </summary>
         </member>
+        <member name="T:MCB.Business.Models.Trips.TripModelForCreation">
+            <summary>
+            Trip for creation with a trip name
+            </summary>
+        </member>
     </members>
 </doc>

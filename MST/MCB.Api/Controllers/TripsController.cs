@@ -169,7 +169,6 @@ namespace MCB.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Consumes("application/vnd.mcb.tripforcreation+json")]
         [RequestHeaderMatchesMediaType("Accept", new[] { "application/vnd.mcb.tripforcreation+json" })]
         public async Task<IActionResult> AddTrip([FromBody] TripModelForCreation trip)

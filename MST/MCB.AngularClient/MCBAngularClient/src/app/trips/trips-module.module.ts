@@ -8,12 +8,12 @@ import { TripDetailsComponent } from './trip-details/trip-details.component';
 import { CountriesListComponent } from './countries-list/countries-list.component';
 import { TripThumbnailComponent } from './trip-thumbnail/trip-thumbnail.component';
 import { StopsListComponent } from './stops-list/stops-list.component';
+import { TripAddComponent } from './trip-add/trip-add.component';
 
 // Modules
 import { CoreModule } from '../core/core.module';
 import { routing } from './trips-routing.module';
 import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
-
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
     TripThumbnailComponent,
     TripDetailsComponent,
     CountriesListComponent,
-    StopsListComponent],
+    StopsListComponent,
+    TripAddComponent],
   imports: [
     MDBBootstrapModulesPro.forRoot(),
     CommonModule,

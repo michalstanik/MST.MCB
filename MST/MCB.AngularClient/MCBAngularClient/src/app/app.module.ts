@@ -12,7 +12,7 @@ import { HeaderComponent } from './header/header.component';
 
 // Modules
 import { CoreModule } from './core/core.module';
-import { TripsModuleModule } from './trips-module/trips-module.module';
+import { TripsModuleModule } from './trips/trips-module.module';
 import { CountriesModule } from './countries/countries.module';
 
 import { routing } from './app-routing.module';

@@ -182,7 +182,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Consumes("application/vnd.mcb.tripforcreation+json")]
-        [RequestHeaderMatchesMediaType("Accept",
+        [RequestHeaderMatchesMediaType("Content-Type",
             "application/json",
             "application/vnd.mcb.tripforcreation+json"
         )]
@@ -199,7 +199,7 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Consumes("application/vnd.mcb.tripwithstopsforcreation+json")]
-        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.tripwithstopsforcreation+json")]
+        [RequestHeaderMatchesMediaType("Content-Type", "application/vnd.mcb.tripwithstopsforcreation+json")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> AddTripWithStops([FromBody] TripWithStopsModelForCreation trip)
         {
@@ -259,11 +259,16 @@ namespace MCB.Api.Controllers
                 throw new Exception("Adding a trip failed on save.");
             }
 
-            var tourToReturn = _mapper.Map<Trip>(tripEntity);
+            await _repository.AddUserToTheTrip(tripEntity.Id, _userInfoService.UserId);
 
-            return CreatedAtRoute("GetTour",
-                new { tourId = tourToReturn.Id },
-                tourToReturn);
+            if (!await _repository.SaveChangesAsync())
+            {
+                throw new Exception("Adding a user to the trip failed on save.");
+            }
+
+            var tripToReturn = _mapper.Map<Trip>(tripEntity);
+
+            return Created("", tripToReturn);
         }
     }
 }

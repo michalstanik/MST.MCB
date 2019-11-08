@@ -24,7 +24,7 @@ export class TripService {
     }
 
     addTrip(tripToAdd: TripForCreation): Observable<Trip> {
-        return this.httpClient.post<Trip>(environment.apiRoot + 'trips',
-        { headers: { Accept: 'application/vnd.mcb.tripforcreation+json' } });
+        return this.httpClient.post<Trip>(environment.apiRoot + 'trips', tripToAdd,
+        { headers: { 'Content-Type' : 'application/vnd.mcb.tripforcreation+json' } });
     }
 }

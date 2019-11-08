@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MCB.Data.Domain.Trips;
@@ -24,6 +25,29 @@ namespace MCB.Data.Repositories
         public async Task AddTrip(Trip tripEntity)
         {
             await _context.AddAsync(tripEntity);
+        }
+
+        public async Task AddUserToTheTrip(int tripId, string userId)
+        {
+            var trip = await _context.Trip.Where(t => t.Id == tripId).FirstOrDefaultAsync();
+            var user = await _context.TUser.Where(u => u.Id == userId).FirstOrDefaultAsync();
+
+            if (trip!= null && user != null)
+            {
+                var tripUser = new UserTrip()
+                {
+                    Trip = trip,
+                    TUser = user
+                };
+                await _context.AddAsync(tripUser);
+            }
+            else
+            {
+                throw new Exception("Trip or user are not exists");
+            }
+
+            
+
         }
 
         public async Task<bool> CheckUserPermissionsForTrip(int tripId, string userId)

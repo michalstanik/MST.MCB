@@ -15,5 +15,6 @@ namespace MCB.Data.RepositoriesInterfaces
         Task<bool> CheckUserPermissionsForTrip(int tripId, string userId);
         Task<List<Trip>> GetTripsByUser(string userId, bool includeStops, bool includeUsers);
         Task AddTrip(Trip tripEntity);
+        Task AddUserToTheTrip(int tripId, string userId);
     }
 }

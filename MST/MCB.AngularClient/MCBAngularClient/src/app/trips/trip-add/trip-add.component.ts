@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
+
+// Services
+import { TripService } from 'src/app/core/services/trips.service';
 
 @Component({
   selector: 'app-trip-add',
@@ -8,7 +12,9 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 })
 export class TripAddComponent implements OnInit {
   public tripForm: FormGroup;
-  constructor( private formBuilder: FormBuilder) { }
+  constructor( private formBuilder: FormBuilder,
+               private tripService: TripService,
+               private router: Router ) { }
 
   ngOnInit() {
         // define the tripForm (with empty default values)
@@ -20,6 +26,17 @@ export class TripAddComponent implements OnInit {
   addTrip(): void {
     if (this.tripForm.dirty) {
 
+      // Create TripForCreation from form model
+      const trip = automapper.map(
+        'TripFormModel',
+        'TripForCreation',
+        this.tripForm.value);
+
+      this.tripService.addTrip(trip)
+          .subscribe(
+            () => {
+              this.router.navigateByUrl('/trips');
+            });
     }
   }
 }

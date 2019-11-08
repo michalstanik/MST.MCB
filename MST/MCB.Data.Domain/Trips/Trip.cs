@@ -74,8 +74,8 @@ namespace MCB.Data.Domain.Trips
                 { "stopsCount", Stops.Count() },
                 { "userCount", Users().Count() },
                 { "worldHeritages", WorldHeritages().Count() },
-                { "yearOfTrip", Stops.Select(s => s.Arrival.Year).Max() },
-                { "numberOfDays", System.Convert.ToInt32(System.Math.Floor((Stops.Select(s => s.Departure).Max() - Stops.Select(s => s.Arrival).Min()).TotalDays)) }
+                { "yearOfTrip", Stops.Count() != 0 ? Stops.Select(s => s.Arrival.Year).Max() : 0 },
+                { "numberOfDays", Stops.Count() != 0 ? Convert.ToInt32(System.Math.Floor((Stops.Select(s => s.Departure).Max() - Stops.Select(s => s.Arrival).Min()).TotalDays)) : 0 }
             };
 
             return statistics;
@@ -85,8 +85,8 @@ namespace MCB.Data.Domain.Trips
         {
             var dates = new Dictionary<string, DateTime>
             {
-                { "startDate", Stops.Select(s => s.Arrival.Date).Min() },
-                { "endDate", Stops.Select(s => s.Departure.Date).Max() }
+                { "startDate",Stops.Count() != 0 ? Stops.Select(s => s.Arrival.Date).Min() : new DateTime() },
+                { "endDate", Stops.Count() != 0 ? Stops.Select(s => s.Departure.Date).Max() : new DateTime() }
             };
 
             return dates;

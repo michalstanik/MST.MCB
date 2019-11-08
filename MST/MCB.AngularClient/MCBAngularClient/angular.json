@@ -40,7 +40,8 @@
               "node_modules/chart.js/dist/Chart.js",
               "node_modules/easy-pie-chart/dist/easypiechart.js",
               "node_modules/screenfull/dist/screenfull.js",
-              "node_modules/hammerjs/hammer.min.js"
+              "node_modules/hammerjs/hammer.min.js",
+              "node_modules/automapper-ts/dist/automapper.min.js"
             ]
           },
           "configurations": {

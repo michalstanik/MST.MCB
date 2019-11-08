@@ -14,6 +14,7 @@ import { TripAddComponent } from './trip-add/trip-add.component';
 import { CoreModule } from '../core/core.module';
 import { routing } from './trips-routing.module';
 import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,14 @@ import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
     MDBBootstrapModulesPro.forRoot(),
     CommonModule,
     CoreModule,
-    routing
+    routing,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
-export class TripsModuleModule { }
+export class TripsModuleModule {
+
+  constructor() {
+     automapper.createMap('TripFormModel', 'TripForCreation');
+  }
+}

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MDBSpinningPreloader, MDBBootstrapModulesPro, ToastModule } from 'ng-uikit-pro-standard';
 
@@ -28,6 +28,7 @@ import { routing } from './app-routing.module';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     ToastModule.forRoot(),
     MDBBootstrapModulesPro.forRoot(),
@@ -37,6 +38,7 @@ import { routing } from './app-routing.module';
     CountriesModule
   ],
   providers: [MDBSpinningPreloader],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [ReactiveFormsModule]
 })
 export class AppModule { }

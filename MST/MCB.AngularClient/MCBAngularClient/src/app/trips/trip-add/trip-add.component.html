@@ -1,1 +1,31 @@
-<p>trip-add works!</p>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      Add a trip
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" novalidate (ngSubmit)="addTrip()" [formGroup]="tripForm">
+          <fieldset>
+                <div class="form-group">
+                        <label class="col-md-2 control-label" for="name">Name</label>
+                        <div class="col-md-8">
+                          <input class="form-control" id="name" type="text" placeholder="Name" formControlName="name" />
+                        </div>
+                </div>
+                <!-- <div class="form-group">
+                        <div class="col-md-4 col-md-offset-2">
+                          <span>
+                            <button class="btn btn-primary" type="submit">
+                              Save
+                            </button>
+                          </span>
+                          <span>
+                            <a class="btn btn-default" [routerLink]="['/tours']">
+                              Back
+                            </a>
+                          </span>
+                        </div>
+                </div> -->
+          </fieldset> 
+          </form>
+    </div>
+</div>  

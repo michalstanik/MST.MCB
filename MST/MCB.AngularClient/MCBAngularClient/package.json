@@ -23,6 +23,7 @@
     "acorn": "^6.2.1",
     "chart.js": "^2.5.0",
     "easy-pie-chart": "2.1.x",
+    "automapper-ts": "^1.9.0",
     "hammerjs": "^2.0.8",
     "ng-uikit-pro-standard": "git+https://oauth2:aB_e6nd5DLREFF9dHDwn@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git",
     "oidc-client": "^1.8.2",

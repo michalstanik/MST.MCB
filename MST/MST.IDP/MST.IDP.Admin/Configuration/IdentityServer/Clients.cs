@@ -14,7 +14,7 @@ namespace MST.IDP.Admin.Configuration.IdentityServer
 
             return new List<Client>
             {
-	            new Client
+                new Client
                 {
 
                     ClientId =adminConfiguration.ClientId,
@@ -46,7 +46,7 @@ namespace MST.IDP.Admin.Configuration.IdentityServer
                 {
                     ClientId = adminConfiguration.IdentityAdminApiSwaggerUIClientId,
                     ClientName = adminConfiguration.IdentityAdminApiSwaggerUIClientId,
-                    
+
                     AllowedGrantTypes = GrantTypes.Implicit,
 
                     RedirectUris = new List<string>
@@ -78,7 +78,7 @@ namespace MST.IDP.Admin.Configuration.IdentityServer
                 },
                 new Client
                 {
-                    ClientName = "Trip With Me",
+                    ClientName = "Trip With Me WebClient",
                     ClientId="tripwithmeclient",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     RequireConsent = false,
@@ -94,6 +94,25 @@ namespace MST.IDP.Admin.Configuration.IdentityServer
                         "roles",
                         "tripwithmeapi"
                     }
+                }
+                ,
+                new Client
+                {
+                    ClientName = "Trip With Me Mobile",
+                    ClientId = "tripwithmemobile",
+                    Description = "Used for All Xamarin Mobile Apps",
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    RequireConsent = false,
+                    RequirePkce = true,
+                    RedirectUris =  { "https://localhost:4200/assets/oidc-login-redirect.html" },
+                    AllowedScopes = new List<string>
+                     {
+                         IdentityServerConstants.StandardScopes.OpenId,
+                         IdentityServerConstants.StandardScopes.Profile,
+                         IdentityServerConstants.StandardScopes.OfflineAccess
+                     },
+                   AllowOfflineAccess = true,
+                   AllowAccessTokensViaBrowser = true
                 }
             };
 

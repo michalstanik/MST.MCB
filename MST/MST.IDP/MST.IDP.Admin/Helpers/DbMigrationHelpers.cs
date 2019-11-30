@@ -50,6 +50,8 @@ namespace MST.IDP.Admin.Helpers
             {
                 using (var context = scope.ServiceProvider.GetRequiredService<TPersistedGrantDbContext>())
                 {
+                    //TODO: Only DEV purpose
+                    await context.Database.EnsureDeletedAsync();
                     await context.Database.MigrateAsync();
                 }
 
@@ -142,15 +144,26 @@ namespace MST.IDP.Admin.Helpers
         private static async Task EnsureSeedIdentityServerData<TIdentityServerDbContext>(TIdentityServerDbContext context, IAdminConfiguration adminConfiguration)
             where TIdentityServerDbContext : DbContext, IAdminConfigurationDbContext
         {
-            if (!context.Clients.Any())
+            foreach (var client in Clients.GetAdminClient(adminConfiguration).ToList())
             {
-                foreach (var client in Clients.GetAdminClient(adminConfiguration).ToList())
+                var existingClient = context.Clients
+                    .Include(c => c.AllowedScopes)
+                    .Where(c => c.ClientId == client.ClientId).SingleOrDefault(); ;
+                if (existingClient == null)
                 {
                     await context.Clients.AddAsync(client.ToEntity());
                 }
-
-                await context.SaveChangesAsync();
+                else
+                {
+                    //TODO: Update only when change were made
+                    var updatedEntity = client.ToEntity();
+                    updatedEntity.Id = existingClient.Id;
+                    context.Entry(existingClient).CurrentValues.SetValues(updatedEntity);
+                }
             }
+
+            await context.SaveChangesAsync();
+
 
             if (!context.IdentityResources.Any())
             {

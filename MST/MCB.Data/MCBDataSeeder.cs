@@ -44,7 +44,7 @@ namespace MCB.Data
                 TripManager = firstUser,
                 UserTrips = new List<UserTrip>()
                 {
-                    new UserTrip() { TUser = firstUser}
+                    new UserTrip() { TUser = firstUser }
                 },
                 Stops = new List<Stop>()
                 {
@@ -57,7 +57,7 @@ namespace MCB.Data
                         Departure = new DateTime(2016, 11, 1),
                         Country = countryThailand,
                         Latitude = 00.000000,
-                        Longitude = 00.000000,                       
+                        Longitude = 00.000000,
                     },
                     new Stop()
                     {
@@ -80,6 +80,25 @@ namespace MCB.Data
                         Country = countryVietnam,
                         Latitude = 00.000000,
                         Longitude = 00.000000,
+                    }
+                },
+                Flights = new List<Flight>()
+                {
+                    new Flight()
+                    {
+                        DepartureAirport = _context.Airport.Where(s => s.IATA == "WAW").FirstOrDefault(),
+                        ArrivalAirport = _context.Airport.Where(s => s.IATA == "DXB").FirstOrDefault(),
+                        DepartureDate = new DateTime(2016,10,31,13,25,00),
+                        ArrivialDate = new DateTime(2016,10,31,22,5,00),
+                        FlightNumber = "EK180"
+                    },
+                    new Flight()
+                    {
+                        DepartureAirport = _context.Airport.Where(s => s.IATA == "DXB").FirstOrDefault(),
+                        ArrivalAirport = _context.Airport.Where(s => s.IATA == "BKK").FirstOrDefault(),
+                        DepartureDate = new DateTime(2016,11,1,9,32,00),
+                        ArrivialDate = new DateTime(2016,11,1,18,15,00),
+                        FlightNumber = "EK418"
                     }
                 }
             };

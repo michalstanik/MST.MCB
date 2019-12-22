@@ -34,7 +34,7 @@ namespace MCB.Data
         private async Task SeedAirports()
         {
             if (_context.Airport.Count() != 0) return;
-            using (var reader = new StreamReader(@"C:/Users/michal.stanik/source/repos/MST.MCB/MST/MCB.Data/LoadData/airports.dat.txt"))
+            using (var reader = new StreamReader(@"C:/Users/micha/source/repos/MST.MCB/MST/MCB.Data/LoadData/airports.dat.txt"))
             {
                 var listOfAirports = new List<Airport>();
                 var countriesDictonary = new Dictionary<int, string>();
@@ -53,8 +53,32 @@ namespace MCB.Data
                         AirportId = values[0],
                         Name = values[1],
                         City = values[2],
-                        CountryName = values[3]
+                        CountryName = values[3],
+                        IATA = values[4],
+                        ICAO = values[5]
+                        //TODO: Fix an convert issue for airport latitude and longitude
+                        //Latitude = Convert.ToInt64(values[6]),
+                        //Longitude = Convert.ToInt64(values[7])
                     };
+
+                    switch (values[3])
+                    {
+                        case "Reunion":
+                            values[3] = "Réunion";
+                            break;
+                        case "Burma":
+                            values[3] = "Myanmar";
+                            break;
+                        case "Congo (Brazzaville)":
+                            values[3] = "DR Congo";
+                            break;
+                        case "Congo (Kinshasa)":
+                            values[3] = "DR Congo";
+                            break;
+                        case "Czech Republic":
+                            values[3] = "Czechia";
+                            break;
+                    }
 
                     var countryId = countriesDictonary.Where(c => c.Value == values[3]).Select(c => c.Key).FirstOrDefault();
                     if (countryId != 0)
@@ -75,7 +99,7 @@ namespace MCB.Data
 
             XmlSerializer deserializer = new XmlSerializer(typeof(Rows));
 
-            TextReader textReader = new StreamReader(@"C:/Users/michal.stanik/Source/Repos/michalstanik/MCB/MCB/MCB.Data/LoadData/WorldHeritage.xml");
+            TextReader textReader = new StreamReader(@"C:/Users/micha/Source/Repos/MST.MCB/MST/MCB.Data/LoadData/WorldHeritage.xml");
             Rows worldHeritage;
 
             worldHeritage = (Rows)deserializer.Deserialize(textReader);
@@ -133,7 +157,7 @@ namespace MCB.Data
             if (_context.Country.Count() != 0) return;
 
             //TODO: PROD: Below source should be relative
-            using (StreamReader r = new StreamReader("C:/Users/michal.stanik/Source/Repos/michalstanik/MCB/MCB/MCB.Data/LoadData/countries.json"))
+            using (StreamReader r = new StreamReader("C:/Users/micha/Source/Repos/MST.MCB/MST/MCB.Data/LoadData/countries.json"))
             {
                 var settings = new JsonSerializerSettings
                 {

@@ -27,7 +27,7 @@ namespace MCB.Data
         //Trip
         public DbSet<Trip> Trip { get; set; }
         public DbSet<Stop> Stop { get; set; }
-
+        public DbSet<Flight> Flight { get; set; }
 
         //WorldHeritage
         public DbSet<WorldHeritage> WorldHeritage { get; set; }
@@ -48,5 +48,6 @@ namespace MCB.Data
             //WorldHeritage
             modelBuilder.Entity<WorldHeritageCountry>().HasKey(s => new { s.WorldHeritageId, s.CountryId });
         }
+
     }
 }

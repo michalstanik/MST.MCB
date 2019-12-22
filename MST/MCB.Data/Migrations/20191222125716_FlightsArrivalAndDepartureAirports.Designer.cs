@@ -4,14 +4,16 @@ using MCB.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MCB.Data.Migrations
 {
     [DbContext(typeof(MCBContext))]
-    partial class MCBContextModelSnapshot : ModelSnapshot
+    [Migration("20191222125716_FlightsArrivalAndDepartureAirports")]
+    partial class FlightsArrivalAndDepartureAirports
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,15 +127,11 @@ namespace MCB.Data.Migrations
 
                     b.Property<string>("FlightNumber");
 
-                    b.Property<int?>("TripId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ArrivalAirportId");
 
                     b.HasIndex("DepartureAirportId");
-
-                    b.HasIndex("TripId");
 
                     b.ToTable("Flight");
                 });
@@ -305,10 +303,6 @@ namespace MCB.Data.Migrations
                     b.HasOne("MCB.Data.Domain.Aviation.Airport", "DepartureAirport")
                         .WithMany("DepartureFlights")
                         .HasForeignKey("DepartureAirportId");
-
-                    b.HasOne("MCB.Data.Domain.Trips.Trip", "Trip")
-                        .WithMany("Flights")
-                        .HasForeignKey("TripId");
                 });
 
             modelBuilder.Entity("MCB.Data.Domain.Trips.Stop", b =>

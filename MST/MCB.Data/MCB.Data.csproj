@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191222125107_FlightsArrivalAndDepartureAirports.cs" />
+    <Compile Remove="Migrations\20191222125107_FlightsArrivalAndDepartureAirports.Designer.cs" />
+    <Compile Remove="Migrations\20191222125222_FlightsArrivalAndDepartureAirports.cs" />
+    <Compile Remove="Migrations\20191222125222_FlightsArrivalAndDepartureAirports.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>

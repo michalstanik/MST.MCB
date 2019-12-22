@@ -4,14 +4,16 @@ using MCB.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MCB.Data.Migrations
 {
     [DbContext(typeof(MCBContext))]
-    partial class MCBContextModelSnapshot : ModelSnapshot
+    [Migration("20191222130229_TripAndFlightsRelationship")]
+    partial class TripAndFlightsRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

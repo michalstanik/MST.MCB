@@ -14,6 +14,7 @@ namespace MCB.Data.Domain.Trips
         {
             UserTrips = new List<UserTrip>();
             Stops = new List<Stop>();
+            Flights = new List<Flight>();
         }
         public int Id { get; set; }
 
@@ -23,6 +24,7 @@ namespace MCB.Data.Domain.Trips
 
         public List<UserTrip> UserTrips { get; set; }
         public List<Stop> Stops { get; set; }
+        public List<Flight> Flights { get; set; }
 
         public TUser TripManager { get; set; }
 

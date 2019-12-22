@@ -42,7 +42,7 @@ namespace MCB.Api.Controllers
         [Produces("application/vnd.mcb.trip+json")]
         [RequestHeaderMatchesMediaType("Accept",
             "application/json",
-            "application/vnd.mcb.trip+json" )]
+            "application/vnd.mcb.trip+json")]
         public async Task<ActionResult<TripModel>> GetTrip(int id)
         {
             return await GetSpecificTrip<TripModel>(id);
@@ -51,7 +51,7 @@ namespace MCB.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripfull+json")]
-        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.tripfull+json" )]
+        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.tripfull+json")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TripFullModel>> GetTripFull(int id)
         {
@@ -67,16 +67,16 @@ namespace MCB.Api.Controllers
         [Produces("application/vnd.mcb.trip+json")]
         [RequestHeaderMatchesMediaType("Accept",
             "application/json",
-            "application/vnd.mcb.trip+json" )]
+            "application/vnd.mcb.trip+json")]
         public async Task<ActionResult<List<TripModel>>> GetTrips()
         {
             return await GetListOfTrips<TripModel>();
         }
-         
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithstops+json")]
-        [RequestHeaderMatchesMediaType("Accept","application/vnd.mcb.tripwithstops+json")]
+        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.tripwithstops+json")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TripWithStopsModel>> GetTripWithStops(int id)
         {
@@ -126,7 +126,7 @@ namespace MCB.Api.Controllers
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountries+json")]
-        [RequestHeaderMatchesMediaType("Accept","application/vnd.mcb.tripwithcountries+json")]
+        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.tripwithcountries+json")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<List<TripWithCountriesModel>>> GetTripsWithCountries()
         {
@@ -136,7 +136,7 @@ namespace MCB.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountriesandstats+json")]
-        [RequestHeaderMatchesMediaType("Accept","application/vnd.mcb.tripwithcountriesandstats+json")]
+        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.tripwithcountriesandstats+json")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TripWithCountriesAndStatsModel>> GetTripWithCountriesAndStats(int id)
         {
@@ -146,7 +146,7 @@ namespace MCB.Api.Controllers
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountriesandstats+json")]
-        [RequestHeaderMatchesMediaType("Accept","application/vnd.mcb.tripwithcountriesandstats+json")]
+        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.tripwithcountriesandstats+json")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<List<TripWithCountriesAndStatsModel>>> GetTripsWithCountriesAndStats()
         {
@@ -166,7 +166,7 @@ namespace MCB.Api.Controllers
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripwithcountriesandworldheritages+json")]
-        [RequestHeaderMatchesMediaType("Accept","application/vnd.mcb.tripwithcountriesandworldheritages+json")]
+        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.tripwithcountriesandworldheritages+json")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<List<TripWithCountriesAndWorldHeritagesModel>>> GetTripsWithCountriesAndWorldHeritages()
         {
@@ -213,7 +213,7 @@ namespace MCB.Api.Controllers
         [HttpGet()]
         private async Task<ActionResult<List<T>>> GetListOfTrips<T>(bool includeStops = false, bool includeUsers = false) where T : class
         {
-            var tripsFromRepo = await _repository.GetTripsByUser(_userInfoService.UserId,includeStops, includeUsers);
+            List<Trip> tripsFromRepo = await _repository.GetTripsByUser(_userInfoService.UserId, includeStops, includeUsers);
 
             if (tripsFromRepo == null)
             {
@@ -225,21 +225,21 @@ namespace MCB.Api.Controllers
 
         private async Task<ActionResult<T>> GetSpecificTrip<T>(int tripId, bool includeStops = false, bool includeUsers = false) where T : class
         {
-            var tripFromRepo = await _repository.GetTrip(tripId , includeStops, includeUsers);
+            var tripFromRepo = await _repository.GetTrip(tripId, includeStops, includeUsers);
 
             if (tripFromRepo == null)
             {
                 return BadRequest();
             }
 
-            if(_userInfoService.Role == "Administrator")
+            if (_userInfoService.Role == "Administrator")
             {
                 return Ok(_mapper.Map<T>(tripFromRepo));
             }
 
             var userPermissionToTheTrip = await _repository.CheckUserPermissionsForTrip(tripId, _userInfoService.UserId);
 
-            if(userPermissionToTheTrip != true && _userInfoService.Role != "Administrator")
+            if (userPermissionToTheTrip != true && _userInfoService.Role != "Administrator")
             {
                 return Forbid();
             }
@@ -247,8 +247,8 @@ namespace MCB.Api.Controllers
             return Ok(_mapper.Map<T>(tripFromRepo));
         }
 
-        private async Task<IActionResult> AddSpecificTrip<T>(T trip) 
-            where T: class
+        private async Task<IActionResult> AddSpecificTrip<T>(T trip)
+            where T : class
         {
             var tripEntity = _mapper.Map<Trip>(trip);
 

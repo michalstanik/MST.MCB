@@ -135,6 +135,11 @@ namespace MST.IDP.Admin.Helpers
 
                 await userManager.CreateAsync(identityUser, "Password123!");
                 await userManager.AddClaimsAsync(identityUser, testUser.Claims.ToList());
+
+                if(identityUser.UserName == "Michal")
+                {
+                    await userManager.AddToRoleAsync(identityUser, AuthorizationConsts.AdministrationRole);
+                }
             }
         }
 

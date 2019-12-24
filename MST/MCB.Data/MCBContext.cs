@@ -1,4 +1,5 @@
 ﻿using MCB.Data.Domain.Aviation;
+using MCB.Data.Domain.Flights;
 using MCB.Data.Domain.Geo;
 using MCB.Data.Domain.Trips;
 using MCB.Data.Domain.User;
@@ -27,7 +28,6 @@ namespace MCB.Data
         //Trip
         public DbSet<Trip> Trip { get; set; }
         public DbSet<Stop> Stop { get; set; }
-        public DbSet<Flight> Flight { get; set; }
 
         //WorldHeritage
         public DbSet<WorldHeritage> WorldHeritage { get; set; }
@@ -35,6 +35,9 @@ namespace MCB.Data
 
         //Aviation
         public DbSet<Airport> Airport { get; set; }
+
+        //Flights
+        public DbSet<Flight> Flight { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,6 +47,9 @@ namespace MCB.Data
 
             //UserTrip
             modelBuilder.Entity<UserTrip>().HasKey(ut => new { ut.TripId, ut.TUserId });
+
+            //UserFLigts
+            modelBuilder.Entity<UserFlight>().HasKey(uf => new { uf.FlightId, uf.TUserId });
 
             //WorldHeritage
             modelBuilder.Entity<WorldHeritageCountry>().HasKey(s => new { s.WorldHeritageId, s.CountryId });

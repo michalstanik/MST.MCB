@@ -1,4 +1,5 @@
-﻿using MCB.Data.Domain.Geo;
+﻿using MCB.Data.Domain.Flights;
+using MCB.Data.Domain.Geo;
 using MCB.Data.Domain.Trips;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;

@@ -73,6 +73,8 @@ namespace MCB.Api
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithcountriesandworldheritages+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.countriesforUserWithAssessments+json");
 
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.flight+json");
+
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.continentWithRegionsAndCountries+json");
 
                     if (jsonOutputFormatter.SupportedMediaTypes.Contains("text/json"))
@@ -151,13 +153,20 @@ namespace MCB.Api
 
             services.AddAutoMapper(typeof(Startup));
 
+            //Seeders
             services.AddTransient<MCBDictionarySeeder>();
             services.AddTransient<MCBDataSeeder>();
             services.AddTransient<MCBEnsureDB>();
             services.AddTransient<MCBReportingSeeder>();
+            
+            //Repositories
             services.AddScoped<IGeoRepository, GeoRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
+            services.AddScoped<IFlightRepository, FlightRepository>();
+
+            //UserInfoService
             services.AddScoped<IUserInfoService, UserInfoService>();
+
             // register an IHttpContextAccessor so we can access the current HttpContext in services by injecting it
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

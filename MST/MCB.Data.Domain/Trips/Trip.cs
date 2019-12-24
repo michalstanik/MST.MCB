@@ -1,4 +1,5 @@
-﻿using MCB.Data.Domain.Geo;
+﻿using MCB.Data.Domain.Flights;
+using MCB.Data.Domain.Geo;
 using MCB.Data.Domain.User;
 using MCB.Data.Domain.WorldHeritages;
 using System;

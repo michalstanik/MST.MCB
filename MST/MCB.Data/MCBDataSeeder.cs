@@ -1,4 +1,5 @@
-﻿using MCB.Data.Domain.Trips;
+﻿using MCB.Data.Domain.Flights;
+using MCB.Data.Domain.Trips;
 using MCB.Data.Domain.User;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -90,7 +91,12 @@ namespace MCB.Data
                         ArrivalAirport = _context.Airport.Where(s => s.IATA == "DXB").FirstOrDefault(),
                         DepartureDate = new DateTime(2016,10,31,13,25,00),
                         ArrivialDate = new DateTime(2016,10,31,22,5,00),
-                        FlightNumber = "EK180"
+                        FlightNumber = "EK180",
+                        UserFlights = new List<UserFlight>()
+                        {
+                            new UserFlight() {TUser = firstUser }
+                        }
+
                     },
                     new Flight()
                     {
@@ -98,7 +104,11 @@ namespace MCB.Data
                         ArrivalAirport = _context.Airport.Where(s => s.IATA == "BKK").FirstOrDefault(),
                         DepartureDate = new DateTime(2016,11,1,9,32,00),
                         ArrivialDate = new DateTime(2016,11,1,18,15,00),
-                        FlightNumber = "EK418"
+                        FlightNumber = "EK418",
+                        UserFlights = new List<UserFlight>()
+                        {
+                            new UserFlight() {TUser = firstUser }
+                        }
                     }
                 }
             };

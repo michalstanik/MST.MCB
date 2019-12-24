@@ -150,7 +150,7 @@ namespace MCB.Api.Controllers
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<List<TripWithCountriesAndStatsModel>>> GetTripsWithCountriesAndStats()
         {
-            return await GetListOfTrips<TripWithCountriesAndStatsModel>(true, true);
+            return await GetListOfTrips<TripWithCountriesAndStatsModel>(true, true, true);
         }
 
         [HttpGet("{id}")]
@@ -211,9 +211,9 @@ namespace MCB.Api.Controllers
         }
 
         [HttpGet()]
-        private async Task<ActionResult<List<T>>> GetListOfTrips<T>(bool includeStops = false, bool includeUsers = false) where T : class
+        private async Task<ActionResult<List<T>>> GetListOfTrips<T>(bool includeStops = false, bool includeUsers = false, bool includeFlights = false) where T : class
         {
-            List<Trip> tripsFromRepo = await _repository.GetTripsByUser(_userInfoService.UserId, includeStops, includeUsers);
+            List<Trip> tripsFromRepo = await _repository.GetTripsByUser(_userInfoService.UserId, includeStops, includeUsers, includeFlights);
 
             if (tripsFromRepo == null)
             {

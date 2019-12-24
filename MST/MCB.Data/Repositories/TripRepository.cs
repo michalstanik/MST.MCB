@@ -78,21 +78,21 @@ namespace MCB.Data.Repositories
 
         }
 
-        public async Task<List<Trip>> GetTripsByUser(string userId, bool includeStops, bool includeUsers)
+        public async Task<List<Trip>> GetTripsByUser(string userId, bool includeStops, bool includeUsers, bool includeFlights = false)
         {
             var query = from tu in _context.UserTrip
                         join u in _context.TUser on tu.TUserId equals userId
                         join t in _context.Trip on tu.TripId equals t.Id
                         select t;
 
-            query = IncludeTripProperties(query, includeStops, includeUsers);
+            query = IncludeTripProperties(query, includeStops, includeUsers, includeFlights);
 
             return await query.ToListAsync();
         }
 
-        public IQueryable<Trip> IncludeTripProperties(IQueryable<Trip> query, bool includeStops, bool includeUsers)
+        public IQueryable<Trip> IncludeTripProperties(IQueryable<Trip> query, bool includeStops, bool includeUsers, bool includeFlights = false)
         {
-            if (includeStops && !includeUsers)
+            if (includeStops && !includeUsers && !includeFlights)
             {
                 query = query
                     .Include(c => c.Stops)
@@ -102,12 +102,12 @@ namespace MCB.Data.Repositories
                     .Include(e => e.Stops)
                         .ThenInclude(e => e.WorldHeritage);
             }
-            else if (!includeStops && includeUsers)
+            else if (!includeStops && includeUsers && !includeFlights)
             {
                 query = query.Include(c => c.UserTrips)
                     .ThenInclude(pc => pc.TUser);
             }
-            else if (includeStops && includeUsers)
+            else if (includeStops && includeUsers && !includeFlights)
             {
                 query = query
                     .Include(c => c.Stops)
@@ -119,7 +119,22 @@ namespace MCB.Data.Repositories
                     .Include(c => c.UserTrips)
                         .ThenInclude(pc => pc.TUser);
             }
-
+            else if (includeStops && includeUsers && includeFlights)
+            {
+                query = query
+                    .Include(c => c.Stops)
+                        .ThenInclude(c => c.Country)
+                        .ThenInclude(r => r.Region)
+                        .ThenInclude(e => e.Continent)
+                    .Include(e => e.Stops)
+                        .ThenInclude(e => e.WorldHeritage)
+                    .Include(c => c.UserTrips)
+                        .ThenInclude(pc => pc.TUser)
+                    .Include(f => f.Flights)
+                        .ThenInclude(a => a.DepartureAirport)
+                    .Include(g => g.Flights)
+                        .ThenInclude(b => b.ArrivalAirport);
+            }
             return  query;
         }
 

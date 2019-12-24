@@ -5,4 +5,5 @@ export class Statistics {
   worldHeritages: number;
   yearOfTrip: number;
   numberOfDays: number;
+  numberOfFlights: number;
 }

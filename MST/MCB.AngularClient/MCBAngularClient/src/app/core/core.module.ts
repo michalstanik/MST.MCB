@@ -10,6 +10,7 @@ import { TripService } from './services/trips.service';
 import { AuthService } from './services/auth.service';
 import { CountryService } from './services/country.service';
 import { ContinentService } from './services/continent.service';
+import { RegionService } from './services/region.service';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ContinentService } from './services/continent.service';
         AuthService,
         TripService,
         CountryService,
-        ContinentService
+        ContinentService,
+        RegionService
     ],
 })
 export class CoreModule { }

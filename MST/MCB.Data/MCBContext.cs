@@ -53,7 +53,9 @@ namespace MCB.Data
 
             //WorldHeritage
             modelBuilder.Entity<WorldHeritageCountry>().HasKey(s => new { s.WorldHeritageId, s.CountryId });
-        }
 
+            //Flight
+            modelBuilder.Entity<Flight>().Property(f => f.FlightTypeAssessment).HasConversion<string>();
+        }
     }
 }

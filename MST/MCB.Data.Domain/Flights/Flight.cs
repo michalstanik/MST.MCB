@@ -26,6 +26,14 @@ namespace MCB.Data.Domain.Flights
         public Trip Trip { get;set; }
         public int? TripId { get; set; }
 
+        public FlightType FlightTypeAssessment { get; set; }
+
+        public enum FlightType
+        {
+            Charter, 
+            Scheduled
+        }
+
         public List<UserFlight> UserFlights { get; set; }
 
         public IEnumerable<TUser> Users()

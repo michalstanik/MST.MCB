@@ -38,6 +38,9 @@ namespace MCB.Data
             var countryUK = _context.Country.Where(c => c.Alpha3Code == "GBR").FirstOrDefault();
             var countryIndia = _context.Country.Where(c => c.Alpha3Code == "IND").FirstOrDefault();
             var countryCaboVerde = _context.Country.Where(c => c.Alpha3Code == "CPV").FirstOrDefault();
+            var countryGambia = _context.Country.Where(c => c.Alpha3Code == "GMB").FirstOrDefault();
+            var countrySenegal = _context.Country.Where(c => c.Alpha3Code == "SEN").FirstOrDefault();
+            var countryGuineaBissau = _context.Country.Where(c => c.Alpha3Code == "GNB").FirstOrDefault();
 
             var firstAsiaTrip = new Trip()
             {
@@ -92,11 +95,11 @@ namespace MCB.Data
                         DepartureDate = new DateTime(2016,10,31,13,25,00),
                         ArrivialDate = new DateTime(2016,10,31,22,5,00),
                         FlightNumber = "EK180",
+                        FlightTypeAssessment = Flight.FlightType.Scheduled,
                         UserFlights = new List<UserFlight>()
                         {
                             new UserFlight() {TUser = firstUser }
                         }
-
                     },
                     new Flight()
                     {
@@ -105,6 +108,7 @@ namespace MCB.Data
                         DepartureDate = new DateTime(2016,11,1,9,32,00),
                         ArrivialDate = new DateTime(2016,11,1,18,15,00),
                         FlightNumber = "EK418",
+                        FlightTypeAssessment = Flight.FlightType.Scheduled,
                         UserFlights = new List<UserFlight>()
                         {
                             new UserFlight() {TUser = firstUser }
@@ -149,7 +153,55 @@ namespace MCB.Data
                     }
                 }
             };
-            _context.AddRange(azerbaijanTrip, firstAsiaTrip);
+
+            var threeAfricanCountriesTrip = new Trip()
+            {
+                Name = "Three African Countries Trip",
+                TripManager = firstUser,
+                UserTrips = new List<UserTrip>()
+                {
+                    new UserTrip() { TUser = firstUser }
+                },
+                Stops = new List<Stop>()
+                {
+                    new Stop()
+                    {
+                        Name = "Banjul",
+                        Description = "First night in Banjul",
+                        Order = 1,
+                        Country = countryGambia,
+                        Arrival = new DateTime(2019,12,13),
+                        Departure = new DateTime(2019,12,14),
+                        Latitude = 13.466667,
+                        Longitude = -16.6
+                    },
+                    new Stop()
+                    {
+                        Name = "Bubaque",
+                        Description = "Archipel des Bijagos, Bubaque Island",
+                        Order = 2,
+                        Country = countryGuineaBissau,
+                        Arrival = new DateTime(2019,12,14),
+                        Departure = new DateTime(2019,12,16),
+                        Latitude = 11.283333,
+                        Longitude = -15.833333
+                    },
+                    new Stop()
+                    {
+                        Name = "Cap Skirring",
+                        Description = "Cap Skirring",
+                        Order = 3,
+                        Country = countrySenegal,
+                        Arrival = new DateTime(2019,12,17),
+                        Departure = new DateTime(2019,12,19),
+                        Latitude = 12.389444,
+                        Longitude = -16.738333
+                    }
+                }
+            };
+
+
+            _context.AddRange(azerbaijanTrip, firstAsiaTrip, threeAfricanCountriesTrip);
             await _context.SaveChangesAsync();
 
             _context.UserCountry.AddRange(
@@ -208,8 +260,28 @@ namespace MCB.Data
                            AreaLevelAssessment = 60,
                            Country = countryCaboVerde,
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
+                       },
+                       new UserCountry()
+                       {
+                           TUser = firstUser,
+                           AreaLevelAssessment = 40,
+                           Country = countryGambia,
+                           CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
+                       },
+                       new UserCountry()
+                       {
+                           TUser = firstUser,
+                           AreaLevelAssessment = 30,
+                           Country = countrySenegal,
+                           CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
+                       },
+                       new UserCountry()
+                       {
+                           TUser = firstUser,
+                           AreaLevelAssessment = 60,
+                           Country = countryGuineaBissau,
+                           CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        }
-
                   );
 
             await _context.SaveChangesAsync();

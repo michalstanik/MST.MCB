@@ -6,6 +6,7 @@ import { ContinentWithRegionsAndCountriesModel } from 'src/app/core/model/Geo/co
 
 // Services
 import { ContinentService } from 'src/app/core/services/continent.service';
+import { debug } from 'util';
 
 
 @Component({
@@ -20,6 +21,12 @@ export class ContinentsListComponent implements OnInit {
 
   ngOnInit() {
     this.myContinetService.GetCountriesForUserByContinent().subscribe(myCountries => { this.myCountries = myCountries; });
+  }
+
+  navigateToRegion(id: number) {
+    console.log('RegionId', id);
+
+    this.router.navigate(['mycountries/regions', id]);
   }
 
 }

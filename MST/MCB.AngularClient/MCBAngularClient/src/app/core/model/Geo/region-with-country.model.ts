@@ -5,4 +5,5 @@ export class RegionWithCountryModel {
     countries: Country[];
     visitedCountryCount: number;
     countriesCount: number;
+    name: string;
   }

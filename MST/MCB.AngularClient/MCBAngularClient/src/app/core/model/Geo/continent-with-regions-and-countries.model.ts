@@ -4,4 +4,5 @@ export class ContinentWithRegionsAndCountriesModel {
     regions: RegionWithCountryModel[];
     visitetCountriesOnContinent: number;
     countryCount: number;
+    name: string;
   }

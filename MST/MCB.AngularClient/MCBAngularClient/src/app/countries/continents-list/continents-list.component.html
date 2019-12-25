@@ -6,9 +6,9 @@
     <div class="scrollbar scrollbar-info">
       <div class="force-overflow">
         <div class="card bg-light continent-container" *ngFor="let continent of myCountries">
-  
+
           <div class="card-header text-lg-center continent-header">
-  
+
             <a [ngSwitch]="continent.name">
               <mdb-icon *ngSwitchCase="'Africa'" fas icon="globe-africa"></mdb-icon>
               <mdb-icon *ngSwitchCase="'Europe'" fas icon="globe-europe"></mdb-icon>
@@ -22,9 +22,9 @@
             </a>
           </div>
           <div *ngFor="let region of continent.regions" class="card trip-container">
-            <p class=" card-header region-name btn">
+            <div class="btn card-header region-name" (click)="navigateToRegion(region.id)">
               {{region.name}}  {{region.visitedCountryCount}}/{{region.countriesCount}}
-            </p>
+            </div>
             <div *ngFor="let country of region.countries">
               <app-country-thumbnail [country]="country"></app-country-thumbnail>
             </div>
@@ -33,5 +33,4 @@
       </div>
     </div>
   </div>
-  
-  
+

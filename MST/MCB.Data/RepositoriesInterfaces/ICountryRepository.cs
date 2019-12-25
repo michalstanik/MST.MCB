@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace MCB.Data.RepositoriesInterfaces
 {
-    public interface IGeoRepository
+    public interface ICountryRepository
     {
         Task<ICollection<Country>> GetCountriesForTrip(int tripId);
         Task<ICollection<Country>> GetCountiresWithAssesmentForUser(string userId);

@@ -2,9 +2,8 @@
 
 namespace MCB.Business.Models.Geo
 {
-    public class RegionWithCountryModel : RegionModel
-    {
-        public int Id { get; set; }
+    public class RegionModelWithStatsAndCountry : RegionModelWithStats
+    { 
         public List<CountryModel> Countries { get; set; }
     }
 }

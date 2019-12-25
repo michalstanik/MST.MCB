@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MCB.Data.Repositories
 {
-    public class GeoRepository : IGeoRepository
+    public class CountryRepository : ICountryRepository
     {
         private readonly MCBContext _context;
 
-        public GeoRepository(MCBContext context)
+        public CountryRepository(MCBContext context)
         {
             _context = context;
         }

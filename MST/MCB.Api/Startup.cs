@@ -64,6 +64,7 @@ namespace MCB.Api
 
                 if (jsonOutputFormatter != null)
                 {
+                    //Trips
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.trip+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripfull+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithstops+json");
@@ -71,11 +72,19 @@ namespace MCB.Api
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithcountries+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithcountriesandstats+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithcountriesandworldheritages+json");
+                    
+                    //Countries
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.countriesforUserWithAssessments+json");
-
-                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.flight+json");
-
+                    
+                    //Regions
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.region+json");
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.regionwithuservisits+json");
+                    
+                    //Continents
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.continentWithRegionsAndCountries+json");
+                    
+                    //Flights
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.flight+json");
 
                     if (jsonOutputFormatter.SupportedMediaTypes.Contains("text/json"))
                     {
@@ -113,6 +122,7 @@ namespace MCB.Api
                     });
 
                 setupAction.OperationFilter<TripOperationFilter>();
+                setupAction.OperationFilter<RegionOperationFilter>();
 
                 setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme()
                 {
@@ -160,9 +170,10 @@ namespace MCB.Api
             services.AddTransient<MCBReportingSeeder>();
             
             //Repositories
-            services.AddScoped<IGeoRepository, GeoRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
             services.AddScoped<IFlightRepository, FlightRepository>();
+            services.AddScoped<IRegionRepository, RegionRepository>();
 
             //UserInfoService
             services.AddScoped<IUserInfoService, UserInfoService>();

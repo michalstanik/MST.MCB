@@ -17,12 +17,12 @@ namespace MCB.Api.Controllers
     public class CountriesController : ControllerBase
     {
         private readonly ITripRepository _tripRepository;
-        private readonly IGeoRepository _geoRepository;
+        private readonly ICountryRepository _geoRepository;
         private readonly IMapper _mapper;
         private readonly IUserInfoService _userInfoService;
 
         public CountriesController(ITripRepository tripRepository,
-            IGeoRepository geoRepository,
+            ICountryRepository geoRepository,
             IMapper mapper,
             IUserInfoService userInfoService)
         {

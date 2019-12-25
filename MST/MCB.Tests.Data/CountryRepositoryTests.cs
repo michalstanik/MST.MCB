@@ -40,7 +40,7 @@ namespace MCB.Tests.Data
 
             using (var context = new MCBContext(dbOptions))
             {
-                var geoRepository = new GeoRepository(context);
+                var geoRepository = new CountryRepository(context);
 
                 // Act
                 var countries = await geoRepository.GetCountriesForTrip(9);
@@ -71,7 +71,7 @@ namespace MCB.Tests.Data
 
             using (var context = new MCBContext(dbOptions))
             {
-                var geoRepository = new GeoRepository(context);
+                var geoRepository = new CountryRepository(context);
 
                 // Act
                 var countries = await geoRepository.GetCountriesForTrip(8);
@@ -109,7 +109,7 @@ namespace MCB.Tests.Data
 
             using (var context = new MCBContext(dbOptions))
             {
-                var geoRepository = new GeoRepository(context);
+                var geoRepository = new CountryRepository(context);
 
                 // Act
                 var countries = await geoRepository.GetCountriesForTrip(8);
@@ -146,7 +146,7 @@ namespace MCB.Tests.Data
 
             using (var context = new MCBContext(dbOptions))
             {
-                var geoRepository = new GeoRepository(context);
+                var geoRepository = new CountryRepository(context);
 
                 // Act
                 var countries = await geoRepository.GetCountriesForTrip(8);

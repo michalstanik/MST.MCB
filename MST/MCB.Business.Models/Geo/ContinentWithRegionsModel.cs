@@ -4,6 +4,6 @@ namespace MCB.Business.Models.Geo
 {
     public class ContinentWithRegionsModel : ContinentModel
     {
-        public List<RegionModel> Regions { get; set; }
+        public List<RegionModelWithStats> Regions { get; set; }
     }
 }

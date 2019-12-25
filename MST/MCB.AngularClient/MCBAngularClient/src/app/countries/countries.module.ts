@@ -11,15 +11,20 @@ import { RootComponent } from './root/root.component';
 import { RegionDetailsComponent } from './region-details/region-details.component';
 import { ContinentsListComponent } from './continents-list/continents-list.component';
 import { CountriesMapComponent } from './countries-map/countries-map.component';
+import { CountryThumbnailComponent } from './country-thumbnail/country-thumbnail.component';
+import { CountryListForRegionComponent } from './country-list-for-region/country-list-for-region.component';
 
 import { routing } from './countries-routing.module';
-import { CountryThumbnailComponent } from './country-thumbnail/country-thumbnail.component';
-
-
 
 
 @NgModule({
-  declarations: [RootComponent, RegionDetailsComponent, ContinentsListComponent, CountriesMapComponent, CountryThumbnailComponent],
+  declarations: [
+    RootComponent,
+    RegionDetailsComponent,
+    ContinentsListComponent,
+    CountriesMapComponent,
+    CountryThumbnailComponent,
+    CountryListForRegionComponent],
   imports: [
     routing,
     CommonModule,

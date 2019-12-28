@@ -1,7 +1,11 @@
-﻿using System;
+﻿using IdentityModel.OidcClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -13,9 +17,42 @@ namespace MCB.Mobile
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        private HttpClient _client;
+        string _accessToken;
+
         public MainPage()
         {
             InitializeComponent();
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+            _client = new HttpClient();
+        }
+
+        async void OnLoginButtonClicked(object sender, EventArgs e)
+        {
+            var options = new OidcClientOptions
+            {
+                Authority = Constants.AuthorityUri,
+                ClientId = Constants.ClientId,
+                Scope = Constants.Scope,
+                RedirectUri = Constants.RedirectUri,
+                ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect
+            };
+
+            var oidcClient = new OidcClient(options);
+            var state = await oidcClient.PrepareLoginAsync();
+
+            var response = await DependencyService.Get<INativeBrowser>().LaunchBrowserAsync(state.StartUrl);
+            // HACK: Replace the RedirectURI, purely for UWP, with the current application callback URI.
+            state.RedirectUri = Constants.RedirectUri;
+            var result = await oidcClient.ProcessResponseAsync(response, state);
+
+            if (result.IsError)
+            {
+                Debug.WriteLine("\tERROR: {0}", result.Error);
+                return;
+            }
+
+            _accessToken = result.AccessToken;
         }
     }
 }

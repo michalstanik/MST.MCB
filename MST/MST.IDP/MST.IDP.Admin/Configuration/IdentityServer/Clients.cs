@@ -104,7 +104,8 @@ namespace MST.IDP.Admin.Configuration.IdentityServer
                     AllowedGrantTypes = GrantTypes.Hybrid,
                     RequireConsent = false,
                     RequirePkce = true,
-                    RedirectUris =  { "https://localhost:4200/assets/oidc-login-redirect.html" },
+                    RedirectUris =  { "https://com.mst.uwp" },
+                    AllowedCorsOrigins = {"https://com.mst.uwp"},
                     AllowedScopes = new List<string>
                      {
                          IdentityServerConstants.StandardScopes.OpenId,

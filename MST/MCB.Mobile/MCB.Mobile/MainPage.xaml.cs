@@ -38,6 +38,8 @@ namespace MCB.Mobile
                 ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect
             };
 
+            //string certResult = await DependencyService.Get<IServerCommunication>().GetFromServerAsync(options.Authority);
+
             var oidcClient = new OidcClient(options);
             var state = await oidcClient.PrepareLoginAsync();
 

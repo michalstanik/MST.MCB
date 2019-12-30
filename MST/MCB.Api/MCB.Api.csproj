@@ -3,6 +3,9 @@
     <ItemGroup>
       <DocFile Include="bin\**\**\MCB.Api.xml" />
       <DocFile Include="bin\**\**\MCB.Business.Models.xml" />
+      <DocFile Include="bin\**\**\LoadData\airports.dat.txt" />
+      <DocFile Include="bin\**\**\LoadData\countries.json" />
+      <DocFile Include="bin\**\**\LoadData\WorldHeritage.xml" />
     </ItemGroup>
     <Copy SourceFiles="@(DocFile)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" />
   </Target>
@@ -18,6 +21,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="..\MCB.Data\LoadData\airports.dat.txt" Link="LoadData\airports.dat.txt" CopyToOutputDirectory="PreserveNewest"/>
+    <Content Include="..\MCB.Data\LoadData\countries.json" Link="LoadData\countries.json" CopyToOutputDirectory="PreserveNewest"/>
+    <Content Include="..\MCB.Data\LoadData\WorldHeritage.xml" Link="LoadData\WorldHeritage.xml" CopyToOutputDirectory="PreserveNewest"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.0-preview.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -31,6 +40,10 @@
     <ProjectReference Include="..\MCB.Business.CoreHelper\MCB.Business.CoreHelper.csproj" />
     <ProjectReference Include="..\MCB.Business.Models\MCB.Business.Models.csproj" />
     <ProjectReference Include="..\MCB.Data\MCB.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="LoadData\" />
   </ItemGroup>
 
 </Project>

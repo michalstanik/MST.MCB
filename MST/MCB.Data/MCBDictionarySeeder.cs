@@ -34,7 +34,10 @@ namespace MCB.Data
         private async Task SeedAirports()
         {
             if (_context.Airport.Count() != 0) return;
-            using (var reader = new StreamReader(@"C:/Users/micha/source/repos/MST.MCB/MST/MCB.Data/LoadData/airports.dat.txt"))
+
+            var airportsFilePath = Path.Combine(AppContext.BaseDirectory, "LoadData\\airports.dat.txt");
+
+            using (var reader = new StreamReader(airportsFilePath))
             {
                 var listOfAirports = new List<Airport>();
                 var countriesDictonary = new Dictionary<int, string>();
@@ -99,7 +102,9 @@ namespace MCB.Data
 
             XmlSerializer deserializer = new XmlSerializer(typeof(Rows));
 
-            TextReader textReader = new StreamReader(@"C:/Users/micha/Source/Repos/MST.MCB/MST/MCB.Data/LoadData/WorldHeritage.xml");
+            var worldHeritageFilePath = Path.Combine(AppContext.BaseDirectory, "LoadData\\WorldHeritage.xml");
+
+            TextReader textReader = new StreamReader(worldHeritageFilePath);
             Rows worldHeritage;
 
             worldHeritage = (Rows)deserializer.Deserialize(textReader);
@@ -156,8 +161,9 @@ namespace MCB.Data
         {
             if (_context.Country.Count() != 0) return;
 
-            //TODO: PROD: Below source should be relative
-            using (StreamReader r = new StreamReader("C:/Users/micha/Source/Repos/MST.MCB/MST/MCB.Data/LoadData/countries.json"))
+            var countriesFilePath = Path.Combine(AppContext.BaseDirectory, "LoadData\\countries.json");
+            
+            using (StreamReader r = new StreamReader(countriesFilePath))
             {
                 var settings = new JsonSerializerSettings
                 {

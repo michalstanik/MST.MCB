@@ -244,18 +244,18 @@ namespace MCB.Api
 
             confScope.Dispose();
 
-                // Seed the database
-                using (var scope = app.ApplicationServices.CreateScope())
-                {
-                    var configuration = scope.ServiceProvider.GetService<IRootConfiguration>();
-                    var recreateDbOption = configuration.AppConfiguration.RecreateDB;
-                    var deleteData = configuration.AppConfiguration.DeleteData;
+            // Seed the database
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var configuration = scope.ServiceProvider.GetService<IRootConfiguration>();
+                var recreateDbOption = configuration.AppConfiguration.RecreateDB;
+                var deleteData = configuration.AppConfiguration.DeleteData;
 
-                    if(recreateDbOption)
-                    {
-                        var recreate = scope.ServiceProvider.GetService<MCBEnsureDB>();
-                        recreate.EnsureCreated();
-                    }
+                if (recreateDbOption)
+                {
+                    var recreate = scope.ServiceProvider.GetService<MCBEnsureDB>();
+                    recreate.EnsureCreated();
+
 
                     //1
                     var dictionarySeeder = scope.ServiceProvider.GetService<MCBDictionarySeeder>();
@@ -269,11 +269,11 @@ namespace MCB.Api
                     }
                     dataSeeder.Seed().Wait();
 
-                //3
+                    //3
                     var reportingSeeder = scope.ServiceProvider.GetService<MCBReportingSeeder>();
                     reportingSeeder.GenerateReportingForRegionsAndContinents().Wait();
                 }
-            
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MCB.Data.Domain.Flights;
 using MCB.Data.Domain.Trips;
 using MCB.Data.Domain.User;
+using MCB.Data.Domain.WorldHeritages;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,22 @@ namespace MCB.Data
 
         public void DeleteData()
         {
-            throw new NotImplementedException();
+            _context.Database.ExecuteSqlCommand("DELETE FROM WorldHeritageCountry;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM UserTrip;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM UserCountry;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM UserFlight;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM Stop;");
+            _context.Database.ExecuteSqlCommand("DELETE From Flight;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM Airport;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM Country;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM Region;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM Continent;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM WorldHeritage;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM Trip;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM TUser;");
         }
 
-        public async Task Seed()
+        public void Seed()
         {
             if (_context.Trip.Count() != 0) return;
 
@@ -202,7 +215,7 @@ namespace MCB.Data
 
 
             _context.AddRange(azerbaijanTrip, firstAsiaTrip, threeAfricanCountriesTrip);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             _context.UserCountry.AddRange(
                        new UserCountry()
@@ -284,7 +297,7 @@ namespace MCB.Data
                        }
                   );
 
-            await _context.SaveChangesAsync();
+            //_context.SaveChanges();
         }
     }
 }

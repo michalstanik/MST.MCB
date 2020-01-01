@@ -4,7 +4,7 @@ namespace MCB.Data.Domain.User
 {
     public class UserCountry
     {
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
         public Country Country { get; set; }
         public string TUserId { get; set; }
         public TUser TUser { get; set; }

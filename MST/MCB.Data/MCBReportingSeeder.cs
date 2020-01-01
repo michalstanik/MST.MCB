@@ -12,7 +12,7 @@ namespace MCB.Data
             _context = context;
         }
 
-        public async Task GenerateReportingForRegionsAndContinents()
+        public void GenerateReportingForRegionsAndContinents()
         {
             foreach (var continent in _context.Continent.ToList())
             {
@@ -24,11 +24,11 @@ namespace MCB.Data
                     region.CountriesCount = countriesCountInRegion;
 
                     countriesCountInContinent += countriesCountInRegion;
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
 
                 continent.CountryCount = countriesCountInContinent;
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
     }

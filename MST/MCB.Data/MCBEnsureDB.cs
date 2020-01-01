@@ -8,9 +8,15 @@ namespace MCB.Data
 
         public MCBEnsureDB(MCBContext context) => _context = context;
 
-        public void EnsureCreated()
+        public void EnsureDeletedAndRecreated()
         {
             _context.Database.EnsureDeleted();
+            _context.Database.Migrate();
+        }
+
+        public void EnsureCreatedAndMigrated()
+        {
+            _context.Database.EnsureCreated();
             _context.Database.Migrate();
         }
     }

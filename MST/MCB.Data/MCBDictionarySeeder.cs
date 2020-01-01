@@ -22,16 +22,16 @@ namespace MCB.Data
         {
             _context = context;
         }
-        public async Task Seed()
+        public void Seed()
         {
             _context.Database.Migrate();
 
-            await SeedCountries();
-            await SeedWroldHeritage();
-            await SeedAirports();
+            SeedCountries();
+            SeedWroldHeritage();
+            SeedAirports();
         }
 
-        private async Task SeedAirports()
+        private void SeedAirports()
         {
             if (_context.Airport.Count() != 0) return;
 
@@ -91,12 +91,12 @@ namespace MCB.Data
 
                     listOfAirports.Add(airport);
                 }
-                await _context.AddRangeAsync(listOfAirports);
-                await _context.SaveChangesAsync();
+                _context.AddRange(listOfAirports);
+                _context.SaveChanges();
             }
         }
 
-        private async Task SeedWroldHeritage()
+        private void SeedWroldHeritage()
         {
             if (_context.WorldHeritage.Count() != 0) return;
 
@@ -152,12 +152,12 @@ namespace MCB.Data
 
             _context.AddRange(worldHeritageList);
             _context.AddRange(listOfLinkedEntities);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             textReader.Close();
         }
 
-        private async Task SeedCountries()
+        private void SeedCountries()
         {
             if (_context.Country.Count() != 0) return;
 
@@ -214,7 +214,7 @@ namespace MCB.Data
                         Region = region
                     };
                     _context.Add(newCountry);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
             }
 

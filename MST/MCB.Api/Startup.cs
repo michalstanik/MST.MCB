@@ -57,7 +57,7 @@ namespace MCB.Api
                 setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status406NotAcceptable));
                 setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status401Unauthorized));
                 setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status500InternalServerError));
-                
+
                 setupAction.ReturnHttpNotAcceptable = true;
 
                 var jsonOutputFormatter = setupAction.OutputFormatters.OfType<JsonOutputFormatter>().FirstOrDefault();
@@ -72,17 +72,17 @@ namespace MCB.Api
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithcountries+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithcountriesandstats+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.tripwithcountriesandworldheritages+json");
-                    
+
                     //Countries
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.countriesforUserWithAssessments+json");
-                    
+
                     //Regions
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.region+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.regionwithuservisits+json");
-                    
+
                     //Continents
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.continentWithRegionsAndCountries+json");
-                    
+
                     //Flights
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.flight+json");
 
@@ -128,7 +128,7 @@ namespace MCB.Api
                 {
                     Type = SecuritySchemeType.OAuth2,
                     Flows = new OpenApiOAuthFlows
-                    { 
+                    {
                         Implicit = new OpenApiOAuthFlow
                         {
                             AuthorizationUrl = new Uri(rootConfiguration.AuthConfiguration.STSApiAuthorizeUrl, UriKind.Absolute),
@@ -168,7 +168,7 @@ namespace MCB.Api
             services.AddTransient<MCBDataSeeder>();
             services.AddTransient<MCBEnsureDB>();
             services.AddTransient<MCBReportingSeeder>();
-            
+
             //Repositories
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
@@ -213,7 +213,7 @@ namespace MCB.Api
         {
             var confScope = app.ApplicationServices.CreateScope();
             var rootConfiguration = confScope.ServiceProvider.GetService<IRootConfiguration>();
-        
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -251,28 +251,25 @@ namespace MCB.Api
                 var recreateDbOption = configuration.AppConfiguration.RecreateDB;
                 var deleteData = configuration.AppConfiguration.DeleteData;
 
+                var dictionarySeeder = scope.ServiceProvider.GetService<MCBDictionarySeeder>();
+                var dataSeeder = scope.ServiceProvider.GetService<MCBDataSeeder>();
+                var reportingSeeder = scope.ServiceProvider.GetService<MCBReportingSeeder>();
+
                 if (recreateDbOption)
                 {
                     var recreate = scope.ServiceProvider.GetService<MCBEnsureDB>();
-                    recreate.EnsureCreated();
-
-
-                    //1
-                    var dictionarySeeder = scope.ServiceProvider.GetService<MCBDictionarySeeder>();
-                    dictionarySeeder.Seed().Wait();
-
-                    //2
-                    var dataSeeder = scope.ServiceProvider.GetService<MCBDataSeeder>();
-                    if (deleteData)
-                    {
-                        dataSeeder.DeleteData();
-                    }
-                    dataSeeder.Seed().Wait();
-
-                    //3
-                    var reportingSeeder = scope.ServiceProvider.GetService<MCBReportingSeeder>();
-                    reportingSeeder.GenerateReportingForRegionsAndContinents().Wait();
+                    recreate.EnsureDeletedAndRecreated();
+                    dictionarySeeder.Seed();
+                    dataSeeder.Seed();
+                    reportingSeeder.GenerateReportingForRegionsAndContinents();
                 }
+                if (deleteData)
+                {                
+                    dataSeeder.DeleteData();                   
+                    dictionarySeeder.Seed();
+                    dataSeeder.Seed();  
+                    reportingSeeder.GenerateReportingForRegionsAndContinents();
+                }              
             }
         }
     }

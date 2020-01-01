@@ -17,15 +17,18 @@ namespace MST.Flogging.Core
         public string Product { get; set; }
         public string Layer { get; set; }
         public string Location { get; set; }
-        public string  Hostname { get; set; }
+        public string Hostname { get; set; }
 
         //WHO
         public string UserId { get; set; }
         public string UserName { get; set; }
+        public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
 
         //Everything Else
-        public long? ElapsedMilliseconds { get; set; }
-        public Exception Exception { get; set; }
-        public Dictionary<string, object> AdditionalInfo { get; set; }
+        public long? ElapsedMilliseconds { get; set; }  // only for performance entries
+        public Exception Exception { get; set; }  // the exception for error logging
+        public string CorrelationId { get; set; } // exception shielding from server to client
+        public Dictionary<string, object> AdditionalInfo { get; set; }  // everything else
     }
 }

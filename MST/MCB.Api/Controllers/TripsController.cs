@@ -7,6 +7,7 @@ using MCB.Data.RepositoriesInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using MST.Flogging.Core;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -43,6 +44,7 @@ namespace MCB.Api.Controllers
         [RequestHeaderMatchesMediaType("Accept",
             "application/json",
             "application/vnd.mcb.trip+json")]
+        [TrackUsage("TripsController", "GetTrip", "trip")]
         public async Task<ActionResult<TripModel>> GetTrip(int id)
         {
             return await GetSpecificTrip<TripModel>(id);
@@ -51,6 +53,7 @@ namespace MCB.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.tripfull+json")]
+        [TrackUsage("TripsController", "GetTrip", "tripfull")]
         [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.tripfull+json")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TripFullModel>> GetTripFull(int id)

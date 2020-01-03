@@ -21,9 +21,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\MCB.Data\LoadData\airports.dat.txt" Link="LoadData\airports.dat.txt" CopyToOutputDirectory="PreserveNewest"/>
-    <Content Include="..\MCB.Data\LoadData\countries.json" Link="LoadData\countries.json" CopyToOutputDirectory="PreserveNewest"/>
-    <Content Include="..\MCB.Data\LoadData\WorldHeritage.xml" Link="LoadData\WorldHeritage.xml" CopyToOutputDirectory="PreserveNewest"/>
+    <Content Include="..\MCB.Data\LoadData\airports.dat.txt" Link="LoadData\airports.dat.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\MCB.Data\LoadData\countries.json" Link="LoadData\countries.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\MCB.Data\LoadData\WorldHeritage.xml" Link="LoadData\WorldHeritage.xml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +40,7 @@
     <ProjectReference Include="..\MCB.Business.CoreHelper\MCB.Business.CoreHelper.csproj" />
     <ProjectReference Include="..\MCB.Business.Models\MCB.Business.Models.csproj" />
     <ProjectReference Include="..\MCB.Data\MCB.Data.csproj" />
+    <ProjectReference Include="..\MST.Logging.Core\MST.Flogging.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

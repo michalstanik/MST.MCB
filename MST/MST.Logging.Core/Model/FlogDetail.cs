@@ -1,24 +1,15 @@
-﻿using System;
+﻿using MST.Flogging.Core.Model;
+using System;
 using System.Collections.Generic;
 
-namespace MST.Flogging.Core
+namespace MST.Flogging.Core.Model
 {
-    public class FlogDetail
+    public class FlogDetail : FlogDetailAbstract
     {
         public FlogDetail()
         {
             Timestamp = DateTime.Now;
         }
-
-        public DateTime Timestamp { get; private set; }
-        public string Message { get; set; }
-
-        //WHERE
-        public string Product { get; set; }
-        public string Layer { get; set; }
-        public string Location { get; set; }
-        public string Hostname { get; set; }
-
         //WHO
         public string UserId { get; set; }
         public string UserName { get; set; }

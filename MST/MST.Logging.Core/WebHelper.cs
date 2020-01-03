@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using MST.Flogging.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

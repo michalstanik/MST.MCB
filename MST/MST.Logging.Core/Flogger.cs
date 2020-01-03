@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using MST.Flogging.Core.Model;
+using Serilog;
 using Serilog.Events;
 using System;
 using System.Data.SqlClient;

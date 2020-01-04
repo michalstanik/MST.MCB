@@ -63,7 +63,7 @@ namespace MCB.Data.Repositories
 
                 foreach (var country in listOfCountries)
                 {
-                    if (listOfCountriesToReturn.Where(c => c.Id == country.Id).Count() == 0)
+                    if (!listOfCountriesToReturn.Where(c => c.Id == country.Id).Any())
                     {
                         listOfCountriesToReturn.Add(country);
                     }
@@ -85,7 +85,7 @@ namespace MCB.Data.Repositories
                     .Include(r => r.Region)
                     .Where(c => c.Id == cntry.CountryId).SingleOrDefault();
 
-                if (tempCountry != null && listofCountriesToBeReturned.Where(d => d.Id == cntry.CountryId).Count() == 0)
+                if (tempCountry != null && !listofCountriesToBeReturned.Where(d => d.Id == cntry.CountryId).Any())
                 {
                     listofCountriesToBeReturned.Add(tempCountry);
                 }

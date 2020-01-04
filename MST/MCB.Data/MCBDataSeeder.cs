@@ -36,7 +36,7 @@ namespace MCB.Data
 
         public void Seed()
         {
-            if (_context.Trip.Count() != 0) return;
+            if (_context.Trip.Any()) return;
 
             var firstUser = new TUser() { Id = "fec0a4d6-5830-4eb8-8024-272bd5d6d2bb", UserName = "Michał" };
             var secondUser = new TUser() { Id = "c3b7f625-c07f-4d7d-9be1-ddff8ff93b4d", UserName = "Aga" };

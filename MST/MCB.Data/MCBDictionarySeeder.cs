@@ -31,7 +31,7 @@ namespace MCB.Data
 
         private void SeedAirports()
         {
-            if (_context.Airport.Count() != 0) return;
+            if (_context.Airport.Any()) return;
 
             var airportsFilePath = Path.Combine(AppContext.BaseDirectory, "LoadData\\airports.dat.txt");
 
@@ -96,7 +96,7 @@ namespace MCB.Data
 
         private void SeedWroldHeritage()
         {
-            if (_context.WorldHeritage.Count() != 0) return;
+            if (_context.WorldHeritage.Any()) return;
 
             XmlSerializer deserializer = new XmlSerializer(typeof(Rows));
 
@@ -135,7 +135,7 @@ namespace MCB.Data
                     {
                         listOfCountriesFromDb.Add(countryFromDb);
 
-                        if (listOfCountries.Count() == listOfCountriesFromDb.Count())
+                        if (listOfCountries.Count == listOfCountriesFromDb.Count)
                         {
                             foreach (var countryToIclude in listOfCountriesFromDb)
                             {
@@ -157,7 +157,7 @@ namespace MCB.Data
 
         private void SeedCountries()
         {
-            if (_context.Country.Count() != 0) return;
+            if (_context.Country.Any()) return;
 
             var countriesFilePath = Path.Combine(AppContext.BaseDirectory, "LoadData\\countries.json");
 

@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using MST.IDP.STS.Identity.Configuration;
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using MST.IDP.STS.Identity.Configuration;
 
 namespace MST.IDP.STS.Identity.Helpers
 {

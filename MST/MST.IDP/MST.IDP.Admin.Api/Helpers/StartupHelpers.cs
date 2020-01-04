@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using IdentityServer4.AccessTokenValidation;
+﻿using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.EntityFramework.Storage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +13,8 @@ using MST.IDP.Admin.Api.Configuration.Constants;
 using MST.IDP.Admin.Api.Helpers.Localization;
 using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
+using System;
+using System.Reflection;
 
 namespace MST.IDP.Admin.Api.Helpers
 {
@@ -123,9 +123,9 @@ namespace MST.IDP.Admin.Api.Helpers
         /// <param name="services"></param>
         /// <param name="adminApiConfiguration"></param>
         public static void AddApiAuthentication<TIdentityDbContext, TUser, TRole>(this IServiceCollection services,
-            AdminApiConfiguration adminApiConfiguration) 
-            where TIdentityDbContext : DbContext 
-            where TRole : class 
+            AdminApiConfiguration adminApiConfiguration)
+            where TIdentityDbContext : DbContext
+            where TRole : class
             where TUser : class
         {
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)

@@ -21,7 +21,7 @@ namespace MST.IDP.Admin.Api.Mappers
 
             CreateMap<ApiScopeDto, ApiScopeApiDto>(MemberList.Destination)
                 .ReverseMap();
-            
+
             CreateMap<ApiScopesDto, ApiScopeApiDto>(MemberList.Destination)
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ApiScopeId))
                 .ReverseMap();

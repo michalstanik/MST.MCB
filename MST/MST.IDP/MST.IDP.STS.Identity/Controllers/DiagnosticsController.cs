@@ -4,13 +4,13 @@
 // Original file: https://github.com/IdentityServer/IdentityServer4.Quickstart.UI
 // Modified by Jan Škoruba
 
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MST.IDP.STS.Identity.Helpers;
 using MST.IDP.STS.Identity.ViewModels.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MST.IDP.STS.Identity.Controllers
 {

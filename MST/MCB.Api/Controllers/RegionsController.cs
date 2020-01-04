@@ -22,7 +22,7 @@ namespace MCB.Api.Controllers
         private readonly LinkGenerator _linkGenerator;
         private readonly IUserInfoService _userInfoService;
 
-        public RegionsController(IRegionRepository regionRepository,ICountryRepository countryRepository,
+        public RegionsController(IRegionRepository regionRepository, ICountryRepository countryRepository,
             IMapper mapper, LinkGenerator linkGenerator,
             IUserInfoService userInfoService)
         {
@@ -67,12 +67,12 @@ namespace MCB.Api.Controllers
             }
 
             var regionMappedToModel = _mapper.Map<RegionModelWithCountriesAndUserVisits>(regionFromRepo);
-            
+
             var userAssesmentFromRepo = await _countryRepository.GetCountireAssesmentForUser(_userInfoService.UserId);
 
             foreach (var country in regionMappedToModel.Countries)
             {
-                if(userAssesmentFromRepo.Where(c => c.Key == country.Alpha2Code.ToUpper()).Count() != 0)
+                if (userAssesmentFromRepo.Where(c => c.Key == country.Alpha2Code.ToUpper()).Count() != 0)
                 {
                     country.AreaLevelAssessment = userAssesmentFromRepo.Where(c => c.Key == country.Alpha2Code.ToUpper())
                         .Select(c => c.Value).SingleOrDefault();
@@ -90,7 +90,7 @@ namespace MCB.Api.Controllers
             {
                 return BadRequest();
             }
-            
+
             return Ok(_mapper.Map<T>(regionFromRepo));
         }
     }

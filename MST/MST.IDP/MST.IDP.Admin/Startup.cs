@@ -1,14 +1,14 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
 using MST.IDP.Admin.Configuration.Interfaces;
 using MST.IDP.Admin.EntityFramework.Shared.DbContexts;
 using MST.IDP.Admin.EntityFramework.Shared.Entities.Identity;
 using MST.IDP.Admin.Helpers;
+using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace MST.IDP.Admin
 {
@@ -49,7 +49,7 @@ namespace MST.IDP.Admin
 
             // Add Asp.Net Core Identity Configuration and OpenIdConnect auth as well
             services.AddAuthenticationServices<AdminIdentityDbContext, UserIdentity, UserIdentityRole>(HostingEnvironment, rootConfiguration.AdminConfiguration);
-            
+
             // Add exception filters in MVC
             services.AddMvcExceptionFilters();
 

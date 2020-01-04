@@ -2,6 +2,6 @@
 {
     public class AirportModel : AirportAbstractBase
     {
-        public int Id { get;set; }
+        public int Id { get; set; }
     }
 }

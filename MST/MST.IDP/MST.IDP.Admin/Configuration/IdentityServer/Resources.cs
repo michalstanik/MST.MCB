@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using IdentityServer4.Models;
+﻿using IdentityServer4.Models;
 using MST.IDP.Admin.Configuration.Interfaces;
+using System.Collections.Generic;
 
 namespace MST.IDP.Admin.Configuration.IdentityServer
 {

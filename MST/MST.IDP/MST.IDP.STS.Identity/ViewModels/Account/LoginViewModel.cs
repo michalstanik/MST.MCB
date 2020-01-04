@@ -4,10 +4,10 @@
 // Original file: https://github.com/IdentityServer/IdentityServer4.Quickstart.UI
 // Modified by Jan Škoruba
 
+using MST.IDP.STS.Identity.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MST.IDP.STS.Identity.Configuration;
 
 namespace MST.IDP.STS.Identity.ViewModels.Account
 {

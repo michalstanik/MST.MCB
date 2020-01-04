@@ -1,5 +1,4 @@
-﻿using MST.Flogging.Core.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace MST.Flogging.Core.Model

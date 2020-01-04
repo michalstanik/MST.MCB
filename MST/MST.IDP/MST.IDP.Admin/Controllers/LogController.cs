@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MST.IDP.Admin.Configuration.Constants;
 using Skoruba.IdentityServer4.Admin.BusinessLogic.Dtos.Log;
 using Skoruba.IdentityServer4.Admin.BusinessLogic.Services.Interfaces;
-using MST.IDP.Admin.Configuration.Constants;
+using System.Threading.Tasks;
 
 namespace MST.IDP.Admin.Controllers
 {
@@ -38,7 +38,7 @@ namespace MST.IDP.Admin.Controllers
             {
                 return View(nameof(ErrorsLog), logs);
             }
-            
+
             await _logService.DeleteLogsOlderThanAsync(logs.DeleteOlderThan.Value);
 
             return RedirectToAction(nameof(ErrorsLog));

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 using System;
-using System.Linq;
 
 namespace MCB.Business.CoreHelper.Attributes
 {

@@ -4,7 +4,7 @@ using MST.IDP.STS.Identity.Configuration.Intefaces;
 namespace MST.IDP.STS.Identity.Configuration
 {
     public class RootConfiguration : IRootConfiguration
-    {      
+    {
         public IAdminConfiguration AdminConfiguration { get; set; }
         public IRegisterConfiguration RegisterConfiguration { get; }
 

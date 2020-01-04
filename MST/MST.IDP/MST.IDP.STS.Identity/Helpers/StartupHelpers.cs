@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Reflection;
-using IdentityServer4.EntityFramework.Interfaces;
+﻿using IdentityServer4.EntityFramework.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,14 +14,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using SendGrid;
-using Serilog;
 using MST.IDP.STS.Identity.Configuration;
 using MST.IDP.STS.Identity.Configuration.ApplicationParts;
 using MST.IDP.STS.Identity.Configuration.Constants;
 using MST.IDP.STS.Identity.Configuration.Intefaces;
 using MST.IDP.STS.Identity.Helpers.Localization;
 using MST.IDP.STS.Identity.Services;
+using SendGrid;
+using Serilog;
+using System;
+using System.Globalization;
+using System.Reflection;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace MST.IDP.STS.Identity.Helpers

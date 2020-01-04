@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using IdentityServer4.AccessTokenValidation;
+﻿using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MST.IDP.Admin.Api.Configuration.Constants;
@@ -8,6 +7,7 @@ using MST.IDP.Admin.Api.ExceptionHandling;
 using MST.IDP.Admin.Api.Helpers;
 using MST.IDP.Admin.Api.Mappers;
 using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace MST.IDP.Admin.Api.Controllers
 {

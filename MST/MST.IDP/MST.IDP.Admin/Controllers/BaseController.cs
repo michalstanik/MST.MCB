@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using MST.IDP.Admin.Helpers;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MST.IDP.Admin.Controllers
 {
@@ -56,7 +56,7 @@ namespace MST.IDP.Admin.Controllers
             ViewBag.Notifications = TempData[NotificationHelpers.NotificationKey];
             TempData.Remove(NotificationHelpers.NotificationKey);
         }
-        
+
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             GenerateNotifications();

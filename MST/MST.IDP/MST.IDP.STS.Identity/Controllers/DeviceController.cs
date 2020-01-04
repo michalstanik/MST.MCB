@@ -4,9 +4,6 @@
 // Original file: https://github.com/IdentityServer/IdentityServer4.Quickstart.UI
 // Modified by Jan Škoruba
 
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using IdentityServer4;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
@@ -20,6 +17,9 @@ using MST.IDP.STS.Identity.Configuration;
 using MST.IDP.STS.Identity.Helpers;
 using MST.IDP.STS.Identity.ViewModels.Consent;
 using MST.IDP.STS.Identity.ViewModels.Device;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MST.IDP.STS.Identity.Controllers
 {
@@ -182,7 +182,7 @@ namespace MST.IDP.STS.Identity.Controllers
 
                 RememberConsent = model?.RememberConsent ?? true,
                 ScopesConsented = model?.ScopesConsented ?? Enumerable.Empty<string>(),
-                
+
                 ClientName = client.ClientName ?? client.ClientId,
                 ClientUrl = client.ClientUri,
                 ClientLogoUrl = client.LogoUri,

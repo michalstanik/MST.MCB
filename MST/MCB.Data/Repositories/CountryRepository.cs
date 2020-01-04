@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MCB.Data.Domain.Geo;
+﻿using MCB.Data.Domain.Geo;
 using MCB.Data.Domain.Trips;
 using MCB.Data.RepositoriesInterfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MCB.Data.Repositories
 {

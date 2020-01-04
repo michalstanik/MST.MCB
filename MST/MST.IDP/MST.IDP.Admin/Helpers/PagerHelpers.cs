@@ -34,7 +34,7 @@ namespace MST.IDP.Admin.Helpers
             var currentMaxPages = GetMaxPageToRender(maxPages, totalPages, currentPage);
 
             if (currentMaxPages == defaultPageNumber) return currentMaxPages;
-            
+
             if (currentMaxPages == totalPages)
             {
                 currentMaxPages = GetMaxPage(maxPages, totalPages, currentPage);

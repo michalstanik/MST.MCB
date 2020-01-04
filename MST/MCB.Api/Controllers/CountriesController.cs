@@ -31,7 +31,7 @@ namespace MCB.Api.Controllers
             _mapper = mapper;
             _userInfoService = userInfoService;
         }
-              
+
         /// <summary>
         /// Get a list of Countries
         /// </summary>
@@ -39,7 +39,7 @@ namespace MCB.Api.Controllers
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.countriesforUserWithAssessments+json")]
-        [RequestHeaderMatchesMediaType("Accept", 
+        [RequestHeaderMatchesMediaType("Accept",
             "application/json",
             "application/vnd.mcb.countriesforUserWithAssessments+json"
         )]

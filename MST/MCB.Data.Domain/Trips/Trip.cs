@@ -59,7 +59,7 @@ namespace MCB.Data.Domain.Trips
 
             foreach (var stop in Stops)
             {
-                if(stop.WorldHeritageId != null && !worlHeritage.Contains(stop.WorldHeritage))
+                if (stop.WorldHeritageId != null && !worlHeritage.Contains(stop.WorldHeritage))
                 {
                     worlHeritage.Add(stop.WorldHeritage);
                 }

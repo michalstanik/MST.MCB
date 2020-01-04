@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MCB.Data.Domain.Trips;
+﻿using MCB.Data.Domain.Trips;
 using MCB.Data.Domain.User;
 using MCB.Data.RepositoriesInterfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MCB.Data.Repositories
 {
@@ -32,7 +32,7 @@ namespace MCB.Data.Repositories
             var trip = await _context.Trip.Where(t => t.Id == tripId).FirstOrDefaultAsync();
             var user = await _context.TUser.Where(u => u.Id == userId).FirstOrDefaultAsync();
 
-            if (trip!= null && user != null)
+            if (trip != null && user != null)
             {
                 var tripUser = new UserTrip()
                 {
@@ -46,7 +46,7 @@ namespace MCB.Data.Repositories
                 throw new Exception("Trip or user are not exists");
             }
 
-            
+
 
         }
 
@@ -135,7 +135,7 @@ namespace MCB.Data.Repositories
                     .Include(g => g.Flights)
                         .ThenInclude(b => b.ArrivalAirport);
             }
-            return  query;
+            return query;
         }
 
         public async Task<bool> SaveChangesAsync()

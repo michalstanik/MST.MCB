@@ -4,11 +4,6 @@
 // Original file: https://github.com/IdentityServer/IdentityServer4.Samples
 // Modified by Jan Škoruba
 
-using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Events;
@@ -25,6 +20,11 @@ using MST.IDP.STS.Identity.Configuration;
 using MST.IDP.STS.Identity.Helpers;
 using MST.IDP.STS.Identity.Helpers.Localization;
 using MST.IDP.STS.Identity.ViewModels.Account;
+using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace MST.IDP.STS.Identity.Controllers
 {

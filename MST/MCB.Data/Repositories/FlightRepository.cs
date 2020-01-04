@@ -20,7 +20,7 @@ namespace MCB.Data.Repositories
                 .Include(c => c.UserFlights)
                 .ThenInclude(pc => pc.TUser)
                 .Where(t => t.Id == flightId)
-    .            FirstOrDefaultAsync();
+    .FirstOrDefaultAsync();
 
             if (flight != null)
             {

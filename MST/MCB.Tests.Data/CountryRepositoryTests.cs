@@ -102,7 +102,7 @@ namespace MCB.Tests.Data
                     }
                 };
 
-                context.Add(trip1);           
+                context.Add(trip1);
                 await context.SaveChangesAsync();
 
             }

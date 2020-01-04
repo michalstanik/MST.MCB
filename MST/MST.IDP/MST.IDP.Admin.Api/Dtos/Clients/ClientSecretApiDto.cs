@@ -15,6 +15,6 @@ namespace MST.IDP.Admin.Api.Dtos.Clients
         [Required]
         public string Value { get; set; }
 
-        public DateTime? Expiration { get; set; }       
+        public DateTime? Expiration { get; set; }
     }
 }

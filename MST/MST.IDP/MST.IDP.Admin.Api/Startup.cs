@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,10 +8,12 @@ using MST.IDP.Admin.Api.Configuration.Constants;
 using MST.IDP.Admin.Api.ExceptionHandling;
 using MST.IDP.Admin.Api.Helpers;
 using MST.IDP.Admin.Api.Mappers;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
 using MST.IDP.Admin.EntityFramework.Shared.DbContexts;
 using MST.IDP.Admin.EntityFramework.Shared.Entities.Identity;
+using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.Collections.Generic;
 
 namespace MST.IDP.Admin.Api
 {

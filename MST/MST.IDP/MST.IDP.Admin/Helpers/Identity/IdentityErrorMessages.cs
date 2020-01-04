@@ -9,7 +9,7 @@ namespace MST.IDP.Admin.Helpers.Identity
     /// Or install package with specific language - https://www.nuget.org/packages?q=Microsoft.AspNet.Identity.Core
     /// </summary>
     public class IdentityErrorMessages : IdentityErrorDescriber
-    {        
+    {
 
     }
 }

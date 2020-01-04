@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Logging;
-using SendGrid;
 using MST.IDP.STS.Identity.Configuration;
+using SendGrid;
 using System.Threading.Tasks;
 
 namespace MST.IDP.STS.Identity.Services
@@ -30,12 +30,13 @@ namespace MST.IDP.STS.Identity.Services
 
             var response = await _client.SendEmailAsync(msg);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK 
+            if (response.StatusCode == System.Net.HttpStatusCode.OK
                 || response.StatusCode == System.Net.HttpStatusCode.Created
                 || response.StatusCode == System.Net.HttpStatusCode.Accepted)
             {
                 _logger.LogInformation($"Email: {email}, subject: {subject}, message: {htmlMessage} successfully sent");
-            } else
+            }
+            else
             {
                 var errorMessage = response.Body.ReadAsStringAsync();
                 _logger.LogError($"Response with code {response.StatusCode} and body {errorMessage} after sending email: {email}, subject: {subject}");

@@ -4,8 +4,8 @@
 // Original file: https://github.com/IdentityServer/IdentityServer4.Quickstart.UI
 // Modified by Jan Škoruba
 
-using System.Threading.Tasks;
 using IdentityServer4.Stores;
+using System.Threading.Tasks;
 
 namespace MST.IDP.STS.Identity.Helpers
 {

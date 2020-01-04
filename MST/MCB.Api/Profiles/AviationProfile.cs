@@ -7,6 +7,6 @@ namespace MCB.Api.Profiles
         public AviationProfile()
         {
             CreateMap<Data.Domain.Aviation.Airport, Business.Models.Aviation.AirportModel>();
-        }       
+        }
     }
 }

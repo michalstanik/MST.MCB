@@ -16,21 +16,6 @@ namespace MST.Flogging.Core
             Flogger.WriteUsage(details);
         }
 
-        public static void LogWebDiagnostic(string product, string layer, string message,
-            HttpContext context, Dictionary<string, object> diagnosticInfo = null)
-        {
-            var details = GetWebFlogDetail(product, layer, message, context, diagnosticInfo);
-            Flogger.WriteDiagnostic(details);
-        }
-        public static void LogWebError(string product, string layer, Exception ex,
-            HttpContext context)
-        {
-            var details = GetWebFlogDetail(product, layer, null, context, null);
-            details.Exception = ex;
-
-            Flogger.WriteError(details);
-        }
-
         public static FlogDetail GetWebFlogDetail(string product, string layer,
             string activityName, HttpContext context,
             Dictionary<string, object> additionalInfo = null)

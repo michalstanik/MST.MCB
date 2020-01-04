@@ -15,7 +15,7 @@ namespace MST.IDP.Admin.ViewComponents
         public IViewComponentResult Invoke()
         {
             var identityServerUrl = _configuration.AdminConfiguration.IdentityServerBaseUrl;
-            
+
             return View(model: identityServerUrl);
         }
     }

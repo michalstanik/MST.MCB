@@ -1,12 +1,10 @@
 ﻿using MCB.Data.Domain.Flights;
 using MCB.Data.Domain.Trips;
 using MCB.Data.Domain.User;
-using MCB.Data.Domain.WorldHeritages;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MCB.Data
 {

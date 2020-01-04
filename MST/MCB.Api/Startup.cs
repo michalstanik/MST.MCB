@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using AutoMapper;
+﻿using AutoMapper;
 using IdentityServer4.AccessTokenValidation;
 using MCB.Api.Helpers;
 using MCB.Api.Interfaces.Configuration;
@@ -23,6 +18,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace MCB.Api
 {
@@ -264,12 +264,12 @@ namespace MCB.Api
                     reportingSeeder.GenerateReportingForRegionsAndContinents();
                 }
                 if (deleteData)
-                {                
-                    dataSeeder.DeleteData();                   
+                {
+                    dataSeeder.DeleteData();
                     dictionarySeeder.Seed();
-                    dataSeeder.Seed();  
+                    dataSeeder.Seed();
                     reportingSeeder.GenerateReportingForRegionsAndContinents();
-                }              
+                }
             }
         }
     }

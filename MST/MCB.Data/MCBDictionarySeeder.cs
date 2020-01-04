@@ -8,8 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using static MCB.Data.LoadData.CountriesModel;
 
@@ -48,7 +46,7 @@ namespace MCB.Data
 
                 while (!reader.EndOfStream)
                 {
-                    var line = reader.ReadLine().Replace("\"","");
+                    var line = reader.ReadLine().Replace("\"", "");
                     var values = line.Split(',');
 
                     var airport = new Airport()
@@ -162,7 +160,7 @@ namespace MCB.Data
             if (_context.Country.Count() != 0) return;
 
             var countriesFilePath = Path.Combine(AppContext.BaseDirectory, "LoadData\\countries.json");
-            
+
             using (StreamReader r = new StreamReader(countriesFilePath))
             {
                 var settings = new JsonSerializerSettings

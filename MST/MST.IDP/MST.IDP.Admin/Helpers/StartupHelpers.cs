@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Reflection;
-using System.Threading.Tasks;
-using IdentityModel;
+﻿using IdentityModel;
 using IdentityServer4.EntityFramework.Options;
 using IdentityServer4.EntityFramework.Storage;
 using Microsoft.AspNetCore.Authentication;
@@ -25,16 +20,21 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Serilog;
-using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
-using MST.IDP.Admin.ExceptionHandling;
-using MST.IDP.Admin.Middlewares;
 using MST.IDP.Admin.Configuration;
 using MST.IDP.Admin.Configuration.ApplicationParts;
 using MST.IDP.Admin.Configuration.Constants;
 using MST.IDP.Admin.Configuration.Interfaces;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
+using MST.IDP.Admin.ExceptionHandling;
 using MST.IDP.Admin.Helpers.Localization;
+using MST.IDP.Admin.Middlewares;
+using Serilog;
+using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
+using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace MST.IDP.Admin.Helpers
 {
@@ -432,7 +432,7 @@ namespace MST.IDP.Admin.Helpers
                         options =>
                         {
                             options.Cookie.Name = AuthenticationConsts.IdentityAdminCookieName;
-                            
+
                             // Issue: https://github.com/aspnet/Announcements/issues/318
                             options.Cookie.SameSite = SameSiteMode.None;
                         })

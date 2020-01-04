@@ -1,8 +1,8 @@
-﻿using System.Net.Mail;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Logging;
 using MST.IDP.STS.Identity.Configuration;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace MST.IDP.STS.Identity.Services
 {

@@ -3,7 +3,6 @@ using MCB.Data.Domain.Trips;
 using MCB.Data.Domain.User;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MCB.Data.Domain.Flights
 {
@@ -23,14 +22,14 @@ namespace MCB.Data.Domain.Flights
 
         public Airport ArrivalAirport { get; set; }
 
-        public Trip Trip { get;set; }
+        public Trip Trip { get; set; }
         public int? TripId { get; set; }
 
         public FlightType FlightTypeAssessment { get; set; }
 
         public enum FlightType
         {
-            Charter, 
+            Charter,
             Scheduled
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace MCB.Business.Models.WorldHeritages
 {
-    public class WorldHeritageModel 
+    public class WorldHeritageModel
     {
         public int Id { get; set; }
         public string UnescoId { get; set; }

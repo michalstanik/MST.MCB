@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MST.IDP.Admin.Configuration.Constants;
 using MST.IDP.Admin.Configuration.Interfaces;
+using System.Collections.Generic;
 
 namespace MST.IDP.Admin.Controllers
 {

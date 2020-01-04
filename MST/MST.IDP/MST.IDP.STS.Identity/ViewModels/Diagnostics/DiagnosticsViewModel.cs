@@ -4,11 +4,11 @@
 // Original file: https://github.com/IdentityServer/IdentityServer4.Quickstart.UI
 // Modified by Jan Škoruba
 
-using System.Collections.Generic;
-using System.Text;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Text;
 
 namespace MST.IDP.STS.Identity.ViewModels.Diagnostics
 {

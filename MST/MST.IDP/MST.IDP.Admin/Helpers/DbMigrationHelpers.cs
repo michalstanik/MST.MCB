@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using IdentityServer4.EntityFramework.Mappers;
+﻿using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +8,9 @@ using MST.IDP.Admin.Configuration.Identity;
 using MST.IDP.Admin.Configuration.IdentityServer;
 using MST.IDP.Admin.Configuration.Interfaces;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MST.IDP.Admin.Helpers
 {
@@ -136,7 +136,7 @@ namespace MST.IDP.Admin.Helpers
                 await userManager.CreateAsync(identityUser, "Password123!");
                 await userManager.AddClaimsAsync(identityUser, testUser.Claims.ToList());
 
-                if(identityUser.UserName == "Michal")
+                if (identityUser.UserName == "Michal")
                 {
                     await userManager.AddToRoleAsync(identityUser, AuthorizationConsts.AdministrationRole);
                 }

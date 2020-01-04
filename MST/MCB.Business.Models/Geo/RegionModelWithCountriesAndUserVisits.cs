@@ -4,6 +4,6 @@ namespace MCB.Business.Models.Geo
 {
     public class RegionModelWithCountriesAndUserVisits : RegionModel
     {
-        public List<CountryModelWithAssesments> Countries { get; set; }        
+        public List<CountryModelWithAssesments> Countries { get; set; }
     }
 }

@@ -45,7 +45,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCB.Mobile", "MCB.Mobile\MC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MST.LOGGING", "MST.LOGGING", "{40CEB5A0-C42D-4801-B470-C497B183EE16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MST.Flogging.Core", "MST.Logging.Core\MST.Flogging.Core.csproj", "{13DCF8A2-D8A6-4E01-9765-58B571619DFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MST.Flogging.Core", "MST.Logging.Core\MST.Flogging.Core.csproj", "{13DCF8A2-D8A6-4E01-9765-58B571619DFC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B5FD4A5B-4626-478D-B6EB-184D2F37E618}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

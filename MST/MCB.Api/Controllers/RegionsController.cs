@@ -6,6 +6,7 @@ using MCB.Data.RepositoriesInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -72,9 +73,9 @@ namespace MCB.Api.Controllers
 
             foreach (var country in regionMappedToModel.Countries)
             {
-                if (userAssesmentFromRepo.Where(c => c.Key == country.Alpha2Code.ToUpper()).Count() != 0)
+                if (userAssesmentFromRepo.Where(c => c.Key == country.Alpha2Code.ToUpper(CultureInfo.CurrentCulture)).Any())
                 {
-                    country.AreaLevelAssessment = userAssesmentFromRepo.Where(c => c.Key == country.Alpha2Code.ToUpper())
+                    country.AreaLevelAssessment = userAssesmentFromRepo.Where(c => c.Key == country.Alpha2Code.ToUpper(CultureInfo.CurrentCulture))
                         .Select(c => c.Value).SingleOrDefault();
                 }
             }

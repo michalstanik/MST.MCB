@@ -74,9 +74,9 @@ namespace MCB.Data.Domain.Trips
             var statistics = new Dictionary<string, int>
             {
                 { "countriesCount", Countries().Count() },
-                { "stopsCount", Stops.Count() },
+                { "stopsCount", Stops.Count },
                 { "userCount", Users().Count() },
-                { "numberOfFlights", Flights.Count() },
+                { "numberOfFlights", Flights.Count },
                 { "worldHeritages", WorldHeritages().Count() },
                 { "yearOfTrip", Stops.Count() != 0 ? Stops.Select(s => s.Arrival.Year).Max() : 0 },
                 { "numberOfDays", Stops.Count() != 0 ? Convert.ToInt32(System.Math.Floor((Stops.Select(s => s.Departure).Max() - Stops.Select(s => s.Arrival).Min()).TotalDays)) : 0 }

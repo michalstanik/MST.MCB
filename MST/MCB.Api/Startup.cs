@@ -131,7 +131,7 @@ namespace MCB.Api
                     {
                         Implicit = new OpenApiOAuthFlow
                         {
-                            AuthorizationUrl = new Uri(rootConfiguration.AuthConfiguration.STSApiAuthorizeUrl, UriKind.Absolute),
+                            AuthorizationUrl = rootConfiguration.AuthConfiguration.STSApiAuthorizeUrl,
                             Scopes = new Dictionary<string, string>
                             {
                                 { rootConfiguration.AuthConfiguration.STSApiName,
@@ -209,7 +209,7 @@ namespace MCB.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public static void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             var confScope = app.ApplicationServices.CreateScope();
             var rootConfiguration = confScope.ServiceProvider.GetService<IRootConfiguration>();

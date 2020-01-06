@@ -19,6 +19,8 @@ namespace MCB.Api
 
         public static int Main(string[] args)
         {
+            Serilog.Debugging.SelfLog.Enable(msg => Console.WriteLine(msg));
+
             try
             {
                 CreateWebHostBuilder(args).Build().Run();

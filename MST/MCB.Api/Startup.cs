@@ -254,10 +254,12 @@ namespace MCB.Api
                 var dictionarySeeder = scope.ServiceProvider.GetService<MCBDictionarySeeder>();
                 var dataSeeder = scope.ServiceProvider.GetService<MCBDataSeeder>();
                 var reportingSeeder = scope.ServiceProvider.GetService<MCBReportingSeeder>();
+                var recreate = scope.ServiceProvider.GetService<MCBEnsureDB>();
+
+                recreate.EnsureMigrated();
 
                 if (recreateDbOption)
                 {
-                    var recreate = scope.ServiceProvider.GetService<MCBEnsureDB>();
                     recreate.EnsureDeletedAndRecreated();
                     dictionarySeeder.Seed();
                     dataSeeder.Seed();

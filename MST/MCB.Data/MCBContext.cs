@@ -1,4 +1,5 @@
-﻿using MCB.Data.Domain.Aviation;
+﻿using MCB.Data.Domain.Admin;
+using MCB.Data.Domain.Aviation;
 using MCB.Data.Domain.Flights;
 using MCB.Data.Domain.Geo;
 using MCB.Data.Domain.Trips;
@@ -38,6 +39,9 @@ namespace MCB.Data
 
         //Flights
         public DbSet<Flight> Flight { get; set; }
+
+        //Admin
+        public DbSet<Log> Log { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

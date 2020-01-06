@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using MCB.Api.Helpers.Attributes;
 using MCB.Business.CoreHelper.Attributes;
 using MCB.Business.CoreHelper.UserInterfaces;
 using MCB.Business.Models.Trips;
@@ -39,7 +38,6 @@ namespace MCB.Api.Controllers
         /// </summary>
         /// <param name="id">Id of the Trip</param>
         /// <returns>An Trip based on the MediaType</returns>
-        [TrackAPIUsage()]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.trip+json")]

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -112,7 +113,7 @@ namespace MCB.Data
 
             foreach (var item in worldHeritage.Row)
             {
-                var listOfCountries = item.Iso_code.ToUpper().Split(',').ToList();
+                var listOfCountries = item.Iso_code.ToUpper(CultureInfo.CurrentCulture).Split(',').ToList();
 
                 var newWorldHeritage = new WorldHeritage()
                 {

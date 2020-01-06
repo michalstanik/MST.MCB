@@ -78,6 +78,7 @@ namespace MCB.Api.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
+                throw;
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace MCB.Data.Domain.Admin
 {
@@ -13,6 +14,7 @@ namespace MCB.Data.Domain.Admin
         public DateTimeOffset TimeStamp { get; set; }
         public string Exception { get; set; }
         public string LogEvent { get; set; }
+        [Column(TypeName = "xml")]
         public string Properties { get; set; }
         [NotMapped]
         public XElement PropertiesXml { get; }

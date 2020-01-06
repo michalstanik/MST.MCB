@@ -238,6 +238,7 @@ namespace MCB.Api
             });
 
             app.UseAuthentication();
+            app.UseMiddleware<SerilogRequestLogger>();
 
             app.UseMvc();
             app.UseStaticFiles();

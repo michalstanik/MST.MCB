@@ -32,7 +32,15 @@ namespace MST.Flogging.Core
                 .Enrich.FromLogContext()
                 .Enrich.WithMachineName()
                 .Enrich.WithProperty("Assembly", $"{name.Name}")
-                .Enrich.WithProperty("Version", $"{name.Version}");
+                .Enrich.WithProperty("Version", $"{name.Version}")
+           .WriteTo.Logger(lc => lc
+                 .Filter.ByIncludingOnly(Matching.WithProperty("ElapsedMilliseconds"))
+                 .WriteTo.MSSqlServer(
+                     connectionString: @"Server=(localdb)\\MSSQLLocalDB; Database=MCB; Integrated Security=True; MultipleActiveResultSets=true;",
+                     tableName: "PerfLog",
+                     autoCreateSqlTable: true,
+                     columnOptions: GetSqlColumnOptions())
+                 );
         }
 
         private static ColumnOptions GetSqlColumnOptions()

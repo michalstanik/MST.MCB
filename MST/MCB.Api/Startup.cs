@@ -18,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using MST.Flogging.Core.Filters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,6 +53,9 @@ namespace MCB.Api
 
             services.AddMvc(setupAction =>
             {
+                //Logging Performance
+                setupAction.Filters.Add(new TrackPerformanceFilter());
+
                 setupAction.Filters.Add(new AuthorizeFilter());
                 setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest));
                 setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status406NotAcceptable));

@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using Serilog.Sinks.MSSqlServer;
+using Serilog.Enrichers.AspnetcoreHttpcontext;
 using System;
 using System.IO;
+using MST.Flogging.Core;
 
 namespace MCB.Api
 {
@@ -16,21 +17,18 @@ namespace MCB.Api
             .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
             .Build();
 
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
-           Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(Configuration)
-                .CreateLogger();
-
             try
             {
-                Log.Information("Getting the motors running...");
-
-                BuildWebHost(args).Run();
+                CreateWebHostBuilder(args).Build().Run();
+                return 0;
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Host terminated unexpectedly");
+                Console.WriteLine("Host terminated unexpectedly");
+                Console.Write(ex.ToString());
+                return 1;
             }
             finally
             {
@@ -38,11 +36,14 @@ namespace MCB.Api
             }     
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseConfiguration(Configuration)
-                .UseSerilog()
-                .Build();
+                .UseSerilog((provider, context, loggerConfig) =>
+                {
+                    loggerConfig.WithSimpleConfiguration(provider, "MCB.API", Configuration);
+                });
+        }
     }
 }

@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using MST.Flogging.Core.Filters;
+using MST.Flogging.Core.Middleware;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -242,7 +243,10 @@ namespace MCB.Api
             });
 
             app.UseAuthentication();
+            
+            //Logging and exception handling
             app.UseMiddleware<SerilogRequestLogger>();
+            app.UseApiExceptionHandler();
 
             app.UseMvc();
             app.UseStaticFiles();

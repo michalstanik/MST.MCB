@@ -5,6 +5,7 @@ using MCB.Business.Models.Geo;
 using MCB.Data.RepositoriesInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MST.Flogging.Core.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -37,6 +38,7 @@ namespace MCB.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [LogUsage("ContinentsController/GetContinentsWithRegionsAndCountriesForUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.continentWithRegionsAndCountries+json")]
         [RequestHeaderMatchesMediaType("Accept",
@@ -47,39 +49,32 @@ namespace MCB.Api.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult<List<ContinentWithRegionsAndCountriesModel>>> GetContinentsWithRegionsAndCountriesForUser()
         {
-            try
+
+            var continentsFromRepo = await _geoRepository.GetContinents(true, false);
+            var mappedContinents
+                    = _mapper.Map<List<ContinentWithRegionsAndCountriesModel>>(continentsFromRepo);
+
+            var userCountries = await _geoRepository.GetCountiresWithAssesmentForUser(_userInfoService.UserId);
+            var mappedUserCountries =
+                _mapper.Map<List<CountryModel>>(userCountries);
+
+            foreach (var userCountry in mappedUserCountries)
             {
-                var continentsFromRepo = await _geoRepository.GetContinents(true, false);
-                var mappedContinents
-                        = _mapper.Map<List<ContinentWithRegionsAndCountriesModel>>(continentsFromRepo);
-
-                var userCountries = await _geoRepository.GetCountiresWithAssesmentForUser(_userInfoService.UserId);
-                var mappedUserCountries =
-                    _mapper.Map<List<CountryModel>>(userCountries);
-
-                foreach (var userCountry in mappedUserCountries)
+                foreach (var item in mappedContinents)
                 {
-                    foreach (var item in mappedContinents)
+                    foreach (var region in item.Regions)
                     {
-                        foreach (var region in item.Regions)
+                        if (region.Name == userCountry.RegionName)
                         {
-                            if (region.Name == userCountry.RegionName)
-                            {
-                                region.Countries.Add(userCountry);
-                                region.VisitedCountryCount += 1;
-                                item.VisitetCountriesOnContinent += 1;
-                            }
+                            region.Countries.Add(userCountry);
+                            region.VisitedCountryCount += 1;
+                            item.VisitetCountriesOnContinent += 1;
                         }
                     }
                 }
+            }
 
-                return mappedContinents;
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-                throw;
-            }
+            return mappedContinents;
         }
     }
 }

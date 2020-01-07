@@ -25,6 +25,7 @@ namespace MST.Flogging.Core
             IServiceProvider provider, string applicationName, IConfiguration config)
         {
             var name = Assembly.GetExecutingAssembly().GetName();
+            var connectionString = config.GetConnectionString("MCBConnectionString");
 
             loggerConfig
                 .ReadFrom.Configuration(config) // minimum levels defined per project in json files 
@@ -34,13 +35,26 @@ namespace MST.Flogging.Core
                 .Enrich.WithProperty("Assembly", $"{name.Name}")
                 .Enrich.WithProperty("Version", $"{name.Version}")
            .WriteTo.Logger(lc => lc
+                 .Filter.ByExcluding(Matching.WithProperty("ElapsedMilliseconds"))
+                 .Filter.ByExcluding(Matching.WithProperty("UsageName"))
+                 .WriteTo.MSSqlServer(
+                     connectionString: connectionString,
+                     tableName: "Log",
+                     autoCreateSqlTable: false))
+           .WriteTo.Logger(lc => lc
                  .Filter.ByIncludingOnly(Matching.WithProperty("ElapsedMilliseconds"))
                  .WriteTo.MSSqlServer(
-                     connectionString: @"Server=(localdb)\\MSSQLLocalDB; Database=MCB; Integrated Security=True; MultipleActiveResultSets=true;",
+                     connectionString: connectionString,
                      tableName: "PerfLog",
                      autoCreateSqlTable: true,
-                     columnOptions: GetSqlColumnOptions())
-                 );
+                     columnOptions: GetSqlColumnOptions()))
+           .WriteTo.Logger(lc => lc
+                 .Filter.ByIncludingOnly(Matching.WithProperty("UsageName"))
+                 .WriteTo.MSSqlServer(
+                     connectionString: connectionString,
+                     tableName: "UsageLog",
+                     autoCreateSqlTable: true,
+                     columnOptions: GetSqlColumnOptions()));
         }
 
         private static ColumnOptions GetSqlColumnOptions()

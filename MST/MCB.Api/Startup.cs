@@ -168,11 +168,12 @@ namespace MCB.Api
 
             services.AddAutoMapper(typeof(Startup));
 
-            //Seeders
+            #region Seeders
             services.AddTransient<MCBDictionarySeeder>();
             services.AddTransient<MCBDataSeeder>();
             services.AddTransient<MCBEnsureDB>();
             services.AddTransient<MCBReportingSeeder>();
+            #endregion Seeders
 
             //Repositories
             services.AddScoped<ICountryRepository, CountryRepository>();
@@ -229,6 +230,7 @@ namespace MCB.Api
             // Enable CORS
             app.UseCors("AllowAllOriginsHeadersAndMethods");
 
+            #region SwagerUI
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -241,12 +243,14 @@ namespace MCB.Api
 
                 setupAction.OAuthClientId(rootConfiguration.AuthConfiguration.STSOAuthClientId);
             });
+            # endregion SwagerUI
 
             app.UseAuthentication();
-            
-            //Logging and exception handling
+
+            #region Logging and exception handling
             app.UseMiddleware<SerilogRequestLogger>();
             app.UseApiExceptionHandler();
+            #endregion Logging and exception handling
 
             app.UseMvc();
             app.UseStaticFiles();

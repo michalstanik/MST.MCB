@@ -262,6 +262,7 @@ namespace MCB.Api
                 var recreate = scope.ServiceProvider.GetService<MCBEnsureDB>();
 
                 recreate.EnsureMigrated();
+                recreate.RemoveLogsOlderThan(configuration.AppConfiguration.RemoveLogsOlderThanHours);
 
                 if (recreateDbOption)
                 {

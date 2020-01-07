@@ -4,5 +4,6 @@
     {
         bool RecreateDB { get; }
         bool DeleteData { get; }
+        double RemoveLogsOlderThanHours { get; }
     }
 }

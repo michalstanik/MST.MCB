@@ -29,11 +29,20 @@ export class RegionMapComponent implements OnInit {
     elements.forEach((element) => {
       for (const entry of this.countriesForMap) {
         if (entry.name === element.attribute('name')) {
+          if(entry.areaLevelAssessment == 0){
+            element.applySettings({
+              color: '#0B2146',
+              hoveredColor: '#e0e000',
+              selectedColor: '#008f00'
+          });         
+        }
+        if(entry.areaLevelAssessment != 0){
           element.applySettings({
-            color: '#0B2146',
+            color: '#0be66a',
             hoveredColor: '#e0e000',
             selectedColor: '#008f00'
-          });
+        });         
+      }
         }}
     })
   }

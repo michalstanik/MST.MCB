@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import * as mapsData from 'devextreme/dist/js/vectormap-data/world.js';
-
 // Models
 import { CountryWithAssessment } from 'src/app/core/model/Geo/country-with-assessment.model';
 

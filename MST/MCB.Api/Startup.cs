@@ -18,6 +18,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using MST.Flogging.Core.Filters;
+using MST.Flogging.Core.Middleware;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,6 +54,9 @@ namespace MCB.Api
 
             services.AddMvc(setupAction =>
             {
+                //Logging Performance
+                setupAction.Filters.Add(new TrackPerformanceFilter());
+
                 setupAction.Filters.Add(new AuthorizeFilter());
                 setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest));
                 setupAction.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status406NotAcceptable));
@@ -163,11 +168,12 @@ namespace MCB.Api
 
             services.AddAutoMapper(typeof(Startup));
 
-            //Seeders
+            #region Seeders
             services.AddTransient<MCBDictionarySeeder>();
             services.AddTransient<MCBDataSeeder>();
             services.AddTransient<MCBEnsureDB>();
             services.AddTransient<MCBReportingSeeder>();
+            #endregion Seeders
 
             //Repositories
             services.AddScoped<ICountryRepository, CountryRepository>();
@@ -224,6 +230,7 @@ namespace MCB.Api
             // Enable CORS
             app.UseCors("AllowAllOriginsHeadersAndMethods");
 
+            #region SwagerUI
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -236,9 +243,14 @@ namespace MCB.Api
 
                 setupAction.OAuthClientId(rootConfiguration.AuthConfiguration.STSOAuthClientId);
             });
+            # endregion SwagerUI
 
             app.UseAuthentication();
+
+            #region Logging and exception handling
             app.UseMiddleware<SerilogRequestLogger>();
+            app.UseApiExceptionHandler();
+            #endregion Logging and exception handling
 
             app.UseMvc();
             app.UseStaticFiles();
@@ -258,6 +270,7 @@ namespace MCB.Api
                 var recreate = scope.ServiceProvider.GetService<MCBEnsureDB>();
 
                 recreate.EnsureMigrated();
+                recreate.RemoveLogsOlderThan(configuration.AppConfiguration.RemoveLogsOlderThanHours);
 
                 if (recreateDbOption)
                 {

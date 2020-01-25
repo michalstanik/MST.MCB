@@ -33,7 +33,6 @@ export class CountriesMapComponent implements OnInit {
 
       for (const entry of this.countries) {
         if (entry.name === element.attribute('name')) {
-          console.log('Map element ', element.attribute('name'));
 
           switch (entry.areaLevelAssessment) {
             case 100:

@@ -24,8 +24,6 @@ export class ContinentsListComponent implements OnInit {
   }
 
   navigateToRegion(id: number) {
-    console.log('RegionId', id);
-
     this.router.navigate(['mycountries/regions', id]);
   }
 

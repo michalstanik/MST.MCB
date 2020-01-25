@@ -1,4 +1,6 @@
-{{region.name}}
+<div id="Region Header">
+    {{region.name}}
+</div>
 <app-country-list-for-region *ngIf='region.countries && region.countries.length'
                     [countriesForRegion]="region.countries">
 

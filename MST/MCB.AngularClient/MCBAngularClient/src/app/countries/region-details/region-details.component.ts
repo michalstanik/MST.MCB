@@ -19,13 +19,11 @@ export class RegionDetailsComponent implements OnInit {
 
               ngOnInit() {
                 this.route.params.forEach((params: Params) => {
-                  console.log('Param', params.id);
                   this.regionService.GetRegionWithUserVisits(+params.id)
                       .subscribe(region => {
                           this.region = region;
                       });
               });
-                console.log('Countries length', this.region.countries.length);
               }
 
 }

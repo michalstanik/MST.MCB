@@ -3,12 +3,9 @@
       <thead>
           <tr>
               <th>#</th>
+              <th>Code</th>
               <th>Name</th>
-              <th>Offical Name</th>
-              <th>A2</th>
-              <th>A3</th>
               <th>Area</th>
-              <th>RegionName</th>
           </tr>
       </thead>
       <tbody>
@@ -16,12 +13,15 @@
               <td>
                   <img src="assets/svgmaps/{{country.alpha3Code | lowercase }}.svg">
               </td>
-              <td>{{country.name}}</td>
-              <td>{{country.officialName}}</td>
-              <td>{{country.alpha2Code}}</td>
-              <td>{{country.alpha3Code}}</td>
+              <td>{{country.alpha2Code}} - {{country.alpha3Code}}</td>
+              <td>
+                <div>
+                 <a>{{country.name}}</a> 
+                 <br>
+                 <a id="officialName" *ngIf="country.officialName != country.name">{{country.officialName}}</a>
+                </div>
+              </td>
               <td>{{country.area}}</td>
-              <td>{{country.regionName}}</td>
           </tr>
       </tbody>
   </table>

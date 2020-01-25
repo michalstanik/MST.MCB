@@ -3,9 +3,10 @@ using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Enrichers.AspnetcoreHttpcontext;
 using Serilog.Filters;
-using Serilog.Sinks.Elasticsearch;
 using Serilog.Sinks.MSSqlServer;
 using System;
+using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 
@@ -45,7 +46,7 @@ namespace MST.Flogging.Core
                  .Filter.ByIncludingOnly(Matching.WithProperty("ElapsedMilliseconds"))
                  .WriteTo.MSSqlServer(
                      connectionString: connectionString,
-                     tableName: "PerfLog",
+                     tableName: "PerfLogNew",
                      autoCreateSqlTable: true,
                      columnOptions: GetSqlColumnOptions()))
            .WriteTo.Logger(lc => lc
@@ -60,6 +61,37 @@ namespace MST.Flogging.Core
         private static ColumnOptions GetSqlColumnOptions()
         {
             var options = new ColumnOptions();
+            options.Store.Remove(StandardColumn.Message);
+            options.Store.Remove(StandardColumn.MessageTemplate);
+            options.Store.Remove(StandardColumn.Level);
+            options.Store.Remove(StandardColumn.Exception);
+
+            options.Store.Remove(StandardColumn.Properties);
+            options.Store.Add(StandardColumn.LogEvent);
+            options.LogEvent.ExcludeStandardColumns = true;
+            options.LogEvent.ExcludeAdditionalProperties = true;
+
+            options.AdditionalColumns = new Collection<SqlColumn>
+            {
+                new SqlColumn
+                { ColumnName = "PerfItem", AllowNull = false,
+                    DataType = SqlDbType.NVarChar, DataLength = 100,
+                    NonClusteredIndex = true },
+                new SqlColumn
+                {
+                    ColumnName = "ElapsedMilliseconds", AllowNull = false,
+                    DataType = SqlDbType.Int
+                },
+                new SqlColumn
+                {
+                    ColumnName = "ActionName", AllowNull = false
+                },
+                new SqlColumn
+                {
+                    ColumnName = "MachineName", AllowNull = false
+                }
+            };
+
             return options;
         }
 

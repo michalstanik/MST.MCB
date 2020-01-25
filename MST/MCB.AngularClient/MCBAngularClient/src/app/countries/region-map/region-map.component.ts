@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import * as mapsData from 'devextreme/dist/js/vectormap-data/world.js';
 
@@ -14,9 +15,11 @@ export class RegionMapComponent implements OnInit {
 
   worldMap: any = mapsData.world;
 
-  constructor() { }
+  constructor(private router: Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+}
 
-  @Input() countriesForRegion: CountryWithAssessment[];
+  @Input() countriesForMap: CountryWithAssessment[];
   
   ngOnInit() {
     this.customizeLayers = this.customizeLayers.bind(this);
@@ -24,7 +27,7 @@ export class RegionMapComponent implements OnInit {
 
   customizeLayers(elements) {
     elements.forEach((element) => {
-      for (const entry of this.countriesForRegion) {
+      for (const entry of this.countriesForMap) {
         if (entry.name === element.attribute('name')) {
           element.applySettings({
             color: '#0B2146',

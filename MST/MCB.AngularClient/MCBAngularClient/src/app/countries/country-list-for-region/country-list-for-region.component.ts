@@ -12,27 +12,11 @@ import { CountryWithAssessment } from 'src/app/core/model/Geo/country-with-asses
 })
 export class CountryListForRegionComponent implements OnInit {
 
-  worldMap: any = mapsData.world;
-
   constructor() { }
 
   @Input() countriesForRegion: CountryWithAssessment[];
 
   ngOnInit() {
-    this.customizeLayers = this.customizeLayers.bind(this);
-  }
 
-  customizeLayers(elements) {
-    elements.forEach((element) => {
-      for (const entry of this.countriesForRegion) {
-        if (entry.name === element.attribute('name')) {
-          element.applySettings({
-            color: '#0B2146',
-            hoveredColor: '#e0e000',
-            selectedColor: '#008f00'
-          });
-        }}
-    })
   }
-  
 }

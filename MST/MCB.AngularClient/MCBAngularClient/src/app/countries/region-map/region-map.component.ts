@@ -35,15 +35,15 @@ export class RegionMapComponent implements OnInit {
               hoveredColor: '#e0e000',
               selectedColor: '#008f00'
           });         
-        }
-        if(entry.areaLevelAssessment != 0){
-          element.applySettings({
-            color: '#0be66a',
-            hoveredColor: '#e0e000',
-            selectedColor: '#008f00'
-        });         
-      }
-        }}
+          }
+          if(entry.areaLevelAssessment != 0){
+            element.applySettings({
+              color: '#0be66a',
+              hoveredColor: '#e0e000',
+              selectedColor: '#008f00'
+          });         
+          }
+      }}
     })
   }
 }

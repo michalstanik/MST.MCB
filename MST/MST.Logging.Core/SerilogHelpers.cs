@@ -5,6 +5,7 @@ using Serilog.Enrichers.AspnetcoreHttpcontext;
 using Serilog.Filters;
 using Serilog.Sinks.MSSqlServer;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
@@ -46,19 +47,25 @@ namespace MST.Flogging.Core
                  .Filter.ByIncludingOnly(Matching.WithProperty("ElapsedMilliseconds"))
                  .WriteTo.MSSqlServer(
                      connectionString: connectionString,
-                     tableName: "PerfLogNew",
+                     tableName: "LogPerformance",
                      autoCreateSqlTable: true,
-                     columnOptions: GetSqlColumnOptions()))
+                     columnOptions: GetPerfSqlColumnOptions()))
            .WriteTo.Logger(lc => lc
                  .Filter.ByIncludingOnly(Matching.WithProperty("UsageName"))
                  .WriteTo.MSSqlServer(
                      connectionString: connectionString,
-                     tableName: "UsageLog",
+                     tableName: "LogUsage",
                      autoCreateSqlTable: true,
-                     columnOptions: GetSqlColumnOptions()));
+                     columnOptions: GetUsageSqlColumnOptions()));
         }
 
-        private static ColumnOptions GetSqlColumnOptions()
+        private static ColumnOptions GetUsageSqlColumnOptions()
+        {
+            var options = new ColumnOptions();
+            return options;
+        }
+
+        private static ColumnOptions GetPerfSqlColumnOptions()
         {
             var options = new ColumnOptions();
             options.Store.Remove(StandardColumn.Message);
@@ -97,17 +104,31 @@ namespace MST.Flogging.Core
 
         private static UserInfo AddCustomContextDetails(IHttpContextAccessor ctx)
         {
+            var excluded = new List<string> { "nbf", "exp", "auth_time", "amr", "sub" };
+            const string userIdClaimType = "sub";
+
             var context = ctx.HttpContext;
             var user = context?.User.Identity;
             if (user == null || !user.IsAuthenticated) return null;
 
-            var i = 0;
-
+            var userId = context.User.Claims.FirstOrDefault(a => a.Type == userIdClaimType)?.Value;
             var userInfo = new UserInfo
             {
-                Name = user.Name,
-                Claims = context.User.Claims.ToDictionary(x => $"{x.Type} ({i++})", y => y.Value)
+                UserName = user.Name,
+                UserId = userId,
+                UserClaims = new Dictionary<string, List<string>>()
             };
+            foreach (var distinctClaimType in context.User.Claims
+                .Where(a => excluded.All(ex => ex != a.Type))
+                .Select(a => a.Type)
+                .Distinct())
+            {
+                userInfo.UserClaims[distinctClaimType] = context.User.Claims
+                    .Where(a => a.Type == distinctClaimType)
+                    .Select(c => c.Value)
+                    .ToList();
+            }
+
             return userInfo;
         }
     }

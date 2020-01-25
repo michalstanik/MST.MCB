@@ -19,7 +19,7 @@ namespace MST.Flogging.Core.Attributes
         }
         public override void OnResultExecuted(ResultExecutedContext context)
         {
-            Log.Information(_usageName);
+            Log.Information("Usage captured for {UsageName}", _usageName);
         }
     }
 }

@@ -6,7 +6,6 @@ using MCB.Data.RepositoriesInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MST.Flogging.Core.Attributes;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -4,14 +4,16 @@ using MCB.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MCB.Data.Migrations
 {
     [DbContext(typeof(MCBContext))]
-    partial class MCBContextModelSnapshot : ModelSnapshot
+    [Migration("20200125220912_CountryLatLong")]
+    partial class CountryLatLong
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,14 +163,6 @@ namespace MCB.Data.Migrations
                     b.Property<int?>("ContinentId");
 
                     b.Property<int?>("CountriesCount");
-
-                    b.Property<double>("MaxLatitude");
-
-                    b.Property<double>("MaxLongitude");
-
-                    b.Property<double>("MinLatitude");
-
-                    b.Property<double>("MinLongitude");
 
                     b.Property<string>("Name");
 

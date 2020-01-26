@@ -210,7 +210,9 @@ namespace MCB.Data
                         Alpha2Code = item.cca2,
                         Alpha3Code = item.cca3,
                         Area = item.area,
-                        Region = region
+                        Region = region,
+                        Latitude = item.latlng.FirstOrDefault(),
+                        Longitude = item.latlng.LastOrDefault()
                     };
                     _context.Add(newCountry);
                     _context.SaveChanges();

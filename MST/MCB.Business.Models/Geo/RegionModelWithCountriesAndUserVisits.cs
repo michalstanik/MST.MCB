@@ -2,7 +2,7 @@
 
 namespace MCB.Business.Models.Geo
 {
-    public class RegionModelWithCountriesAndUserVisits : RegionModel
+    public class RegionModelWithCountriesAndUserVisits : RegionModelWithStats
     {
         public List<CountryModelWithAssesments> Countries { get; set; }
     }

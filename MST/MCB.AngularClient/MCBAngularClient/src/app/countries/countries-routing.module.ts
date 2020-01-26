@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { RootComponent } from './root/root.component';
 import { RegionDetailsComponent } from './region-details/region-details.component';
+import { RegionMapComponent } from './region-map/region-map.component';
 
 export const routing: ModuleWithProviders = RouterModule.forChild([
   {

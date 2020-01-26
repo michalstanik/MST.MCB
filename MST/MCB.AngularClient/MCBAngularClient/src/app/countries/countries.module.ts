@@ -13,9 +13,10 @@ import { ContinentsListComponent } from './continents-list/continents-list.compo
 import { CountriesMapComponent } from './countries-map/countries-map.component';
 import { CountryThumbnailComponent } from './country-thumbnail/country-thumbnail.component';
 import { CountryListForRegionComponent } from './country-list-for-region/country-list-for-region.component';
+import { RegionMapComponent } from './region-map/region-map.component';
 
+// Modules
 import { routing } from './countries-routing.module';
-
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { routing } from './countries-routing.module';
     ContinentsListComponent,
     CountriesMapComponent,
     CountryThumbnailComponent,
-    CountryListForRegionComponent],
+    CountryListForRegionComponent,
+    RegionMapComponent],
   imports: [
     routing,
     CommonModule,

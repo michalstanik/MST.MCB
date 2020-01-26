@@ -30,5 +30,17 @@ namespace MCB.Data
                 _context.SaveChanges();
             }
         }
+
+        public void GenerteMinMaxLatLongForRegions()
+        {
+            foreach (var region in _context.Region.ToList())
+            {
+                region.MaxLatitude = _context.Country.Where(c => c.RegionId == region.Id).Select(c => c.Latitude).Max();
+                region.MinLatitude = _context.Country.Where(c => c.RegionId == region.Id).Select(c => c.Latitude).Min();
+                region.MaxLongitude = _context.Country.Where(c => c.RegionId == region.Id).Select(c => c.Longitude).Max();
+                region.MinLongitude = _context.Country.Where(c => c.RegionId == region.Id).Select(c => c.Longitude).Min();
+            }
+            _context.SaveChanges();
+        }
     }
 }

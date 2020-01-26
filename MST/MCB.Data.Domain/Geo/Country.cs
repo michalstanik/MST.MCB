@@ -14,7 +14,6 @@ namespace MCB.Data.Domain.Geo
             UserCountries = new List<UserCountry>();
             CountryStops = new List<Stop>();
             WoldHeritageCountries = new List<WorldHeritageCountry>();
-
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -26,9 +25,12 @@ namespace MCB.Data.Domain.Geo
         public int? RegionId { get; set; }
         public Region Region { get; set; }
 
-        public List<UserCountry> UserCountries { get; set; }
-        public List<Stop> CountryStops { get; set; }
-        public List<WorldHeritageCountry> WoldHeritageCountries { get; set; }
-        public List<Airport> Airports { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+
+        public List<UserCountry> UserCountries { get; }
+        public List<Stop> CountryStops { get; }
+        public List<WorldHeritageCountry> WoldHeritageCountries { get; }
+        public List<Airport> Airports { get; }
     }
 }

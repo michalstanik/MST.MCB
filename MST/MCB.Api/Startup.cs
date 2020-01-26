@@ -277,15 +277,15 @@ namespace MCB.Api
                     recreate.EnsureDeletedAndRecreated();
                     dictionarySeeder.Seed();
                     dataSeeder.Seed();
-                    reportingSeeder.GenerateReportingForRegionsAndContinents();
                 }
                 if (deleteData)
                 {
                     dataSeeder.DeleteData();
                     dictionarySeeder.Seed();
                     dataSeeder.Seed();
-                    reportingSeeder.GenerateReportingForRegionsAndContinents();
                 }
+                reportingSeeder.GenerateReportingForRegionsAndContinents();
+                reportingSeeder.GenerteMinMaxLatLongForRegions();
             }
         }
     }

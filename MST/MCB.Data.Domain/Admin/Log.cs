@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace MCB.Data.Domain.Admin
 {

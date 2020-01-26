@@ -14,7 +14,7 @@ namespace MCB.Mobile
     public partial class MainPage : ContentPage
     {
         private HttpClient _client;
-        string _accessToken;
+        private string _accessToken;
 
         public MainPage()
         {
@@ -23,7 +23,7 @@ namespace MCB.Mobile
             _client = new HttpClient();
         }
 
-        async void OnLoginButtonClicked(object sender, EventArgs e)
+        private async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             var options = new OidcClientOptions
             {

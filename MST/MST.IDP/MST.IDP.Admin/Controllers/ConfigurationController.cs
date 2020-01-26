@@ -44,7 +44,7 @@ namespace MST.IDP.Admin.Controllers
                 return View(clientDto);
             }
 
-            var client = await _clientService.GetClientAsync((int)id);
+            var client = await _clientService.GetClientAsync(id);
             client = _clientService.BuildClientViewModel(client);
 
             return View(client);

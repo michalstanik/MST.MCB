@@ -213,7 +213,7 @@ namespace MCB.Data
                         Region = region,
                         Latitude = item.latlng.FirstOrDefault(),
                         Longitude = item.latlng.LastOrDefault()
-                };
+                    };
                     _context.Add(newCountry);
                     _context.SaveChanges();
                 }

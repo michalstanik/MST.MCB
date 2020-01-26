@@ -20,7 +20,7 @@ namespace MST.IDP.Admin.Api.ExceptionHandling
             ProcessException(context);
         }
 
-        void SetTraceId(string traceIdentifier, ProblemDetails problemDetails)
+        private void SetTraceId(string traceIdentifier, ProblemDetails problemDetails)
         {
             var traceId = Activity.Current?.Id ?? traceIdentifier;
             problemDetails.Extensions["traceId"] = traceId;

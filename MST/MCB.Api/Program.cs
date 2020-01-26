@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using MST.Flogging.Core;
 using Serilog;
 using Serilog.Enrichers.AspnetcoreHttpcontext;
 using System;
 using System.IO;
-using MST.Flogging.Core;
 
 namespace MCB.Api
 {
@@ -35,7 +35,7 @@ namespace MCB.Api
             finally
             {
                 Log.CloseAndFlush();
-            }     
+            }
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)

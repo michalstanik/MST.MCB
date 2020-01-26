@@ -12,7 +12,7 @@ namespace MCB.Api.Helpers
 {
     public class SerilogRequestLogger
     {
-        readonly RequestDelegate _next;
+        private readonly RequestDelegate _next;
 
         public SerilogRequestLogger(RequestDelegate next)
         {

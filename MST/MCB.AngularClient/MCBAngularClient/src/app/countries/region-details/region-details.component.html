@@ -1,8 +1,7 @@
 <div id="Region Header">
     {{region.name}}
 </div>
-<app-country-list-for-region *ngIf='region.countries && region.countries.length'
-                    [countriesForRegion]="region.countries">
+<app-country-list-for-region [countriesForRegion]="region.countries">
 
 </app-country-list-for-region>
 <app-region-map [countriesForMap]="region.countries" [region]="region">

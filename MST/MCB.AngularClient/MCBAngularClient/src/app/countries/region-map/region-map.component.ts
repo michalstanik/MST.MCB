@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as mapsData from 'devextreme/dist/js/vectormap-data/world.js';
@@ -6,6 +6,7 @@ import * as mapsData from 'devextreme/dist/js/vectormap-data/world.js';
 // Models
 import { CountryWithAssessment } from 'src/app/core/model/Geo/country-with-assessment.model';
 import { RegionWithCountriesAndAssessment } from 'src/app/core/model/Geo/region-with-countries-and-assessment.model';
+import { DxVectorMapComponent } from 'devextreme-angular';
 
 @Component({
   selector: 'app-region-map',
@@ -14,6 +15,7 @@ import { RegionWithCountriesAndAssessment } from 'src/app/core/model/Geo/region-
 })
 export class RegionMapComponent implements OnInit {
 
+  @ViewChild(DxVectorMapComponent, { static: false }) vectorMap: DxVectorMapComponent
   worldMap: any = mapsData.world;
 
   constructor(private router: Router) {
@@ -25,13 +27,14 @@ export class RegionMapComponent implements OnInit {
 
   ngOnInit() {
     this.customizeLayers = this.customizeLayers.bind(this);
-    this.latlongbounds = this.latlongbounds.bind(this);
-    console.log(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
+    //console.log(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
+    this.vectorMap.bounds.push(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
   }
 
-  latlongbounds(cord){
-     console.log(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
-     cord.push(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
+  latlongbounds(){
+     //console.log(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
+     //cord.push(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
+     return "[15.5, 60, 100, 35]";
   }
 
   customizeLayers(elements) {

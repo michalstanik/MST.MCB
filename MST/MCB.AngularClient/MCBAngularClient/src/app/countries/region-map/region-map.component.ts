@@ -5,6 +5,7 @@ import * as mapsData from 'devextreme/dist/js/vectormap-data/world.js';
 
 // Models
 import { CountryWithAssessment } from 'src/app/core/model/Geo/country-with-assessment.model';
+import { RegionWithCountriesAndAssessment } from 'src/app/core/model/Geo/region-with-countries-and-assessment.model';
 
 @Component({
   selector: 'app-region-map',
@@ -20,9 +21,17 @@ export class RegionMapComponent implements OnInit {
 }
 
   @Input() countriesForMap: CountryWithAssessment[];
-  
+  @Input() region: RegionWithCountriesAndAssessment;
+
   ngOnInit() {
     this.customizeLayers = this.customizeLayers.bind(this);
+    this.latlongbounds = this.latlongbounds.bind(this);
+    console.log(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
+  }
+
+  latlongbounds(cord){
+     console.log(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
+     cord.push(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
   }
 
   customizeLayers(elements) {
@@ -43,7 +52,7 @@ export class RegionMapComponent implements OnInit {
               selectedColor: '#008f00'
           });         
           }
-      }}
+        }}
     })
   }
 }

@@ -27,14 +27,6 @@ export class RegionMapComponent implements OnInit {
 
   ngOnInit() {
     this.customizeLayers = this.customizeLayers.bind(this);
-    //console.log(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
-    this.vectorMap.bounds.push(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
-  }
-
-  latlongbounds(){
-     //console.log(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
-     //cord.push(this.region.minLongitude, this.region.maxLatitude, this.region.maxLongitude, this.region.minLatitude);
-     return "[15.5, 60, 100, 35]";
   }
 
   customizeLayers(elements) {

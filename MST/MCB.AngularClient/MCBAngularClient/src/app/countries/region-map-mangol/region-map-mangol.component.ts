@@ -15,7 +15,18 @@ export class RegionMapMangolComponent implements OnInit {
   mangolConfig: MangolConfig;
   constructor() { }
 
+  displayLocation(position){
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    var pLocation = document.getElementById("location");
+    pLocation.innerHTML += latitude + ", " + longitude + "<br>";
+  }
+
   ngOnInit() {
+
+    navigator.geolocation.getCurrentPosition(this.displayLocation);
+
     this.mangolConfig = {
       map: {
         target: 'mangol-demo',
@@ -25,8 +36,30 @@ export class RegionMapMangolComponent implements OnInit {
             [19.3956393810065, 47.168464955013],
             'EPSG:900913'
           ),
-          zoom: 4
+          zoom: 3,
+          enableRotation: true
         }),
+        controllers: {
+          zoom: {
+            show: true,
+            showTooltip: true,
+            dictionary: {
+              zoomIn: 'Zoom in',
+              zoomOut: 'Zoom out'
+            }
+          },
+          position: {
+            show: true,
+            precision: 2
+          },
+          rotation: {
+            show: true,
+            dictionary: {
+              rotateToNorth: 'Rotate to North'
+            },
+            showTooltip: true
+          }
+        },
         layers: [
           new MangolLayer({
             name: 'OpenStreetMap Layer',
@@ -39,12 +72,13 @@ export class RegionMapMangolComponent implements OnInit {
         ]
       },
       sidebar: {
-        opened: true,
+        opened: false,
         toolbar: {
           layertree: {},
           measure: {}
         }
-      }
+      },
+      
     };
   }
 }

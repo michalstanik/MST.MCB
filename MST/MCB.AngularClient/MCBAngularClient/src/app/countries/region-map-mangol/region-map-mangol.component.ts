@@ -15,17 +15,10 @@ export class RegionMapMangolComponent implements OnInit {
   mangolConfig: MangolConfig;
   constructor() { }
 
-  displayLocation(position){
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-
-    var pLocation = document.getElementById("location");
-    pLocation.innerHTML += latitude + ", " + longitude + "<br>";
-  }
-
   ngOnInit() {
-
-    navigator.geolocation.getCurrentPosition(this.displayLocation);
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(this.displayLocation, this.displayLocationError);
+    }
 
     this.mangolConfig = {
       map: {
@@ -80,5 +73,29 @@ export class RegionMapMangolComponent implements OnInit {
       },
       
     };
+  }
+  
+  private displayLocation(position){
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    var pLocation = document.getElementById("location");
+    pLocation.innerHTML += latitude + ", " + longitude + "<br>";
+
+    var pInfo = document.getElementById("info");
+    var date = new Date(position.timestamp);
+    pInfo.innerHTML = "Location timestamp: " + date + "<br>";
+    pInfo.innerHTML += "Accuracy of location: " + position.coords.Accuracy + " meters<br>";
+  }
+
+  private displayLocationError(error){
+    var errors = [
+      "Unknown Error",
+      "Permission denied by user",
+      "Position not avaliable",  
+      "Timeout error"     
+    ];
+    var message = errors[error.code];
+    console.warn("Error in getting location: " + message, error.message);
   }
 }

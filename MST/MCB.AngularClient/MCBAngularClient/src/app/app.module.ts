@@ -15,7 +15,7 @@ import { HeaderComponent } from './header/header.component';
 
 // Modules
 import { CoreModule } from './core/core.module';
-import { TripsModuleModule } from './trips/trips-module.module';
+import { TripsModule } from './trips/trips.module';
 import { CountriesModule } from './countries/countries.module';
 
 import { routing } from './app-routing.module';
@@ -38,7 +38,7 @@ import { routing } from './app-routing.module';
     MangolModule,
     CoreModule,
     routing,
-    TripsModuleModule,
+    TripsModule,
     CountriesModule
   ],
   providers: [MDBSpinningPreloader],

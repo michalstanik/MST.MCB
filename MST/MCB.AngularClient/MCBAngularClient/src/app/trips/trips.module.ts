@@ -34,7 +34,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ReactiveFormsModule
   ]
 })
-export class TripsModuleModule {
+export class TripsModule {
 
   constructor() {
      automapper.createMap('TripFormModel', 'TripForCreation');

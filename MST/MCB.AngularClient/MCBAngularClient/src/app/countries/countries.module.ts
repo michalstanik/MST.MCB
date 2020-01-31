@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // 3rd Parties
 import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
@@ -17,6 +18,9 @@ import { RegionMapComponent } from './region-map/region-map.component';
 
 // Modules
 import { routing } from './countries-routing.module';
+import { RegionMapMangolComponent } from './region-map-mangol/region-map-mangol.component';
+import { MangolModule } from 'mangol';
+
 
 @NgModule({
   declarations: [
@@ -26,13 +30,16 @@ import { routing } from './countries-routing.module';
     CountriesMapComponent,
     CountryThumbnailComponent,
     CountryListForRegionComponent,
-    RegionMapComponent],
+    RegionMapComponent,
+    RegionMapMangolComponent],
   imports: [
+    BrowserAnimationsModule,
     routing,
     CommonModule,
     FormsModule,
     MDBBootstrapModulesPro.forRoot(),
-    DxVectorMapModule
+    DxVectorMapModule,
+    MangolModule
   ]
 })
 export class CountriesModule { }

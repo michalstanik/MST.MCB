@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MDBSpinningPreloader, MDBBootstrapModulesPro, ToastModule } from 'ng-uikit-pro-standard';
 
+// Maps Module
+import { MangolModule } from 'mangol';
+
 // Components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -12,7 +15,7 @@ import { HeaderComponent } from './header/header.component';
 
 // Modules
 import { CoreModule } from './core/core.module';
-import { TripsModuleModule } from './trips/trips-module.module';
+import { TripsModule } from './trips/trips.module';
 import { CountriesModule } from './countries/countries.module';
 
 import { routing } from './app-routing.module';
@@ -32,9 +35,10 @@ import { routing } from './app-routing.module';
     HttpClientModule,
     ToastModule.forRoot(),
     MDBBootstrapModulesPro.forRoot(),
+    MangolModule,
     CoreModule,
     routing,
-    TripsModuleModule,
+    TripsModule,
     CountriesModule
   ],
   providers: [MDBSpinningPreloader],

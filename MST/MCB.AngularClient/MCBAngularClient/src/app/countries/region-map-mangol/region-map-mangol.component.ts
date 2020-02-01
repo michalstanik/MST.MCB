@@ -11,12 +11,12 @@ import { MangolConfig, MangolLayer } from 'mangol';
   styleUrls: ['./region-map-mangol.component.scss']
 })
 export class RegionMapMangolComponent implements OnInit {
-  
+
   mangolConfig: MangolConfig;
   constructor() { }
 
   ngOnInit() {
-    if(navigator.geolocation){
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.displayLocation, this.displayLocationError);
     }
 
@@ -71,31 +71,30 @@ export class RegionMapMangolComponent implements OnInit {
           measure: {}
         }
       },
-      
     };
   }
-  
-  private displayLocation(position){
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
 
-    var pLocation = document.getElementById("location");
-    pLocation.innerHTML += latitude + ", " + longitude + "<br>";
+  private displayLocation(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
 
-    var pInfo = document.getElementById("info");
-    var date = new Date(position.timestamp);
-    pInfo.innerHTML = "Location timestamp: " + date + "<br>";
-    pInfo.innerHTML += "Accuracy of location: " + position.coords.Accuracy + " meters<br>";
+    const pLocation = document.getElementById('location');
+    pLocation.innerHTML += latitude + ', ' + longitude + '<br>';
+
+    const pInfo = document.getElementById('info');
+    const date = new Date(position.timestamp);
+    pInfo.innerHTML = 'Location timestamp: ' + date + '<br>';
+    pInfo.innerHTML += 'Accuracy of location: ' + position.coords.Accuracy + ' meters<br>';
   }
 
-  private displayLocationError(error){
-    var errors = [
-      "Unknown Error",
-      "Permission denied by user",
-      "Position not avaliable",  
-      "Timeout error"     
+  private displayLocationError(error) {
+    const errors = [
+      'Unknown Error',
+      'Permission denied by user',
+      'Position not avaliable',
+      'Timeout error'
     ];
-    var message = errors[error.code];
-    console.warn("Error in getting location: " + message, error.message);
+    const message = errors[error.code];
+    console.warn('Error in getting location: ' + message, error.message);
   }
 }

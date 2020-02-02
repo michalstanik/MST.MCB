@@ -1,6 +1,7 @@
 ﻿using MCB.Data;
 using MCB.Data.Domain.Geo;
 using MCB.Data.Domain.Trips;
+using MCB.Data.Domain.User;
 using MCB.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -92,6 +93,51 @@ namespace MCB.Tests.Data
                 // Assert
                 Assert.NotNull(trip);
                 Assert.Equal(2, trip.Stops.Count());
+            }
+        }
+
+        [Fact]
+        public async Task GetTripsByUser_TripWithoutFlights_ListOfOneTripReturned()
+        {
+            var dbOptions = DbSettingHellper.GetDbOptions(_output);
+            //Arrange
+            using (var context = new MCBContext(dbOptions))
+            {
+                context.Database.OpenConnection();
+                context.Database.EnsureCreated();
+
+                var user1 = new TUser()
+                {
+                    Id = "fec0a4d6-5830-4eb8-8024-272bd5d6d2bb",
+                    UserName = "User1"
+                };
+                context.Add(user1);
+                await context.SaveChangesAsync();
+
+                var trip1 = new Trip()
+                {
+                    Id = 8,
+                    Name = "Trip 1",
+                    UserTrips = new List<UserTrip>()
+                    {
+                        new UserTrip(){ TripId = 8, TUser = user1 }
+                    }
+                };
+
+                context.Add(trip1);
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new MCBContext(dbOptions))
+            {
+                var tripRepository = new TripRepository(context);
+
+                // Act
+                var trip = await tripRepository.GetTripsByUser("fec0a4d6-5830-4eb8-8024-272bd5d6d2bb", true, true, true);
+
+                // Assert
+                Assert.NotNull(trip);
+                Assert.Empty(trip.FirstOrDefault().Flights);
             }
         }
     }

@@ -40,11 +40,11 @@ namespace MCB.Api
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseSerilog((provider, context, loggerConfig) =>
-                {
-                    loggerConfig.WithSimpleConfiguration(provider, "MCB.API", Configuration);
-                });
+                .UseStartup<Startup>();
+                //.UseSerilog((provider, context, loggerConfig) =>
+                //{
+                //    loggerConfig.WithSimpleConfiguration(provider, "MCB.API", Configuration);
+                //});
         }
     }
 }

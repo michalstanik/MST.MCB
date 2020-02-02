@@ -1,4 +1,5 @@
 ﻿using MCB.Data;
+using MCB.Data.Domain.Flights;
 using MCB.Data.Domain.Geo;
 using MCB.Data.Domain.Trips;
 using MCB.Data.Domain.User;
@@ -96,6 +97,84 @@ namespace MCB.Tests.Data
             }
         }
 
+        [Fact]
+        public async Task GetTrip_TripWithFlightsOnly_OneTripReturnedWithFlights()
+        {
+            var dbOptions = DbSettingHellper.GetDbOptions(_output);
+            //Arrange
+            using (var context = new MCBContext(dbOptions))
+            {
+                context.Database.OpenConnection();
+                context.Database.EnsureCreated();
+
+                var trip1 = new Trip()
+                {
+                    Id = 8,
+                    Name = "Trip 1",
+                    Flights = new List<Flight>()
+                    {
+                        new Flight(){ Id = 1, TripId = 8, FlightNumber = "EZ1245" },
+                        new Flight(){ Id = 2, TripId = 8, FlightNumber = "EZ1246" },
+                        new Flight(){ Id = 3, TripId = 8, FlightNumber = "EZ1247" },
+                    }
+                };
+
+                context.Add(trip1);
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new MCBContext(dbOptions))
+            {
+                var tripRepository = new TripRepository(context);
+
+                // Act
+                var trip = await tripRepository.GetTrip(8, false, false, true);
+
+                // Assert
+                Assert.NotNull(trip);
+                Assert.NotEmpty(trip.Flights);
+            }
+        }
+
+        [Fact]
+        public async Task GetTrip_TripWithFlightsOnly_OneTripReturnedWithoutFlights()
+        {
+            var dbOptions = DbSettingHellper.GetDbOptions(_output);
+            //Arrange
+            using (var context = new MCBContext(dbOptions))
+            {
+                context.Database.OpenConnection();
+                context.Database.EnsureCreated();
+
+                var trip1 = new Trip()
+                {
+                    Id = 8,
+                    Name = "Trip 1",
+                    Flights = new List<Flight>()
+                    {
+                        new Flight(){ Id = 1, TripId = 8, FlightNumber = "EZ1245" },
+                        new Flight(){ Id = 2, TripId = 8, FlightNumber = "EZ1246" },
+                        new Flight(){ Id = 3, TripId = 8, FlightNumber = "EZ1247" },
+                    }
+                };
+
+                context.Add(trip1);
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new MCBContext(dbOptions))
+            {
+                var tripRepository = new TripRepository(context);
+
+                // Act
+                var trip = await tripRepository.GetTrip(8, false, false, false);
+
+                // Assert
+                Assert.NotNull(trip);
+                Assert.Empty(trip.Flights);
+            }
+        }
+        
         [Fact]
         public async Task GetTripsByUser_TripWithoutFlights_ListOfOneTripReturned()
         {

@@ -45,9 +45,6 @@ namespace MCB.Data.Repositories
             {
                 throw new Exception("Trip or user are not exists");
             }
-
-
-
         }
 
         public async Task<bool> CheckUserPermissionsForTrip(int tripId, string userId)
@@ -68,17 +65,17 @@ namespace MCB.Data.Repositories
             return false;
         }
 
-        public async Task<Trip> GetTrip(int tripId, bool includeStops = false, bool includeUsers = false)
+        public async Task<Trip> GetTrip(int tripId, bool includeStops = false, bool includeUsers = false, bool includeFlights = false)
         {
             IQueryable<Trip> query = _context.Trip.Where(t => t.Id == tripId);
 
-            query = IncludeTripProperties(query, includeStops, includeUsers);
+            query = IncludeTripProperties(query, includeStops, includeUsers, includeFlights);
 
             return await query.FirstOrDefaultAsync();
 
         }
 
-        public async Task<List<Trip>> GetTripsByUser(string userId, bool includeStops, bool includeUsers, bool includeFlights = false)
+        public async Task<List<Trip>> GetTripsByUser(string userId, bool includeStops = false, bool includeUsers = false, bool includeFlights = false)
         {
             var query = from tu in _context.UserTrip
                         join u in _context.TUser on tu.TUserId equals userId
@@ -130,6 +127,14 @@ namespace MCB.Data.Repositories
                         .ThenInclude(e => e.WorldHeritage)
                     .Include(c => c.UserTrips)
                         .ThenInclude(pc => pc.TUser)
+                    .Include(f => f.Flights)
+                        .ThenInclude(a => a.DepartureAirport)
+                    .Include(g => g.Flights)
+                        .ThenInclude(b => b.ArrivalAirport);
+            }
+            else if (!includeStops && !includeUsers && includeFlights)
+            {
+                query = query
                     .Include(f => f.Flights)
                         .ThenInclude(a => a.DepartureAirport)
                     .Include(g => g.Flights)

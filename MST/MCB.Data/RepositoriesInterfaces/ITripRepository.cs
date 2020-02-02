@@ -11,7 +11,7 @@ namespace MCB.Data.RepositoriesInterfaces
         Task<bool> SaveChangesAsync();
 
         //Get
-        Task<Trip> GetTrip(int tripId, bool includeStops = false, bool includeUsers = false);
+        Task<Trip> GetTrip(int tripId, bool includeStops = false, bool includeUsers = false, bool includeFlights = false);
         Task<bool> CheckUserPermissionsForTrip(int tripId, string userId);
         Task<List<Trip>> GetTripsByUser(string userId, bool includeStops, bool includeUsers, bool includeFlights = false);
         Task AddTrip(Trip tripEntity);

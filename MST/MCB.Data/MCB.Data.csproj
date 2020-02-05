@@ -16,6 +16,8 @@
     <Compile Remove="Migrations\20191222125222_FlightsArrivalAndDepartureAirports.Designer.cs" />
     <Compile Remove="Migrations\20200101170705_UserCountryFKChange.cs" />
     <Compile Remove="Migrations\20200101170705_UserCountryFKChange.Designer.cs" />
+    <Compile Remove="Migrations\20200204181907_AddAviationsEntity.cs" />
+    <Compile Remove="Migrations\20200204181907_AddAviationsEntity.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

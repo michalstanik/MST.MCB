@@ -1,4 +1,6 @@
-﻿using MCB.Data.Domain.Flights;
+﻿using MCB.Data.Domain.Aviation;
+using MCB.Data.Domain.Flights;
+using MCB.Data.Domain.Geo;
 using MCB.Data.Domain.Trips;
 using MCB.Data.Domain.User;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,9 @@ namespace MCB.Data
     public class MCBDataSeeder
     {
         private readonly MCBContext _context;
+        private List<AircraftModel> _createdAircraftModels;
+        private List<AircraftFactory> _createdAircraftFactories;
+        private List<Country> _createdCountries;
 
         public MCBDataSeeder(MCBContext context)
         {
@@ -26,6 +31,11 @@ namespace MCB.Data
             _context.Database.ExecuteSqlCommand("DELETE FROM Stop;");
             _context.Database.ExecuteSqlCommand("DELETE From Flight;");
             _context.Database.ExecuteSqlCommand("DELETE FROM Airport;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM Airline;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM AirLineAlliance;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM Aircraft;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM AircraftModel;");
+            _context.Database.ExecuteSqlCommand("DELETE FROM AircraftFactory;");
             _context.Database.ExecuteSqlCommand("DELETE FROM Country;");
             _context.Database.ExecuteSqlCommand("DELETE FROM Region;");
             _context.Database.ExecuteSqlCommand("DELETE FROM Continent;");
@@ -37,6 +47,10 @@ namespace MCB.Data
         public void Seed()
         {
             if (_context.Trip.Any()) return;
+
+            _createdCountries = _context.Country.ToList();
+            _createdAircraftFactories = CreateAircraftFactories();
+            _createdAircraftModels = CreateAircraftModel();
 
             var firstUser = new TUser() { Id = "fec0a4d6-5830-4eb8-8024-272bd5d6d2bb", UserName = "Michał" };
             var secondUser = new TUser() { Id = "c3b7f625-c07f-4d7d-9be1-ddff8ff93b4d", UserName = "Aga" };
@@ -52,6 +66,7 @@ namespace MCB.Data
             var countryGambia = _context.Country.Where(c => c.Alpha3Code == "GMB").FirstOrDefault();
             var countrySenegal = _context.Country.Where(c => c.Alpha3Code == "SEN").FirstOrDefault();
             var countryGuineaBissau = _context.Country.Where(c => c.Alpha3Code == "GNB").FirstOrDefault();
+
 
             var firstAsiaTrip = new Trip()
             {
@@ -295,7 +310,71 @@ namespace MCB.Data
                        }
                   );
 
-            //_context.SaveChanges();
+            _context.SaveChanges();
+        }
+
+        private List<AircraftFactory> CreateAircraftFactories()
+        {
+            var aircraftFactories = new List<AircraftFactory>()
+            {
+                new AircraftFactory() {  Name = "Boeing", AircraftFactoryCountry = GetCountry("USA") },
+                new AircraftFactory() { Name = "Airbus", AircraftFactoryCountry = GetCountry("FRA") },
+                new AircraftFactory() { Name = "Embraer", AircraftFactoryCountry = GetCountry("BRA") },
+                new AircraftFactory() { Name = "ATR", AircraftFactoryCountry = GetCountry("FRA") }
+            };
+
+            _context.AddRange(aircraftFactories);
+            _context.SaveChanges();
+
+            return aircraftFactories;
+        }
+
+        private AircraftFactory GetAircrafFactory(string name)
+        {
+            return _createdAircraftFactories.Where(m => m.Name == name).FirstOrDefault();
+        }
+
+        private List<AircraftModel> CreateAircraftModel()
+        {
+            AircraftFactory boeing = GetAircrafFactory("Boeing");
+            AircraftFactory atr = GetAircrafFactory("ATR");
+            AircraftFactory airbus = GetAircrafFactory("Airbus");
+            AircraftFactory embraer = GetAircrafFactory("Embraer");
+
+            var aircraftModels = new List<AircraftModel>()
+            {
+                new AircraftModel() { AircraftFactory = boeing, Model = "737-700" },
+                new AircraftModel() { AircraftFactory = boeing, Model = "737-800" },
+                new AircraftModel() { AircraftFactory = boeing, Model = "737 MAX 8" },
+                new AircraftModel() { AircraftFactory = boeing, Model = "777-300ER" },
+                new AircraftModel() { AircraftFactory = boeing, Model = "787-8" },
+                new AircraftModel() { AircraftFactory = boeing, Model = "787-9" },
+
+                new AircraftModel() { AircraftFactory = atr, Model = "72" },
+
+                new AircraftModel() { AircraftFactory = airbus, Model = "A318" },
+                new AircraftModel() { AircraftFactory = airbus, Model = "A320" },
+                new AircraftModel() { AircraftFactory = airbus, Model = "A321" },
+                new AircraftModel() { AircraftFactory = airbus, Model = "A330-200" },
+                new AircraftModel() { AircraftFactory = airbus, Model = "A380-800" },
+
+                new AircraftModel() { AircraftFactory = embraer, Model = "190" }
+            };
+
+            _context.AddRange(aircraftModels);
+            _context.SaveChanges();
+
+            return aircraftModels;
+        }
+
+        private AircraftModel GetAircraftModel (string model )
+        {
+            return _createdAircraftModels.Where(m => m.Model == model).FirstOrDefault();
+        }
+
+        private Country GetCountry(string alpha3Code)
+        {
+            return _createdCountries.Where(c => c.Alpha3Code == alpha3Code).FirstOrDefault();
         }
     }
 }

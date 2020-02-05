@@ -36,6 +36,11 @@ namespace MCB.Data
 
         //Aviation
         public DbSet<Airport> Airport { get; set; }
+        public DbSet<Aircraft> Aircraft { get; set; }
+        public DbSet<AircraftFactory> AircraftFactory { get; set; }
+        public DbSet<AircraftModel> AircraftModel { get; set; }
+        public DbSet<Airline> Airline { get; set; }
+        public DbSet<AirLineAlliance> AirLineAlliance { get; set; }
 
         //Flights
         public DbSet<Flight> Flight { get; set; }

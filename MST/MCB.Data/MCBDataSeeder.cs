@@ -371,7 +371,6 @@ namespace MCB.Data
                 }
             };
 
-
             _context.AddRange(flights);
             _context.SaveChanges();
 

@@ -30,6 +30,11 @@ namespace MCB.Api.Controllers
             _userInfoService = userInfoService;
         }
 
+        /// <summary>
+        /// Get an Flight by id
+        /// </summary>
+        /// <param name="id">Id of the Flight</param>
+        /// <returns>An Flight based on the MediaType</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.flight+json")]
@@ -41,6 +46,10 @@ namespace MCB.Api.Controllers
             return await GetSpecificFlight<FlightModel>(id);
         }
 
+        /// <summary>
+        /// Get a list of Flights
+        /// </summary>
+        /// <returns></returns>
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.flight+json")]

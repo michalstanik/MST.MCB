@@ -7,6 +7,7 @@ namespace MCB.Api.Profiles
         public FlightsProfile()
         {
             CreateMap<Data.Domain.Flights.Flight, Business.Models.Flights.FlightModel>();
+            CreateMap<Data.Domain.Flights.Flight, Business.Models.Flights.FlightModelFull>();
         }
     }
 }

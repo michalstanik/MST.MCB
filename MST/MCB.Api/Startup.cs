@@ -90,6 +90,7 @@ namespace MCB.Api
 
                     //Flights
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.flight+json");
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.flightfull+json");
 
                     if (jsonOutputFormatter.SupportedMediaTypes.Contains("text/json"))
                     {

@@ -68,19 +68,6 @@ namespace MCB.Data
             _createdAircrafts = CreateAircrafts();
             _createdFlights = CreateFlights();
 
-            var countryAzerbaijan = _context.Country.Where(c => c.Alpha3Code == "AZE").FirstOrDefault();
-            var countryMexico = _context.Country.Where(c => c.Alpha3Code == "MEX").FirstOrDefault();
-            var countryThailand = _context.Country.Where(c => c.Alpha3Code == "THA").FirstOrDefault();
-            var countryCambodia = _context.Country.Where(c => c.Alpha3Code == "KHM").FirstOrDefault();
-            var countryVietnam = _context.Country.Where(c => c.Alpha3Code == "VNM").FirstOrDefault();
-            var countryUK = _context.Country.Where(c => c.Alpha3Code == "GBR").FirstOrDefault();
-            var countryIndia = _context.Country.Where(c => c.Alpha3Code == "IND").FirstOrDefault();
-            var countryCaboVerde = _context.Country.Where(c => c.Alpha3Code == "CPV").FirstOrDefault();
-            var countryGambia = _context.Country.Where(c => c.Alpha3Code == "GMB").FirstOrDefault();
-            var countrySenegal = _context.Country.Where(c => c.Alpha3Code == "SEN").FirstOrDefault();
-            var countryGuineaBissau = _context.Country.Where(c => c.Alpha3Code == "GNB").FirstOrDefault();
-
-
             var firstAsiaTrip = new Trip()
             {
                 Name = "My First Asia Trip",
@@ -98,7 +85,7 @@ namespace MCB.Data
                         Order = 1,
                         Arrival = new DateTime(2016, 10, 31),
                         Departure = new DateTime(2016, 11, 1),
-                        Country = countryThailand,
+                        Country = GetCountry("THA"),
                         Latitude = 00.000000,
                         Longitude = 00.000000,
                     },
@@ -109,7 +96,7 @@ namespace MCB.Data
                         Order = 1,
                         Arrival = new DateTime(2016, 11, 2),
                         Departure = new DateTime(2016, 11, 4),
-                        Country = countryCambodia,
+                        Country = GetCountry("KHM"),
                         Latitude = 00.000000,
                         Longitude = 00.000000,
                     },
@@ -120,7 +107,7 @@ namespace MCB.Data
                         Order = 1,
                         Arrival = new DateTime(2016, 11, 7),
                         Departure = new DateTime(2016, 11, 14),
-                        Country = countryVietnam,
+                        Country = GetCountry("VNM"),
                         Latitude = 00.000000,
                         Longitude = 00.000000,
                     }
@@ -173,7 +160,7 @@ namespace MCB.Data
                         Order = 1,
                         Arrival = new DateTime(2019, 5, 1),
                         Departure = new DateTime(2019, 5, 2),
-                        Country = countryAzerbaijan,
+                        Country = GetCountry("AZE"),
                         Latitude = 40.383333,
                         Longitude = 49.866667,
                         WorldHeritage = _context.WorldHeritage.Where(w => w.UnescoId == "1076").FirstOrDefault()
@@ -185,7 +172,7 @@ namespace MCB.Data
                         Order = 2,
                         Arrival = new DateTime(2019, 5, 2),
                         Departure = new DateTime(2019, 5, 3),
-                        Country = countryAzerbaijan,
+                        Country = GetCountry("AZE"),
                         Latitude = 40.383333,
                         Longitude = 49.866667,
                         WorldHeritage = _context.WorldHeritage.Where(w => w.UnescoId == "958").FirstOrDefault()
@@ -208,7 +195,7 @@ namespace MCB.Data
                         Name = "Banjul",
                         Description = "First night in Banjul",
                         Order = 1,
-                        Country = countryGambia,
+                        Country = GetCountry("GMB"),
                         Arrival = new DateTime(2019,12,13),
                         Departure = new DateTime(2019,12,14),
                         Latitude = 13.466667,
@@ -219,7 +206,7 @@ namespace MCB.Data
                         Name = "Bubaque",
                         Description = "Archipel des Bijagos, Bubaque Island",
                         Order = 2,
-                        Country = countryGuineaBissau,
+                        Country = GetCountry("GNB"),
                         Arrival = new DateTime(2019,12,14),
                         Departure = new DateTime(2019,12,16),
                         Latitude = 11.283333,
@@ -230,7 +217,7 @@ namespace MCB.Data
                         Name = "Cap Skirring",
                         Description = "Cap Skirring",
                         Order = 3,
-                        Country = countrySenegal,
+                        Country = GetCountry("SEN"),
                         Arrival = new DateTime(2019,12,17),
                         Departure = new DateTime(2019,12,19),
                         Latitude = 12.389444,
@@ -248,77 +235,77 @@ namespace MCB.Data
                        {
                            TUser = GetUser("Michał"),
                            AreaLevelAssessment = 30,
-                           Country = countryThailand,
+                           Country = GetCountry("THA"),
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
                            TUser = GetUser("Michał"),
                            AreaLevelAssessment = 70,
-                           Country = countryCambodia,
+                           Country = GetCountry("KHM"),
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
                            TUser = GetUser("Michał"),
                            AreaLevelAssessment = 40,
-                           Country = countryVietnam,
+                           Country = GetCountry("VNM"),
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
                            TUser = GetUser("Michał"),
                            AreaLevelAssessment = 90,
-                           Country = countryAzerbaijan,
+                           Country = GetCountry("AZE"),
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
                            TUser = GetUser("Michał"),
                            AreaLevelAssessment = 60,
-                           Country = countryMexico,
+                           Country = GetCountry("MEX"),
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
                            TUser = GetUser("Michał"),
                            AreaLevelAssessment = 60,
-                           Country = countryUK,
+                           Country = GetCountry("GBR"),
                            CountryKnowledgeType = UserCountry.CountryVisitType.BussinessTrip
                        },
                        new UserCountry()
                        {
                            TUser = GetUser("Michał"),
                            AreaLevelAssessment = 30,
-                           Country = countryIndia,
+                           Country = GetCountry("IND"),
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
                            TUser = GetUser("Michał"),
                            AreaLevelAssessment = 60,
-                           Country = countryCaboVerde,
+                           Country = GetCountry("CPV"),
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
                            TUser = GetUser("Michał"),
                            AreaLevelAssessment = 40,
-                           Country = countryGambia,
+                           Country = GetCountry("GMB"),
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
                            TUser = GetUser("Michał"),
                            AreaLevelAssessment = 30,
-                           Country = countrySenegal,
+                           Country = GetCountry("SEN"),
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
                            TUser = GetUser("Michał"),
                            AreaLevelAssessment = 60,
-                           Country = countryGuineaBissau,
+                           Country = GetCountry("GNB"),
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        }
                   );
@@ -355,6 +342,25 @@ namespace MCB.Data
                     ArrivalAirport = GetAirport("KGS"),
                     ArrivialDate = new DateTime(2015,8,29,6,0,0),
                     ScheduleArrivialDate = new DateTime(2015,8,29,6,0,0),
+                    Distance = 1775,
+                    FlightTime = 2,
+                    FlightTypeAssessment = Flight.FlightType.Charter,
+                    UserFlights = new List<UserFlight>()
+                    {
+                        new UserFlight() { TUser = GetUser("Michał") }
+                    }
+                },
+                new Flight()
+                {
+                    FlightNumber = "P7 1755",
+                    Aircraft = null,
+                    Airline = GetAirline("LLC"),
+                    DepartureAirport = GetAirport("KGS"),
+                    DepartureDate = new DateTime(2015,9,05,10,0,0),
+                    ScheduleDepartureDate = new DateTime(2015,9,05,10,0,0),
+                    ArrivalAirport = GetAirport("WAW"),
+                    ArrivialDate = new DateTime(2015,9,05,12,0,0),
+                    ScheduleArrivialDate = new DateTime(2015,9,05,12,0,0),
                     Distance = 1775,
                     FlightTime = 2,
                     FlightTypeAssessment = Flight.FlightType.Charter,

@@ -13,9 +13,16 @@ namespace MCB.Data
     public class MCBDataSeeder
     {
         private readonly MCBContext _context;
+        
         private List<AircraftModel> _createdAircraftModels;
         private List<AircraftFactory> _createdAircraftFactories;
         private List<Country> _createdCountries;
+        private List<Airport> _createdAirports;
+        private List<AirLineAlliance> _createdAirlineAlliances;
+        private List<Airline> _createdAirlines;
+        private List<Aircraft> _createdAircrafts;
+        private List<Flight> _createdFlights;
+        private List<TUser> _createdUsers;
 
         public MCBDataSeeder(MCBContext context)
         {
@@ -48,12 +55,18 @@ namespace MCB.Data
         {
             if (_context.Trip.Any()) return;
 
+            //Dictonaries
             _createdCountries = _context.Country.ToList();
+            _createdAirports = _context.Airport.ToList();
+
+            //Created in DataSeeder
+            _createdUsers = CreateUsers();
+            _createdAirlineAlliances = CreateAirlineAlliance();
+            _createdAirlines = CreateAirlines();
             _createdAircraftFactories = CreateAircraftFactories();
             _createdAircraftModels = CreateAircraftModel();
-
-            var firstUser = new TUser() { Id = "fec0a4d6-5830-4eb8-8024-272bd5d6d2bb", UserName = "Michał" };
-            var secondUser = new TUser() { Id = "c3b7f625-c07f-4d7d-9be1-ddff8ff93b4d", UserName = "Aga" };
+            _createdAircrafts = CreateAircrafts();
+            _createdFlights = CreateFlights();
 
             var countryAzerbaijan = _context.Country.Where(c => c.Alpha3Code == "AZE").FirstOrDefault();
             var countryMexico = _context.Country.Where(c => c.Alpha3Code == "MEX").FirstOrDefault();
@@ -71,10 +84,10 @@ namespace MCB.Data
             var firstAsiaTrip = new Trip()
             {
                 Name = "My First Asia Trip",
-                TripManager = firstUser,
+                TripManager = GetUser("Michał"),
                 UserTrips = new List<UserTrip>()
                 {
-                    new UserTrip() { TUser = firstUser }
+                    new UserTrip() { TUser = GetUser("Michał") }
                 },
                 Stops = new List<Stop>()
                 {
@@ -124,7 +137,7 @@ namespace MCB.Data
                         FlightTypeAssessment = Flight.FlightType.Scheduled,
                         UserFlights = new List<UserFlight>()
                         {
-                            new UserFlight() {TUser = firstUser }
+                            new UserFlight() {TUser = GetUser("Michał") }
                         }
                     },
                     new Flight()
@@ -137,7 +150,7 @@ namespace MCB.Data
                         FlightTypeAssessment = Flight.FlightType.Scheduled,
                         UserFlights = new List<UserFlight>()
                         {
-                            new UserFlight() {TUser = firstUser }
+                            new UserFlight() {TUser = GetUser("Michał") }
                         }
                     }
                 }
@@ -146,10 +159,10 @@ namespace MCB.Data
             var azerbaijanTrip = new Trip()
             {
                 Name = "My First Azerbaijan Trip",
-                TripManager = firstUser,
+                TripManager = GetUser("Michał"),
                 UserTrips = new List<UserTrip>()
                 {
-                    new UserTrip() { TUser = firstUser}
+                    new UserTrip() { TUser = GetUser("Michał")}
                 },
                 Stops = new List<Stop>()
                 {
@@ -183,10 +196,10 @@ namespace MCB.Data
             var threeAfricanCountriesTrip = new Trip()
             {
                 Name = "Three African Countries Trip",
-                TripManager = firstUser,
+                TripManager = GetUser("Michał"),
                 UserTrips = new List<UserTrip>()
                 {
-                    new UserTrip() { TUser = firstUser }
+                    new UserTrip() { TUser = GetUser("Michał") }
                 },
                 Stops = new List<Stop>()
                 {
@@ -233,77 +246,77 @@ namespace MCB.Data
             _context.UserCountry.AddRange(
                        new UserCountry()
                        {
-                           TUser = firstUser,
+                           TUser = GetUser("Michał"),
                            AreaLevelAssessment = 30,
                            Country = countryThailand,
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
-                           TUser = firstUser,
+                           TUser = GetUser("Michał"),
                            AreaLevelAssessment = 70,
                            Country = countryCambodia,
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
-                           TUser = firstUser,
+                           TUser = GetUser("Michał"),
                            AreaLevelAssessment = 40,
                            Country = countryVietnam,
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
-                           TUser = firstUser,
+                           TUser = GetUser("Michał"),
                            AreaLevelAssessment = 90,
                            Country = countryAzerbaijan,
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
-                           TUser = firstUser,
+                           TUser = GetUser("Michał"),
                            AreaLevelAssessment = 60,
                            Country = countryMexico,
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
-                           TUser = firstUser,
+                           TUser = GetUser("Michał"),
                            AreaLevelAssessment = 60,
                            Country = countryUK,
                            CountryKnowledgeType = UserCountry.CountryVisitType.BussinessTrip
                        },
                        new UserCountry()
                        {
-                           TUser = firstUser,
+                           TUser = GetUser("Michał"),
                            AreaLevelAssessment = 30,
                            Country = countryIndia,
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
-                           TUser = firstUser,
+                           TUser = GetUser("Michał"),
                            AreaLevelAssessment = 60,
                            Country = countryCaboVerde,
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
-                           TUser = firstUser,
+                           TUser = GetUser("Michał"),
                            AreaLevelAssessment = 40,
                            Country = countryGambia,
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
-                           TUser = firstUser,
+                           TUser = GetUser("Michał"),
                            AreaLevelAssessment = 30,
                            Country = countrySenegal,
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
                        },
                        new UserCountry()
                        {
-                           TUser = firstUser,
+                           TUser = GetUser("Michał"),
                            AreaLevelAssessment = 60,
                            Country = countryGuineaBissau,
                            CountryKnowledgeType = UserCountry.CountryVisitType.RealTrip
@@ -311,6 +324,79 @@ namespace MCB.Data
                   );
 
             _context.SaveChanges();
+        }
+
+        private List<TUser> CreateUsers()
+        {
+            var users = new List<TUser>()
+            {
+                new TUser() { Id = "fec0a4d6-5830-4eb8-8024-272bd5d6d2bb", UserName = "Michał" },
+                new TUser() { Id = "c3b7f625-c07f-4d7d-9be1-ddff8ff93b4d", UserName = "Aga" }
+            };
+
+            _context.AddRange(users);
+            _context.SaveChanges();
+
+            return users;
+        }
+
+        private List<Flight> CreateFlights()
+        {
+            var flights = new List<Flight>()
+            {
+                new Flight()
+                {
+                    FlightNumber = "P7 1754",
+                    Aircraft = null,
+                    Airline = GetAirline("LLC"),
+                    DepartureAirport = GetAirport("WAW"),
+                    DepartureDate = new DateTime(2015,8,29,3,0,0),
+                    ScheduleDepartureDate = new DateTime(2015,8,29,3,0,0),
+                    ArrivalAirport = GetAirport("KGS"),
+                    ArrivialDate = new DateTime(2015,8,29,6,0,0),
+                    ScheduleArrivialDate = new DateTime(2015,8,29,6,0,0),
+                    Distance = 1775,
+                    FlightTime = 2,
+                    FlightTypeAssessment = Flight.FlightType.Charter,
+                    UserFlights = new List<UserFlight>()
+                    {
+                        new UserFlight() { TUser = GetUser("Michał") }
+                    }
+                }
+            };
+
+
+            _context.AddRange(flights);
+            _context.SaveChanges();
+
+            return flights;
+        }
+
+        private List<Aircraft> CreateAircrafts()
+        {
+            var aircrafts = new List<Aircraft>()
+            {
+                new Aircraft() { AircraftModel = GetAircraftModel(""), TailNumber = ""}
+            };
+
+            _context.AddRange(aircrafts);
+            _context.SaveChanges();
+
+            return aircrafts;
+        }
+
+        private List<AirLineAlliance> CreateAirlineAlliance()
+        {
+            var airlineAlliences = new List<AirLineAlliance>()
+            {
+                new AirLineAlliance() { Name = "SkyTeam"},
+                new AirLineAlliance() { Name = "Star Alliance"}
+            };
+
+            _context.AddRange(airlineAlliences);
+            _context.SaveChanges();
+
+            return airlineAlliences;
         }
 
         private List<AircraftFactory> CreateAircraftFactories()
@@ -327,11 +413,6 @@ namespace MCB.Data
             _context.SaveChanges();
 
             return aircraftFactories;
-        }
-
-        private AircraftFactory GetAircrafFactory(string name)
-        {
-            return _createdAircraftFactories.Where(m => m.Name == name).FirstOrDefault();
         }
 
         private List<AircraftModel> CreateAircraftModel()
@@ -367,6 +448,50 @@ namespace MCB.Data
             return aircraftModels;
         }
 
+        private List<Airline> CreateAirlines()
+        {
+            var airlines = new List<Airline>()
+            {
+                new Airline() {Name = "WizzAir", AirlineCountry = GetCountry("HUN"), IATA = "W6", ICAO = "WZZ"},
+                new Airline() {Name = "Enter Air", AirlineCountry = GetCountry("POL"), IATA = "E4", ICAO = "ENT" },
+                new Airline() {Name = "Ryanair", AirlineCountry = GetCountry("IRL"), IATA = "FR", ICAO = "RYR" },
+                new Airline() {Name = "Emirates", AirlineCountry = GetCountry("ARE"), IATA = "EK", ICAO = "UAE"},
+                new Airline() {Name = "Travel Service Poland", AirlineCountry = GetCountry("POL"), IATA = "3Z", ICAO = "TVP"},
+                new Airline() {Name = "Small Planet", AirlineCountry = GetCountry("LTU"), IATA = "S5", ICAO = "LLC"},
+                new Airline() {Name = "Binter", AirlineCountry = GetCountry("ESP"), IATA = "NT", ICAO = "IBB"},
+                new Airline() {Name = "Volaris", AirlineCountry = GetCountry("MEX"), IATA = "Y4", ICAO = "VOI"},
+                new Airline() {Name = "Air France", AirlineCountry = GetCountry("FRA"),IATA = "AF", ICAO = "AFR", AirLineAlliance = GetAirlineAlliance("SkyTeam")},
+                new Airline() {Name = "KLM", AirlineCountry = GetCountry("NLD"), IATA = "KL", ICAO = "KLM", AirLineAlliance = GetAirlineAlliance("SkyTeam")},
+                new Airline() {Name = "LOT", AirlineCountry = GetCountry("POL"), IATA = "LO", ICAO = "LOT", AirLineAlliance = GetAirlineAlliance("Star Alliance")},
+                new Airline() {Name = "Turkish Airlines", AirlineCountry = GetCountry("TUR"), IATA = "TK", ICAO = "THY", AirLineAlliance = GetAirlineAlliance("Star Alliance")},
+            };
+
+            _context.AddRange(airlines);
+            _context.SaveChanges();
+
+            return airlines;
+        }
+
+        private TUser GetUser(string name)
+        {
+            return _createdUsers.Where(u => u.UserName == name).FirstOrDefault();
+        }
+
+        private Airport GetAirport(string iataCode)
+        {
+            return _createdAirports.Where(a => a.IATA == iataCode).FirstOrDefault();
+        }
+
+        private Aircraft GetAircraft(string tailNumber)
+        {
+            return _createdAircrafts.Where(a => a.TailNumber == tailNumber).FirstOrDefault();
+        }
+
+        private Airline GetAirline (string icaoCode)
+        {
+            return _createdAirlines.Where(a => a.ICAO == icaoCode).FirstOrDefault();
+        }
+
         private AircraftModel GetAircraftModel (string model )
         {
             return _createdAircraftModels.Where(m => m.Model == model).FirstOrDefault();
@@ -375,6 +500,16 @@ namespace MCB.Data
         private Country GetCountry(string alpha3Code)
         {
             return _createdCountries.Where(c => c.Alpha3Code == alpha3Code).FirstOrDefault();
+        }
+
+        private AircraftFactory GetAircrafFactory(string name)
+        {
+            return _createdAircraftFactories.Where(m => m.Name == name).FirstOrDefault();
+        }
+
+        private AirLineAlliance GetAirlineAlliance(string name)
+        {
+            return _createdAirlineAlliances.Where(a => a.Name == name).FirstOrDefault();
         }
     }
 }

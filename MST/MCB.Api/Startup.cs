@@ -129,6 +129,7 @@ namespace MCB.Api
 
                 setupAction.OperationFilter<TripOperationFilter>();
                 setupAction.OperationFilter<RegionOperationFilter>();
+                setupAction.OperationFilter<FlightOperationFilter>();
 
                 setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme()
                 {

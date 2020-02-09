@@ -43,13 +43,25 @@ namespace MCB.Api.Controllers
 
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [Produces("application/vnd.mcb.flightfull+json")]
-        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.flightfull+json")]
+        [Produces("application/vnd.mcb.flight+json")]
+        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.flight+json")]
         public async Task<ActionResult<List<FlightModelFull>>> GetFlights()
         {
             var flightsFromRepo = await _repository.GetFligtsForUser(_userInfoService.UserId);
 
             return Ok(_mapper.Map<List<FlightModelFull>>(flightsFromRepo));
+        }
+
+        [HttpGet()]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Produces("application/vnd.mcb.flightfull+json")]
+        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.flightfull+json")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<ActionResult<List<FlightModel>>> GetFlightsFull()
+        {
+            var flightsFromRepo = await _repository.GetFligtsForUser(_userInfoService.UserId);
+
+            return Ok(_mapper.Map<List<FlightModel>>(flightsFromRepo));
         }
 
         private async Task<ActionResult<T>> GetSpecificFlight<T>(int flightId) where T : class

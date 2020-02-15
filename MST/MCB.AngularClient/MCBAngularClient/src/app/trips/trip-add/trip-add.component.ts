@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 // Services
 import { TripService } from 'src/app/core/services/trips.service';
+import { ToastrService } from 'src/app/core/services/toastr.service';
 
 @Component({
   selector: 'app-trip-add',
@@ -14,7 +15,8 @@ export class TripAddComponent implements OnInit {
   public tripForm: FormGroup;
   constructor( private formBuilder: FormBuilder,
                private tripService: TripService,
-               private router: Router ) { }
+               private router: Router,
+               private toastr: ToastrService ) { }
 
   ngOnInit() {
         // define the tripForm (with empty default values)
@@ -37,6 +39,8 @@ export class TripAddComponent implements OnInit {
             () => {
               this.router.navigateByUrl('/trips');
             });
+
+      this.toastr.success('Trip created: ' + trip.name);
     }
   }
 }

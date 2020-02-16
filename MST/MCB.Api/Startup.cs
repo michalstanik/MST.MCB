@@ -92,6 +92,9 @@ namespace MCB.Api
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.flight+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.flightfull+json");
 
+                    //Stats
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.basestats+json");
+
                     if (jsonOutputFormatter.SupportedMediaTypes.Contains("text/json"))
                     {
                         jsonOutputFormatter.SupportedMediaTypes.Remove("text/json");
@@ -182,6 +185,7 @@ namespace MCB.Api
             services.AddScoped<ITripRepository, TripRepository>();
             services.AddScoped<IFlightRepository, FlightRepository>();
             services.AddScoped<IRegionRepository, RegionRepository>();
+            services.AddScoped<IStatsRepository, StatsRepository>();
 
             //UserInfoService
             services.AddScoped<IUserInfoService, UserInfoService>();

@@ -36,6 +36,12 @@
             <param name="id">Id of the Region</param>
             <returns>An Region based on the MediaType</returns>
         </member>
+        <member name="M:MCB.Api.Controllers.StatsController.GetBaseStats">
+            <summary>
+            Get an UserStats by authenticated user
+            </summary>
+            <returns>An Stats based on the MediaType</returns>
+        </member>
         <member name="M:MCB.Api.Controllers.TripsController.GetTrip(System.Int32)">
             <summary>
             Get an Trip by id

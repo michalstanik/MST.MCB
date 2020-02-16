@@ -6,6 +6,7 @@ using MCB.Data.RepositoriesInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MCB.Api.Controllers
@@ -29,6 +30,11 @@ namespace MCB.Api.Controllers
             _userInfoService = userInfoService;
         }
 
+        /// <summary>
+        /// Get an Flight by id
+        /// </summary>
+        /// <param name="id">Id of the Flight</param>
+        /// <returns>An Flight based on the MediaType</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.flight+json")]
@@ -38,6 +44,33 @@ namespace MCB.Api.Controllers
         public async Task<ActionResult<FlightModel>> GetFlight(int id)
         {
             return await GetSpecificFlight<FlightModel>(id);
+        }
+
+        /// <summary>
+        /// Get a list of Flights
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet()]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Produces("application/vnd.mcb.flight+json")]
+        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.flight+json")]
+        public async Task<ActionResult<List<FlightModelFull>>> GetFlights()
+        {
+            var flightsFromRepo = await _repository.GetFligtsForUser(_userInfoService.UserId);
+
+            return Ok(_mapper.Map<List<FlightModelFull>>(flightsFromRepo));
+        }
+
+        [HttpGet()]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Produces("application/vnd.mcb.flightfull+json")]
+        [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.flightfull+json")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<ActionResult<List<FlightModel>>> GetFlightsFull()
+        {
+            var flightsFromRepo = await _repository.GetFligtsForUser(_userInfoService.UserId);
+
+            return Ok(_mapper.Map<List<FlightModel>>(flightsFromRepo));
         }
 
         private async Task<ActionResult<T>> GetSpecificFlight<T>(int flightId) where T : class

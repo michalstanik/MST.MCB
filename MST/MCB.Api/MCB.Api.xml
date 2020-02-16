@@ -16,12 +16,31 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:MCB.Api.Controllers.FlightsController.GetFlight(System.Int32)">
+            <summary>
+            Get an Flight by id
+            </summary>
+            <param name="id">Id of the Flight</param>
+            <returns>An Flight based on the MediaType</returns>
+        </member>
+        <member name="M:MCB.Api.Controllers.FlightsController.GetFlights">
+            <summary>
+            Get a list of Flights
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:MCB.Api.Controllers.RegionsController.GetRegion(System.Int32)">
             <summary>
             Get an Region by id
             </summary>
             <param name="id">Id of the Region</param>
             <returns>An Region based on the MediaType</returns>
+        </member>
+        <member name="M:MCB.Api.Controllers.StatsController.GetBaseStats">
+            <summary>
+            Get an UserStats by authenticated user
+            </summary>
+            <returns>An Stats based on the MediaType</returns>
         </member>
         <member name="M:MCB.Api.Controllers.TripsController.GetTrip(System.Int32)">
             <summary>

@@ -1,6 +1,7 @@
 ﻿using MCB.Data.Domain.Flights;
 using MCB.Data.RepositoriesInterfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace MCB.Data.Repositories
                 .Include(c => c.UserFlights)
                 .ThenInclude(pc => pc.TUser)
                 .Where(t => t.Id == flightId)
-    .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync();
 
             if (flight != null)
             {
@@ -42,6 +43,26 @@ namespace MCB.Data.Repositories
                 .Include(c => c.DepartureAirport);
 
             return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Flight>> GetFligtsForUser(string userId)
+        {
+            IQueryable<Flight> query = _context.UserFlight.Where(uf => uf.TUserId == userId).Select(f => f.Flight);
+
+            query = query
+                .Include(r => r.Trip)
+                .Include(b => b.ArrivalAirport)
+                .Include(c => c.DepartureAirport)
+                .Include(a => a.Aircraft)
+                    .ThenInclude(a => a.AircraftModel)
+                    .ThenInclude(a => a.AircraftFactory)
+                    .ThenInclude(a => a.AircraftFactoryCountry)
+                .Include(ar => ar.Airline)
+                    .ThenInclude(ar => ar.AirLineAlliance)
+                .Include(ab => ab.Airline)
+                    .ThenInclude(ab => ab.AirlineCountry);
+
+            return await query.ToListAsync();
         }
     }
 }

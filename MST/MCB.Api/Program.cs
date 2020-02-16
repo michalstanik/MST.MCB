@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using MST.Flogging.Core;
 using Serilog;
+using Serilog.Enrichers.AspnetcoreHttpcontext;
 using System;
 using System.IO;
-
 namespace MCB.Api
 {
     public class Program
@@ -17,7 +17,7 @@ namespace MCB.Api
             .Build();
 
         public static int Main(string[] args)
-        {
+        { 
             Serilog.Debugging.SelfLog.Enable(msg => Console.WriteLine(msg));
 
             try
@@ -40,11 +40,8 @@ namespace MCB.Api
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
-                //.UseSerilog((provider, context, loggerConfig) =>
-                //{
-                //    loggerConfig.WithSimpleConfiguration(provider, "MCB.API", Configuration);
-                //});
+                .UseStartup<Startup>()
+                .UseSerilog((provider, context, loggerConfig) => loggerConfig.WithSimpleConfiguration(provider, "MCB.API", Configuration));
         }
     }
 }

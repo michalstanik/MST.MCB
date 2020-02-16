@@ -21,6 +21,6 @@ namespace MCB.Data.Domain.Geo
         public int? ContinentId { get; set; }
         public Continent Continent { get; set; }
 
-        public List<Country> Countries { get; }
+        public List<Country> Countries { get; set; }
     }
 }

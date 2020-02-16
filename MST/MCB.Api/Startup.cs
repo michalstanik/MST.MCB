@@ -90,6 +90,10 @@ namespace MCB.Api
 
                     //Flights
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.flight+json");
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.flightfull+json");
+
+                    //Stats
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.basestats+json");
 
                     if (jsonOutputFormatter.SupportedMediaTypes.Contains("text/json"))
                     {
@@ -128,6 +132,7 @@ namespace MCB.Api
 
                 setupAction.OperationFilter<TripOperationFilter>();
                 setupAction.OperationFilter<RegionOperationFilter>();
+                setupAction.OperationFilter<FlightOperationFilter>();
 
                 setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme()
                 {
@@ -180,6 +185,7 @@ namespace MCB.Api
             services.AddScoped<ITripRepository, TripRepository>();
             services.AddScoped<IFlightRepository, FlightRepository>();
             services.AddScoped<IRegionRepository, RegionRepository>();
+            services.AddScoped<IStatsRepository, StatsRepository>();
 
             //UserInfoService
             services.AddScoped<IUserInfoService, UserInfoService>();

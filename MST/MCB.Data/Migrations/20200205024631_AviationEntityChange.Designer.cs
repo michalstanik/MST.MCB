@@ -4,14 +4,16 @@ using MCB.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MCB.Data.Migrations
 {
     [DbContext(typeof(MCBContext))]
-    partial class MCBContextModelSnapshot : ModelSnapshot
+    [Migration("20200205024631_AviationEntityChange")]
+    partial class AviationEntityChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,10 +121,6 @@ namespace MCB.Data.Migrations
 
                     b.Property<int?>("AirlineCountryId");
 
-                    b.Property<string>("IATA");
-
-                    b.Property<string>("ICAO");
-
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
@@ -190,8 +188,6 @@ namespace MCB.Data.Migrations
                     b.Property<long?>("Distance");
 
                     b.Property<string>("FlightNumber");
-
-                    b.Property<long?>("FlightTime");
 
                     b.Property<string>("FlightTypeAssessment")
                         .IsRequired();

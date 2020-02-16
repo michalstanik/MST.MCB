@@ -4,14 +4,16 @@ using MCB.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MCB.Data.Migrations
 {
     [DbContext(typeof(MCBContext))]
-    partial class MCBContextModelSnapshot : ModelSnapshot
+    [Migration("20200204185021_AddAviationsEntity")]
+    partial class AddAviationsEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +74,7 @@ namespace MCB.Data.Migrations
 
                     b.HasIndex("AircraftModelId");
 
-                    b.ToTable("Aircraft");
+                    b.ToTable("Airplane");
                 });
 
             modelBuilder.Entity("MCB.Data.Domain.Aviation.AircraftFactory", b =>
@@ -89,7 +91,7 @@ namespace MCB.Data.Migrations
 
                     b.HasIndex("AircraftFactoryCountryId");
 
-                    b.ToTable("AircraftFactory");
+                    b.ToTable("AirplaneFactory");
                 });
 
             modelBuilder.Entity("MCB.Data.Domain.Aviation.AircraftModel", b =>
@@ -106,7 +108,7 @@ namespace MCB.Data.Migrations
 
                     b.HasIndex("AircraftFactoryId");
 
-                    b.ToTable("AircraftModel");
+                    b.ToTable("AirplaneModel");
                 });
 
             modelBuilder.Entity("MCB.Data.Domain.Aviation.Airline", b =>
@@ -118,10 +120,6 @@ namespace MCB.Data.Migrations
                     b.Property<int?>("AirLineAllianceId");
 
                     b.Property<int?>("AirlineCountryId");
-
-                    b.Property<string>("IATA");
-
-                    b.Property<string>("ICAO");
 
                     b.Property<string>("Name");
 
@@ -190,8 +188,6 @@ namespace MCB.Data.Migrations
                     b.Property<long?>("Distance");
 
                     b.Property<string>("FlightNumber");
-
-                    b.Property<long?>("FlightTime");
 
                     b.Property<string>("FlightTypeAssessment")
                         .IsRequired();
@@ -445,7 +441,7 @@ namespace MCB.Data.Migrations
             modelBuilder.Entity("MCB.Data.Domain.Aviation.Aircraft", b =>
                 {
                     b.HasOne("MCB.Data.Domain.Aviation.AircraftModel", "AircraftModel")
-                        .WithMany("Aircrafts")
+                        .WithMany("Aircafats")
                         .HasForeignKey("AircraftModelId");
                 });
 
@@ -459,7 +455,7 @@ namespace MCB.Data.Migrations
             modelBuilder.Entity("MCB.Data.Domain.Aviation.AircraftModel", b =>
                 {
                     b.HasOne("MCB.Data.Domain.Aviation.AircraftFactory", "AircraftFactory")
-                        .WithMany("AircraftModels")
+                        .WithMany()
                         .HasForeignKey("AircraftFactoryId");
                 });
 

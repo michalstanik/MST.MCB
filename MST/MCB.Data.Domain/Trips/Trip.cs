@@ -29,6 +29,16 @@ namespace MCB.Data.Domain.Trips
 
         public TUser TripManager { get; set; }
 
+        public TripType? TripTypeAssesment { get; set; }
+
+        public enum TripType
+        {
+            BussinessTrip,
+            JustVisit,
+            Transfer,
+            RealTrip
+        }
+
         public IEnumerable<TUser> Users()
         {
             var users = new List<TUser>();

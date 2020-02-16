@@ -72,6 +72,7 @@ namespace MCB.Data
             {
                 Name = "My First Asia Trip",
                 TripManager = GetUser("Michał"),
+                TripTypeAssesment = Trip.TripType.RealTrip,
                 UserTrips = new List<UserTrip>()
                 {
                     new UserTrip() { TUser = GetUser("Michał") }
@@ -146,6 +147,7 @@ namespace MCB.Data
             var azerbaijanTrip = new Trip()
             {
                 Name = "My First Azerbaijan Trip",
+                TripTypeAssesment = Trip.TripType.RealTrip,
                 TripManager = GetUser("Michał"),
                 UserTrips = new List<UserTrip>()
                 {
@@ -183,6 +185,7 @@ namespace MCB.Data
             var threeAfricanCountriesTrip = new Trip()
             {
                 Name = "Three African Countries Trip",
+                TripTypeAssesment = Trip.TripType.RealTrip,
                 TripManager = GetUser("Michał"),
                 UserTrips = new List<UserTrip>()
                 {

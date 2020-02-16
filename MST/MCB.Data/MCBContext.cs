@@ -72,6 +72,9 @@ namespace MCB.Data
 
             //Flight
             modelBuilder.Entity<Flight>().Property(f => f.FlightTypeAssessment).HasConversion<string>();
+
+            //Trip
+            modelBuilder.Entity<Trip>().Property(t => t.TripTypeAssesment).HasConversion<string>();
         }
     }
 }

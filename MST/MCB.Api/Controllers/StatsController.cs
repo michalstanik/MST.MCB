@@ -35,8 +35,14 @@ namespace MCB.Api.Controllers
         public ActionResult<StatsModel> GetBaseStats()
         {
             var statsToBeReturn = new StatsModel();
+
+            statsToBeReturn.TripsStats.TripsCount = _statsRepository.GetTripsCountForUser(_userInfoService.UserId);
+
             statsToBeReturn.FlightsStats.FlightsCount = _statsRepository.GetFlightsCountForUser(_userInfoService.UserId);
             statsToBeReturn.FlightsStats.FligtsDistance = _statsRepository.GetFlightsDistanceForUser(_userInfoService.UserId);
+            statsToBeReturn.FlightsStats.FlightsTime = _statsRepository.GetFlightsTimeForUser(_userInfoService.UserId);
+
+            statsToBeReturn.CountriesStats.VisitedCountriesCount = _statsRepository.GetCountriesForUser(_userInfoService.UserId);
 
             return  Ok(statsToBeReturn); 
         }

@@ -12,6 +12,7 @@ import { CountryService } from './services/country.service';
 import { ContinentService } from './services/continent.service';
 import { RegionService } from './services/region.service';
 import { ToastrService } from './services/toastr.service';
+import { StatsService } from './services/stats.service';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ToastrService } from './services/toastr.service';
         CountryService,
         ContinentService,
         RegionService,
-        ToastrService
+        ToastrService,
+        StatsService
     ],
 })
 export class CoreModule { }

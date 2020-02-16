@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../core/services/auth.service';
+import { StatsService } from '../core/services/stats.service';
+
+// Models
+import { Stats } from '../core/model/Stats/stats-model';
+
 
 @Component({
   selector: 'app-home',
@@ -9,11 +14,18 @@ import { AuthService } from '../core/services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
+  stats: Stats;
+
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private statsService: StatsService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+   this.statsService.GetStatsForUser().subscribe(stats => {
+     this.stats = stats;
+    });
+  }
 
   login() {
     this.authService.login();

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 // Services
@@ -12,26 +12,45 @@ import { ToastrService } from 'src/app/core/services/toastr.service';
   styleUrls: ['./trip-add.component.scss']
 })
 export class TripAddComponent implements OnInit {
+
+  secondFormGroup: FormGroup;
+
+  tripTypeForm: FormGroup;
+
   public tripForm: FormGroup;
-  tripTypesOptions: Array<any>;
+  tripTypes: Array<any>;
+
   constructor( private formBuilder: FormBuilder,
                private tripService: TripService,
                private router: Router,
                private toastr: ToastrService ) { }
 
   ngOnInit() {
+
+    this.tripTypeForm = new FormGroup({
+      tripTypesOptions: new FormControl('', [Validators.required])
+    });
+    this.secondFormGroup = new FormGroup({
+      password: new FormControl('', Validators.required)
+    });
         // define the tripForm (with empty default values)
-        this.tripForm = this.formBuilder.group({
-          name: [''],
-          tripTypeAssesment: ['']
+    this.tripForm = this.formBuilder.group({
+          name: ['']
         });
 
-        this.tripTypesOptions = [
+    this.tripTypes = [
           { value: '1', label: 'Bussiness Trip' },
           { value: '2', label: 'Just Visit' },
           { value: '3', label: 'Transfer' },
           { value: '4', label: 'Real Trip' }
         ];
+  }
+
+  get tripTypesOptions() { return this.tripTypeForm.get('tripTypesOptions'); }
+  get password() { return this.secondFormGroup.get('password'); }
+
+  onSubmit() {
+    // do something here
   }
 
   addTrip(): void {

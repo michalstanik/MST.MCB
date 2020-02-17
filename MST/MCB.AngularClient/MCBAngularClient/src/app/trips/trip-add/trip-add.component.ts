@@ -13,6 +13,7 @@ import { ToastrService } from 'src/app/core/services/toastr.service';
 })
 export class TripAddComponent implements OnInit {
   public tripForm: FormGroup;
+  tripTypesOptions: Array<any>;
   constructor( private formBuilder: FormBuilder,
                private tripService: TripService,
                private router: Router,
@@ -21,8 +22,16 @@ export class TripAddComponent implements OnInit {
   ngOnInit() {
         // define the tripForm (with empty default values)
         this.tripForm = this.formBuilder.group({
-          name: ['']
+          name: [''],
+          tripTypeAssesment: ['']
         });
+
+        this.tripTypesOptions = [
+          { value: '1', label: 'Bussiness Trip' },
+          { value: '2', label: 'Just Visit' },
+          { value: '3', label: 'Transfer' },
+          { value: '4', label: 'Real Trip' }
+        ];
   }
 
   addTrip(): void {

@@ -18,8 +18,8 @@
         placeholder="Select a country for trip"
       />
       <mdb-auto-completer #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
-        <mdb-option *ngFor="let option of results | async" [value]="option">
-          {{ option }}
+        <mdb-option *ngFor="let option of results | async" [value]="option.name">
+          {{ option.name }}
         </mdb-option>
       </mdb-auto-completer>
     </div>

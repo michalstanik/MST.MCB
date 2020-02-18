@@ -21,7 +21,7 @@ import { CountryWithAssessment } from 'src/app/core/model/Geo/country-with-asses
 })
 export class TripAddComponent implements OnInit {
 
-  countriesList: Array<CountryWithAssessment>;
+  countriesList?: Array<CountryWithAssessment>;
   secondFormGroup: FormGroup;
 
   tripTypeForm: FormGroup;
@@ -51,13 +51,14 @@ export class TripAddComponent implements OnInit {
   ngOnInit() {
     this.countryDictionaryService.GetAllCountriesWithUserAssessment()
       .subscribe(
-        (countriesList) => {
-          this.countriesList = countriesList;
+        (cl) => {
+          console.log(cl);
+          this.countriesList = cl;
         });
 
     this.results = this.searchText.pipe(
       startWith(''),
-      map((value: string) => this.filter(CountryWithAssessment.name))
+      map((value: string) => this.filter(value))
     );
 
     this.tripTypeForm = new FormGroup({
@@ -84,8 +85,9 @@ export class TripAddComponent implements OnInit {
 
   filter(value: string): CountryWithAssessment[] | undefined {
     const filterValue = value.toLowerCase();
-    if (this.countriesList) {
-      return this.countriesList.filter((item: CountryWithAssessment) => item.name.toLowerCase().includes(filterValue));
+    console.log('Filter: ', this.countriesList);
+    if (this.countriesList && this.countriesList.some) {
+      return this.countriesList.filter((item: any) => item.name.toLowerCase().includes(filterValue));
     }
   }
 

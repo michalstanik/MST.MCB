@@ -22,9 +22,11 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-   this.statsService.GetStatsForUser().subscribe(stats => {
-     this.stats = stats;
-    });
+    if (this.isLoggedIn()) {
+      this.statsService.GetStatsForUser().subscribe(stats => {
+        this.stats = stats;
+       });
+    }
   }
 
   login() {

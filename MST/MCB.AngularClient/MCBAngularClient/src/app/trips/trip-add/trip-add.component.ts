@@ -31,7 +31,7 @@ export class TripAddComponent implements OnInit {
 
   searchText = new Subject();
 
-  results: Observable<string[]>;
+  results: Observable<CountryWithAssessment[]>;
   data: any = [
     'red',
     'green',
@@ -52,12 +52,12 @@ export class TripAddComponent implements OnInit {
     this.countryDictionaryService.GetAllCountriesWithUserAssessment()
       .subscribe(
         (countriesList) => {
-
+          this.countriesList = countriesList;
         });
 
     this.results = this.searchText.pipe(
       startWith(''),
-      map((value: string) => this.filter(value))
+      map((value: string) => this.filter(CountryWithAssessment.name))
     );
 
     this.tripTypeForm = new FormGroup({
@@ -82,9 +82,11 @@ export class TripAddComponent implements OnInit {
   get tripTypesOptions() { return this.tripTypeForm.get('tripTypesOptions'); }
   get password() { return this.secondFormGroup.get('password'); }
 
-  filter(value: string): string[] {
+  filter(value: string): CountryWithAssessment[] | undefined {
     const filterValue = value.toLowerCase();
-    return this.data.filter((item: string) => item.toLowerCase().includes(filterValue));
+    if (this.countriesList) {
+      return this.countriesList.filter((item: CountryWithAssessment) => item.name.toLowerCase().includes(filterValue));
+    }
   }
 
   onSubmit() {

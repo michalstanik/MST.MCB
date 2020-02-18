@@ -16,6 +16,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:MCB.Api.Controllers.CountriesDictionaryController.GetAllCountriesWithUserAssessment">
+            <summary>
+            Get a list of Countries Dictionary
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:MCB.Api.Controllers.FlightsController.GetFlight(System.Int32)">
             <summary>
             Get an Flight by id

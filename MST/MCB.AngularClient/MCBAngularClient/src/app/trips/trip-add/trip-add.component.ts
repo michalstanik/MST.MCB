@@ -2,9 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+// Extrnall
+import { Subject, Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+
 // Services
 import { TripService } from 'src/app/core/services/trips.service';
+import { CountryDictionaryService } from 'src/app/core/services/country-dictionary.service';
 import { ToastrService } from 'src/app/core/services/toastr.service';
+
+// Model
+import { CountryWithAssessment } from 'src/app/core/model/Geo/country-with-assessment.model';
 
 @Component({
   selector: 'app-trip-add',
@@ -13,6 +21,7 @@ import { ToastrService } from 'src/app/core/services/toastr.service';
 })
 export class TripAddComponent implements OnInit {
 
+  countriesList: Array<CountryWithAssessment>;
   secondFormGroup: FormGroup;
 
   tripTypeForm: FormGroup;
@@ -20,12 +29,36 @@ export class TripAddComponent implements OnInit {
   public tripForm: FormGroup;
   tripTypes: Array<any>;
 
+  searchText = new Subject();
+
+  results: Observable<string[]>;
+  data: any = [
+    'red',
+    'green',
+    'blue',
+    'cyan',
+    'magenta',
+    'yellow',
+    'black',
+  ];
+
   constructor( private formBuilder: FormBuilder,
                private tripService: TripService,
+               private countryDictionaryService: CountryDictionaryService,
                private router: Router,
                private toastr: ToastrService ) { }
 
   ngOnInit() {
+    this.countryDictionaryService.GetAllCountriesWithUserAssessment()
+      .subscribe(
+        (countriesList) => {
+
+        });
+
+    this.results = this.searchText.pipe(
+      startWith(''),
+      map((value: string) => this.filter(value))
+    );
 
     this.tripTypeForm = new FormGroup({
       tripTypesOptions: new FormControl('', [Validators.required])
@@ -48,6 +81,11 @@ export class TripAddComponent implements OnInit {
 
   get tripTypesOptions() { return this.tripTypeForm.get('tripTypesOptions'); }
   get password() { return this.secondFormGroup.get('password'); }
+
+  filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.data.filter((item: string) => item.toLowerCase().includes(filterValue));
+  }
 
   onSubmit() {
     // do something here

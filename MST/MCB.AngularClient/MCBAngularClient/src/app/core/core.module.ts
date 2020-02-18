@@ -9,11 +9,11 @@ import { EnsureAcceptHeaderInterceptor } from './interceptors/ensure-accept-head
 import { TripService } from './services/trips.service';
 import { AuthService } from './services/auth.service';
 import { CountryService } from './services/country.service';
+import { CountryDictionaryService } from './services/country-dictionary.service';
 import { ContinentService } from './services/continent.service';
 import { RegionService } from './services/region.service';
 import { ToastrService } from './services/toastr.service';
 import { StatsService } from './services/stats.service';
-
 
 @NgModule({
     imports: [],
@@ -32,6 +32,7 @@ import { StatsService } from './services/stats.service';
         AuthService,
         TripService,
         CountryService,
+        CountryDictionaryService,
         ContinentService,
         RegionService,
         ToastrService,

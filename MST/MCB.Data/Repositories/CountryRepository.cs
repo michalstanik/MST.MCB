@@ -107,5 +107,13 @@ namespace MCB.Data.Repositories
                 })
                 .ToDictionaryAsync(p => p.Alpha2Code, p => p.AreaLevelAssessment);
         }
+
+        public async Task<ICollection<Country>> GetCountries()
+        {
+            return await _context.Country
+                .Include(c => c.Region)
+                .ThenInclude(r => r.Continent)
+                .ToListAsync();
+        }
     }
 }

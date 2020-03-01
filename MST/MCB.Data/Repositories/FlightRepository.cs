@@ -15,23 +15,6 @@ namespace MCB.Data.Repositories
         {
             _context = context;
         }
-        public async Task<bool> CheckUserPermissionsForFlight(int flightId, string userId)
-        {
-            var flight = await _context.Flight
-                .Include(c => c.UserFlights)
-                .ThenInclude(pc => pc.TUser)
-                .Where(t => t.Id == flightId)
-                .FirstOrDefaultAsync();
-
-            if (flight != null)
-            {
-                foreach (var user in flight.Users())
-                {
-                    if (user.Id == userId) return true;
-                }
-            }
-            return false;
-        }
 
         public async Task<Flight> GetFlight(int flightId)
         {

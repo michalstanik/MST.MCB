@@ -8,6 +8,5 @@ namespace MCB.Data.RepositoriesInterfaces
     {
         Task<Flight> GetFlight(int flightId);
         Task<List<Flight>> GetFligtsForUser(string userId);
-        Task<bool> CheckUserPermissionsForFlight(int flightId, string userId);
     }
 }

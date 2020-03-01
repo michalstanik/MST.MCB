@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MCB.Api.Controllers
@@ -87,9 +88,9 @@ namespace MCB.Api.Controllers
                 return Ok(_mapper.Map<T>(flightFromRepo));
             }
 
-            var userPermissionToTheTrip = await _repository.CheckUserPermissionsForFlight(flightId, _userInfoService.UserId);
+            var userPermissionToTheTrip = flightFromRepo.UserFlights.Where(u => u.TUserId == _userInfoService.UserId).FirstOrDefault();
 
-            if (userPermissionToTheTrip != true && _userInfoService.Role != "Administrator")
+            if (userPermissionToTheTrip == null && _userInfoService.Role != "Administrator")
             {
                 return Forbid();
             }

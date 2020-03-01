@@ -40,7 +40,16 @@ namespace MCB.Data.Repositories
             query = query
                 .Include(r => r.Trip)
                 .Include(b => b.ArrivalAirport)
-                .Include(c => c.DepartureAirport);
+                .Include(c => c.DepartureAirport)
+                .Include(a => a.Aircraft)
+                    .ThenInclude(a => a.AircraftModel)
+                    .ThenInclude(a => a.AircraftFactory)
+                    .ThenInclude(a => a.AircraftFactoryCountry)
+                .Include(ar => ar.Airline)
+                    .ThenInclude(ar => ar.AirLineAlliance)
+                .Include(ab => ab.Airline)
+                    .ThenInclude(ab => ab.AirlineCountry)
+                .Include(uf => uf.UserFlights);
 
             return await query.FirstOrDefaultAsync();
         }

@@ -1,4 +1,6 @@
-﻿using MCB.Data.Domain.Flights;
+﻿using MCB.Business.CoreHelper.Paging;
+using MCB.Business.CoreHelper.ResourceParameters;
+using MCB.Data.Domain.Flights;
 using MCB.Data.RepositoriesInterfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -37,11 +39,11 @@ namespace MCB.Data.Repositories
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<List<Flight>> GetFligtsForUser(string userId)
+        public async Task<PagedList<Flight>> GetFligtsForUser(string userId, FlightsResourceParameters flightsResourceParameters)
         {
             IQueryable<Flight> query = _context.UserFlight.Where(uf => uf.TUserId == userId).Select(f => f.Flight);
 
-            query = query
+            query =  query
                 .Include(r => r.Trip)
                 .Include(b => b.ArrivalAirport)
                 .Include(c => c.DepartureAirport)
@@ -54,7 +56,7 @@ namespace MCB.Data.Repositories
                 .Include(ab => ab.Airline)
                     .ThenInclude(ab => ab.AirlineCountry);
 
-            return await query.ToListAsync();
+            return PagedList<Flight>.Create(query, flightsResourceParameters.PageNumber, flightsResourceParameters.PageSize);
         }
     }
 }

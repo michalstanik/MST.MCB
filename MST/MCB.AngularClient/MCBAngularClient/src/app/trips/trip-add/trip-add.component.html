@@ -1,31 +1,51 @@
-<div class="panel panel-primary">
-    <div class="panel-heading">
-      Add a trip
+<mdb-stepper #stepper [vertical]="true">
+  <mdb-step name="Step 1" label="Chose a trip type" [stepForm]="tripTypeForm">
+    <form [formGroup]="tripTypeForm">
+      <div class="md-form">
+        <mdb-select id="tripTypesOptions" required [options]="tripTypes" placeholder="Trip type" formControlName = "tripTypesOptions"></mdb-select>
+        <label for="">Trip Type</label>
+        <mdb-error *ngIf="tripTypesOptions.invalid && (tripTypesOptions.dirty || tripTypesOptions.touched)">Input invalid</mdb-error>
+        <mdb-success *ngIf="tripTypesOptions.valid && (tripTypesOptions.dirty || tripTypesOptions.touched)">Input valid</mdb-success>
+      </div>
+    </form>
+    <div class="md-form">
+      <input
+        type="text"
+        class="completer-input form-control mdb-autocomplete"
+        [ngModel]="searchText | async"
+        (ngModelChange)="searchText.next($event)"
+        [mdbAutoCompleter]="auto"
+        placeholder="Select a country for trip"
+      />
+      <mdb-auto-completer #auto="mdbAutoCompleter" textNoResults="I have found no results :(">
+        <mdb-option *ngFor="let option of results | async" [value]="option.name">
+          {{ option.name }}
+        </mdb-option>
+      </mdb-auto-completer>
     </div>
-    <div class="panel-body">
-        <form class="form-horizontal" novalidate (ngSubmit)="addTrip()" [formGroup]="tripForm">
-          <fieldset>
-                <div class="form-group">
-                        <label class="col-md-2 control-label" for="name">Name</label>
-                        <div class="col-md-8">
-                          <input class="form-control" id="name" type="text" placeholder="Name" formControlName="name" />
-                        </div>
-                </div>
-                <div class="form-group">
-                        <div class="col-md-4 col-md-offset-2">
-                          <span>
-                            <button class="btn btn-primary" type="submit">
-                              Save
-                            </button>
-                          </span>
-                          <span>
-                            <a class="btn btn-default" [routerLink]="['/trips']">
-                              Back
-                            </a>
-                          </span>
-                        </div>
-                </div>
-          </fieldset> 
-          </form>
+    <button mdbBtn size="sm" color="primary" (click)="stepper.next()">CONTINUE</button>
+  </mdb-step>
+  <mdb-step name="Step 2" [stepForm]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <div class="md-form">
+        <input type="password" class="form-control" mdbInput mdbValidate formControlName="password">
+        <label for="">Password</label>
+        <mdb-error *ngIf="password.invalid && (password.dirty || password.touched)">Input invalid</mdb-error>
+        <mdb-success *ngIf="password.valid && (password.dirty || password.touched)">Input valid</mdb-success>
+      </div>
+    </form>
+    <button mdbBtn size="sm" color="primary" (click)="stepper.next()">CONTINUE</button>
+    <button mdbBtn size="sm" color="secondary" (click)="stepper.previous()">BACK</button>
+  </mdb-step>
+  <mdb-step name="Step 3" label="Step 3 label">
+    <p class="pl-2">Finish!</p>
+    <div class="step-actions">
+      <button mdbBtn  size="sm" color="primary" (click)="onSubmit()">SUBMIT</button>
     </div>
-</div>  
+  </mdb-step>
+</mdb-stepper>
+
+
+
+
+

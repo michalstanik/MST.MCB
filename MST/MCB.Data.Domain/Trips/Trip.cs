@@ -33,6 +33,7 @@ namespace MCB.Data.Domain.Trips
 
         public enum TripType
         {
+            Empty,
             BussinessTrip,
             JustVisit,
             Transfer,

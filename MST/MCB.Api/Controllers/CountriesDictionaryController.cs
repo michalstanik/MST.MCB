@@ -11,46 +11,46 @@ using System.Threading.Tasks;
 
 namespace MCB.Api.Controllers
 {
-    [Route("api/country/")]
+    [Route("api/country/dictionary/")]
     [Produces("application/json")]
     [ApiController]
-    public class CountriesController : ControllerBase
+    public partial class CountriesDictionaryController : ControllerBase
     {
-        private readonly ICountryRepository _geoRepository;
-        private readonly IMapper _mapper;
+        private readonly ICountryRepository _countryRepository;
         private readonly IUserInfoService _userInfoService;
+        private readonly IMapper _mapper;
 
-        public CountriesController(ICountryRepository geoRepository,
-            IMapper mapper,
-            IUserInfoService userInfoService)
+        public CountriesDictionaryController(ICountryRepository countryRepository,
+            IUserInfoService userInfoService,
+            IMapper mapper) 
         {
-            _geoRepository = geoRepository;
-            _mapper = mapper;
+            _countryRepository = countryRepository;
             _userInfoService = userInfoService;
+            _mapper = mapper;
         }
 
         /// <summary>
-        /// Get a list of Countries
+        /// Get a list of Countries Dictionary
         /// </summary>
         /// <returns></returns>
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [Produces("application/vnd.mcb.countriesforUserWithAssessments+json")]
+        [Produces("application/vnd.mcb.allCountriesWithUserAssessment+json")]
         [RequestHeaderMatchesMediaType("Accept",
             "application/json",
-            "application/vnd.mcb.countriesforUserWithAssessments+json"
+            "application/vnd.mcb.allCountriesWithUserAssessment+json"
         )]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<CountryModelWithAssesments>>> GetCountriesForUserWithAssessments()
+        public async Task<ActionResult<List<CountryModelWithAssesments>>> GetAllCountriesWithUserAssessment()
         {
             try
             {
-                var results = await _geoRepository.GetCountiresWithAssesmentForUser(_userInfoService.UserId);
+                var results = await _countryRepository.GetCountries();
                 var mapped = _mapper.Map<List<CountryModelWithAssesments>>(results);
 
 
-                Dictionary<string, long> UserAssesment = await _geoRepository.GetCountireAssesmentForUser(_userInfoService.UserId);
+                Dictionary<string, long> UserAssesment = await _countryRepository.GetCountireAssesmentForUser(_userInfoService.UserId);
 
                 foreach (var item in mapped)
                 {

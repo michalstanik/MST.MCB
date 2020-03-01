@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MCB.Business.CoreHelper.Attributes;
+using MCB.Business.CoreHelper.ResourceParameters;
 using MCB.Business.CoreHelper.UserInterfaces;
 using MCB.Business.Models.Flights;
 using MCB.Data.RepositoriesInterfaces;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MCB.Api.Controllers
@@ -54,11 +56,12 @@ namespace MCB.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/vnd.mcb.flight+json")]
         [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.flight+json")]
-        public async Task<ActionResult<List<FlightModelFull>>> GetFlights()
+        public async Task<ActionResult<List<FlightModel>>> GetFlights(
+            [FromQuery] FlightsResourceParameters flightsResourceParameters)
         {
-            var flightsFromRepo = await _repository.GetFligtsForUser(_userInfoService.UserId);
+            var flightsFromRepo = await _repository.GetFligtsForUser(_userInfoService.UserId, flightsResourceParameters);
 
-            return Ok(_mapper.Map<List<FlightModelFull>>(flightsFromRepo));
+            return Ok(_mapper.Map<List<FlightModel>>(flightsFromRepo));
         }
 
         [HttpGet()]
@@ -66,11 +69,12 @@ namespace MCB.Api.Controllers
         [Produces("application/vnd.mcb.flightfull+json")]
         [RequestHeaderMatchesMediaType("Accept", "application/vnd.mcb.flightfull+json")]
         [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<ActionResult<List<FlightModel>>> GetFlightsFull()
+        public async Task<ActionResult<List<FlightModelFull>>> GetFlightsFull(
+            [FromQuery] FlightsResourceParameters flightsResourceParameters)
         {
-            var flightsFromRepo = await _repository.GetFligtsForUser(_userInfoService.UserId);
+            var flightsFromRepo = await _repository.GetFligtsForUser(_userInfoService.UserId, flightsResourceParameters);
 
-            return Ok(_mapper.Map<List<FlightModel>>(flightsFromRepo));
+            return Ok(_mapper.Map<List<FlightModelFull>>(flightsFromRepo));
         }
 
         private async Task<ActionResult<T>> GetSpecificFlight<T>(int flightId) where T : class
@@ -87,9 +91,9 @@ namespace MCB.Api.Controllers
                 return Ok(_mapper.Map<T>(flightFromRepo));
             }
 
-            var userPermissionToTheTrip = await _repository.CheckUserPermissionsForFlight(flightId, _userInfoService.UserId);
+            var userPermissionToTheTrip = flightFromRepo.UserFlights.Where(u => u.TUserId == _userInfoService.UserId).FirstOrDefault();
 
-            if (userPermissionToTheTrip != true && _userInfoService.Role != "Administrator")
+            if (userPermissionToTheTrip == null && _userInfoService.Role != "Administrator")
             {
                 return Forbid();
             }

@@ -10,5 +10,16 @@ namespace MCB.Business.Models.Trips
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
+
+        public TripType TripTypeAssesment { get; set; }
+
+        public enum TripType
+        {
+            Empty,
+            BussinessTrip,
+            JustVisit,
+            Transfer,
+            RealTrip
+        }
     }
 }

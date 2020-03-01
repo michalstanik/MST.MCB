@@ -81,6 +81,9 @@ namespace MCB.Api
                     //Countries
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.countriesforUserWithAssessments+json");
 
+                    //CountriesDictionary
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.allCountriesWithUserAssessment+json");
+
                     //Regions
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.region+json");
                     jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.mcb.regionwithuservisits+json");

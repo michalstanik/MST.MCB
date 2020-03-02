@@ -28,10 +28,12 @@
   <mdb-step name="Step 2" [stepForm]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
       <div class="md-form">
-        <input type="password" class="form-control" mdbInput mdbValidate formControlName="password">
-        <label for="">Password</label>
-        <mdb-error *ngIf="password.invalid && (password.dirty || password.touched)">Input invalid</mdb-error>
-        <mdb-success *ngIf="password.valid && (password.dirty || password.touched)">Input valid</mdb-success>
+          <div>
+            <app-bussines-trip-step2></app-bussines-trip-step2>
+          </div>
+          <div>
+            <app-real-trip-step2></app-real-trip-step2>
+          </div>
       </div>
     </form>
     <button mdbBtn size="sm" color="primary" (click)="stepper.next()">CONTINUE</button>

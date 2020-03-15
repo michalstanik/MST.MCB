@@ -21,7 +21,7 @@
     "@angular/router": "~8.1.2",
     "@fortawesome/fontawesome-free": "^5.6.3",
     "@popperjs/core": "^2.0.6",
-    "acorn": "^6.2.1",
+    "acorn": "^6.4.1",
     "automapper-ts": "^1.9.0",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.5.0",
